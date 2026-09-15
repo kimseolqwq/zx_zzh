@@ -12,6 +12,23 @@ from app.config import DATA_DIR
 from app.crawlers.price_parser import parse_price_text
 
 
+BLOCKED_WORDS = (
+    "验证码", "滑块", "登录后查看", "访问过于频繁", "访问频繁", "无法搜索",
+    "安全验证", "暂时无法展示该商品的信息",
+)
+
+
+def detect_blocked_page(text: str, title: str, final_url: str, *, has_price: bool) -> str | None:
+    blocked = next((word for word in BLOCKED_WORDS if word in text), None)
+    if blocked:
+        return blocked
+    if "login" in final_url.lower() or title.strip() in {"登录", "用户登录"}:
+        return "需要登录"
+    if not has_price and "你好，请登录" in text:
+        return "未登录或商品内容未加载"
+    return None
+
+
 async def capture_public_price_page(url: str, item_id: str, *, headless: bool = False) -> dict:
     """打开公开商品页并留证；不绕过登录、滑块或验证码。"""
     auth_dir = DATA_DIR / "browser-profile"
@@ -36,17 +53,22 @@ async def capture_public_price_page(url: str, item_id: str, *, headless: bool = 
         await page.goto(url, wait_until="domcontentloaded", timeout=60_000)
         await page.wait_for_timeout(3500)
         title = await page.title()
+        final_url = page.url
         text = await page.locator("body").inner_text(timeout=15_000)
         screenshot = evidence_dir / f"{item_id}-{stamp}.png"
         text_path = raw_dir / f"{item_id}-{stamp}.txt"
         await page.screenshot(path=screenshot, full_page=True)
         text_path.write_text(text, encoding="utf-8")
         parsed = parse_price_text(text)
-        blocked_words = ["验证码", "滑块", "登录后查看", "访问过于频繁", "访问频繁", "无法搜索", "安全验证"]
-        blocked = next((word for word in blocked_words if word in text), None)
+        has_price = any((
+            parsed.regular_price, parsed.public_sale_price,
+            parsed.displayed_gov_price, parsed.billion_subsidy_price,
+        ))
+        blocked = detect_blocked_page(text, title, final_url, has_price=has_price)
         await context.close()
     return {
         "url": url,
+        "final_url": final_url,
         "title": title,
         "captured_at": stamp,
         "blocked_reason": blocked,

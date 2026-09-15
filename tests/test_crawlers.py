@@ -7,6 +7,7 @@ from app.crawlers.official_specs import (
     parse_release_date,
 )
 from app.crawlers.price_parser import parse_price_text
+from app.crawlers.browser_prices import detect_blocked_page
 from app.crawlers.market_import import _valid_product_url
 from app.crawlers.catalog_pipeline import _fallback_variants
 
@@ -58,6 +59,13 @@ def test_price_parser_handles_tmall_multiline_coupon_price() -> None:
     assert parsed.regular_price == 4899
     assert parsed.displayed_gov_price is None
     assert parsed.confidence == "high"
+
+
+def test_market_page_block_detection_covers_login_and_unavailable_content() -> None:
+    assert detect_blocked_page("验证码", "商品", "https://item.jd.com/1.html", has_price=False) == "验证码"
+    assert detect_blocked_page("", "登录", "https://login.taobao.com/", has_price=False) == "需要登录"
+    assert detect_blocked_page("你好，请登录", "商品", "https://item.jd.com/1.html", has_price=False) == "未登录或商品内容未加载"
+    assert detect_blocked_page("你好，请登录 售价 4999", "商品", "https://item.jd.com/1.html", has_price=True) is None
 
 
 def test_official_image_uses_explicit_metadata_and_resolves_relative_url() -> None:
