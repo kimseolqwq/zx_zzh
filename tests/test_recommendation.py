@@ -32,6 +32,17 @@ class FakeOllama:
         return ModelOpinion(model_name, True, 100, 120, 80, 55.0, "{}", {"rankings": rankings})
 
 
+def test_model_scores_accepts_unambiguous_nested_score_value() -> None:
+    opinion = ModelOpinion(
+        "qwen2.5:1.5b", True, 100, 10, 10, 20.0, "",
+        {"scores": {"101": {"scores": 85}, "102": {"score": 72}}},
+    )
+    assert _model_scores([opinion]) == {
+        101: [(85.0, {"variant_id": "101", "score": {"scores": 85}})],
+        102: [(72.0, {"variant_id": "102", "score": {"score": 72}})],
+    }
+
+
 def test_recommendation_fuses_three_models(tmp_path, monkeypatch):
     engine = create_engine(f"sqlite:///{(tmp_path / 'test.db').as_posix()}", connect_args={"check_same_thread": False})
     Base.metadata.create_all(engine)

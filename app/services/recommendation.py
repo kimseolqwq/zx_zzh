@@ -412,7 +412,10 @@ def _model_scores(opinions: list[ModelOpinion]) -> dict[int, list[tuple[float, d
         for item in rankings:
             try:
                 variant_id = int(item["variant_id"])
-                score = max(0.0, min(100.0, float(item["score"])))
+                score_value = item["score"]
+                if isinstance(score_value, dict):
+                    score_value = score_value.get("score", score_value.get("scores"))
+                score = max(0.0, min(100.0, float(score_value)))
             except (KeyError, TypeError, ValueError):
                 continue
             # A small model can repeat a candidate while completing JSON. One
