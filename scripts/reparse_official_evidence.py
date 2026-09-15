@@ -23,20 +23,26 @@ from app.crawlers.official_specs import (
 from app.database import SessionLocal, create_schema, engine
 
 
-def latest_catalog_report() -> Path:
+def catalog_reports() -> list[Path]:
     reports = sorted((DATA_DIR / "reports").glob("catalog-*.json"), key=lambda path: path.stat().st_mtime)
     if not reports:
         raise FileNotFoundError("No catalog report found under data/reports")
-    return reports[-1]
+    return reports
 
 
-def rebuild_items(report_path: Path, sources_path: Path) -> tuple[list[CollectedPhone], list[dict[str, str]]]:
-    payload = json.loads(report_path.read_text(encoding="utf-8"))
-    source_map = {(item.brand.casefold(), item.model_name.casefold()): item for item in read_sources(sources_path)}
+def rebuild_items(report_paths: list[Path], sources_paths: list[Path]) -> tuple[list[CollectedPhone], list[dict[str, str]]]:
+    sources = [source for path in sources_paths if path.exists() for source in read_sources(path)]
+    source_map = {(item.brand.casefold(), item.model_name.casefold()): item for item in sources}
+    # Reports may be full or targeted runs.  Preserve the newest successful
+    # evidence for every phone instead of assuming the final report is complete.
+    latest_rows: dict[tuple[str, str], dict] = {}
+    for report_path in sorted(report_paths, key=lambda path: path.stat().st_mtime):
+        payload = json.loads(report_path.read_text(encoding="utf-8"))
+        for row in payload.get("items", []):
+            latest_rows[(row["brand"].casefold(), row["model_name"].casefold())] = row
     collected: list[CollectedPhone] = []
     failures: list[dict[str, str]] = []
-    for row in payload.get("items", []):
-        key = (row["brand"].casefold(), row["model_name"].casefold())
+    for key, row in latest_rows.items():
         source = source_map.get(key) or CatalogSource(row["brand"], row["model_name"], row["url"])
         text_path = Path(row["evidence_path"])
         if not text_path.exists():
@@ -68,12 +74,16 @@ def rebuild_items(report_path: Path, sources_path: Path) -> tuple[list[Collected
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Reparse saved official-page evidence without making network requests")
-    parser.add_argument("--report", type=Path)
-    parser.add_argument("--sources", type=Path, default=PROJECT_ROOT / "config" / "official_catalog_sources.csv")
+    parser.add_argument("--report", type=Path, action="append", help="可重复指定；默认合并全部历史采集报告")
+    parser.add_argument("--sources", type=Path, action="append", help="可重复指定；默认合并正式与扩展来源清单")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    report_path = args.report or latest_catalog_report()
-    collected, failures = rebuild_items(report_path, args.sources)
+    report_paths = args.report or catalog_reports()
+    sources_paths = args.sources or [
+        PROJECT_ROOT / "config" / "official_catalog_sources.csv",
+        PROJECT_ROOT / "config" / "official_catalog_expansion.csv",
+    ]
+    collected, failures = rebuild_items(report_paths, sources_paths)
     before_with_variants = sum(bool(item.variants) for item in collected)
     counters = {"brands_added": 0, "phones_added": 0, "phones_updated": 0, "variants_added": 0}
     backup_path: Path | None = None
@@ -89,7 +99,7 @@ def main() -> None:
             counters = import_collected(db, collected)
     result = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "source_report": str(report_path.resolve()),
+        "source_reports": [str(path.resolve()) for path in report_paths],
         "network_requests": 0,
         "phones_reparsed": len(collected),
         "phones_with_variants": before_with_variants,

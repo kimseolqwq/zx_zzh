@@ -58,6 +58,8 @@ ollama pull gemma3:1b
 .\.venv\Scripts\python.exe .\scripts\generate_gap_queue.py
 ```
 
+离线重解析会合并全部历史采集报告，并为每款手机选择最新一次成功保存的官网证据；定向采集产生的小报告不会再遮蔽较早的完整采集结果。整个过程网络请求数为 0。
+
 程序遵守 `robots.txt`；禁止自动抓取的站点使用 `config/manual_verified_supplement.csv` 经人工核验导入，不绕过限制。
 
 先复制 `config/catalog_template.csv`，每行填写一个“手机版本 + 平台商品”。同一手机版本可写三行，分别对应京东、天猫、拼多多。建议先校验再导入：
