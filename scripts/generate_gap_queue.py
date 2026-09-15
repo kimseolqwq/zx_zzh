@@ -26,19 +26,28 @@ def main() -> None:
     with SessionLocal() as db:
         phones = db.scalars(select(PhoneModel).options(
             selectinload(PhoneModel.brand),
-            selectinload(PhoneModel.variants).selectinload(PhoneVariant.listings),
-        ).where(PhoneModel.is_active.is_(True))).unique().all()
+            selectinload(PhoneModel.variants)
+            .selectinload(PhoneVariant.listings)
+            .selectinload(PlatformListing.prices),
+        ).where(PhoneModel.is_active.is_(True)).order_by(PhoneModel.id)).unique().all()
         for phone in phones:
+            active_variants = [item for item in phone.variants if item.is_active]
             missing = [field for field in FIELDS if not is_meaningful(getattr(phone, field))]
-            if missing or not phone.variants:
+            if missing or not active_variants:
                 spec_rows.append({
-                    "priority": "HIGH" if not phone.variants else "MEDIUM",
+                    "priority": "HIGH" if not active_variants else "MEDIUM",
                     "brand": phone.brand.name, "model": phone.model_name,
-                    "missing_fields": ";".join(missing), "missing_variants": "yes" if not phone.variants else "no",
+                    "missing_fields": ";".join(missing), "missing_variants": "yes" if not active_variants else "no",
                     "official_url": phone.official_url or phone.source_url or "", "review_status": "pending", "review_note": "",
                 })
-            for variant in (item for item in phone.variants if item.is_active):
-                existing = {item.platform for item in variant.listings if item.is_active and item.store_verified}
+            for variant in active_variants:
+                existing = {
+                    listing.platform
+                    for listing in variant.listings
+                    if listing.is_active
+                    and listing.store_verified
+                    and any(snapshot.crawl_status == "reviewed" for snapshot in listing.prices)
+                }
                 for platform in PLATFORMS:
                     if platform not in existing:
                         price_rows.append({

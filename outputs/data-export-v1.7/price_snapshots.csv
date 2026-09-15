@@ -1,8 +1,9 @@
-﻿id,listing_id,regular_price,public_sale_price,displayed_gov_price,estimated_gov_price,billion_subsidy_price,promotion_labels,promotion_stackable,in_stock,crawl_status,evidence_text_path,screenshot_path,crawled_at
-1,1,5499.00,4899.00,4399.00,4399.00,4699.00,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
-2,2,4499.00,4299.00,3799.00,3799.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
-3,3,5999.00,5299.00,4799.00,4799.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
-4,4,5999.00,4999.00,4499.00,4499.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
-5,5,,4499.00,3999.00,,,京东公开价;部分地区国家补贴;资格和地区以用户实际页面为准,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/jd_iqoo15_12_256.txt,,2026-09-02 16:27:58.545699
-6,6,4899.00,4559.05,,,4559.05,百亿补贴;券后价;闪电加补100元;政府补贴5%资格和实价未核验,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/tmall_iqoo15_16_256.txt,,2026-09-02 16:27:58.546698
-7,7,5099.00,5099.00,,,,焕新补贴领后价4319.1元（资格及叠加规则未核验）,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/jd_xiaomi17_12_256.txt,data/raw/ecommerce/2026-09-03/jd_xiaomi17_12_256.png,2026-09-03 10:28:53.870081
+﻿id,listing_id,brand,model_name,variant_name,platform,store_name,regular_price,public_sale_price,displayed_gov_price,estimated_gov_price,billion_subsidy_price,promotion_labels,promotion_stackable,in_stock,crawl_status,evidence_text_path,screenshot_path,crawled_at
+1,1,华为,HUAWEI Mate 70,12GB+256GB,pdd,拼多多官方旗舰店,5499.00,4899.00,4399.00,4399.00,4699.00,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+2,2,小米,Xiaomi 17,12GB+256GB,jd,京东官方旗舰店,4499.00,4299.00,3799.00,3799.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+3,3,Apple,iPhone 17,256GB,tmall,天猫官方旗舰店,5999.00,5299.00,4799.00,4799.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+4,4,vivo,vivo X200 Pro,16GB+512GB,jd,京东官方旗舰店,5999.00,4999.00,4499.00,4499.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+5,5,vivo,iQOO 15,12GB+256,jd,iQOO京东自营旗舰店,,4499.00,3999.00,,,京东公开价;部分地区国家补贴;资格和地区以用户实际页面为准,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/jd_iqoo15_12_256.txt,,2026-09-02 16:27:58.545699
+6,6,vivo,iQOO 15,16GB+256,tmall,vivo手机官方旗舰店,4899.00,4559.05,,,4559.05,百亿补贴;券后价;闪电加补100元;政府补贴5%资格和实价未核验,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/tmall_iqoo15_16_256.txt,,2026-09-02 16:27:58.546698
+7,7,小米,Xiaomi 17,12GB+256GB,jd,小米京东自营旗舰店,5099.00,5099.00,,,,焕新补贴领后价4319.1元（资格及叠加规则未核验）,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/jd_xiaomi17_12_256.txt,data/raw/ecommerce/2026-09-03/jd_xiaomi17_12_256.png,2026-09-03 10:28:53.870081
+8,6,vivo,iQOO 15,16GB+256,tmall,vivo手机官方旗舰店,4899.00,4319.10,,,,券后价；闪电加补100元；页面提示政府补贴10%（资格自验，未记录为确定国补价）,unknown,True,reviewed,data/raw/ecommerce/tmall-vivo-iQOO_15-16-256-20260915T174834Z.txt,data/raw/ecommerce/screenshots/tmall-vivo-iQOO_15-16-256-20260915T174834Z.png,2026-09-15 17:54:43.624982
