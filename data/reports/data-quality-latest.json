@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T18:22:58.602309+00:00",
+  "generated_at": "2026-09-15T18:26:58.845667+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
@@ -32,16 +32,16 @@
   "quality_counts": {
     "manual_official_review": 5,
     "official_catalog_only": 53,
-    "official_partial": 51,
-    "official_verified": 94
+    "official_partial": 48,
+    "official_verified": 97
   },
   "field_coverage_percent": {
     "cpu": 52.2,
-    "screen_size": 49.3,
-    "refresh_rate": 48.8,
-    "main_camera_mp": 50.7,
-    "battery_mah": 52.2,
-    "weight_g": 50.2,
+    "screen_size": 49.8,
+    "refresh_rate": 49.3,
+    "main_camera_mp": 52.2,
+    "battery_mah": 53.2,
+    "weight_g": 51.2,
     "image_url": 44.3,
     "source_url": 100.0
   },
@@ -368,7 +368,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我GT7",
-      "detail": "screen_size, main_camera_mp, weight_g, image_url"
+      "detail": "screen_size, main_camera_mp, image_url"
     },
     {
       "severity": "medium",
@@ -380,7 +380,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我GT7 Pro",
-      "detail": "screen_size, main_camera_mp, weight_g, image_url"
+      "detail": "weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -404,7 +404,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我Neo7 Turbo",
-      "detail": "screen_size, refresh_rate, weight_g, image_url"
+      "detail": "screen_size, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -1358,7 +1358,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我GT Neo6",
-      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+      "detail": "refresh_rate, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -2402,7 +2402,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy S26+",
-      "detail": "refresh_rate, main_camera_mp, battery_mah"
+      "detail": "refresh_rate"
     },
     {
       "severity": "medium",
@@ -2414,7 +2414,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy A56 5G",
-      "detail": "battery_mah, weight_g, image_url"
+      "detail": "image_url"
     },
     {
       "severity": "medium",

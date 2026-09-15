@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T18:22:57.810336+00:00",
+  "generated_at": "2026-09-15T18:26:58.005600+00:00",
   "source_reports": [
     "data/reports/catalog-20260902-230144.json",
     "data/reports/catalog-20260902-230200.json",
@@ -30,5 +30,5 @@
   "phones_updated": 145,
   "variants_added": 0,
   "failures": [],
-  "backup": "data/backups/before-evidence-reparse-20260916-022257.db"
+  "backup": "data/backups/before-evidence-reparse-20260916-022657.db"
 }

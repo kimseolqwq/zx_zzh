@@ -185,6 +185,23 @@ def test_vivo_hundred_megapixel_camera_requires_rear_camera_label() -> None:
     assert parse_official_specs("营销文案：2亿像素体验")["main_camera_mp"] is None
 
 
+def test_realme_reversed_labels_and_mp_camera_are_parsed() -> None:
+    text = "6.78''\n屏幕尺寸\n144Hz\n超高刷新率\n50MP 旗舰大底主摄\n重量仅有203g"
+    parsed = parse_official_specs(text)
+    assert parsed["screen_size"] == 6.78
+    assert parsed["refresh_rate"] == 144
+    assert parsed["main_camera_mp"] == 50
+    assert parsed["weight_g"] == 203
+
+
+def test_samsung_chinese_battery_and_main_wide_camera_are_parsed() -> None:
+    text = "电池容量为5,000毫安时（典型值），重量仅为198克，配备1200万像素的超广角摄像头、5000万像素的广角摄像头"
+    parsed = parse_official_specs(text)
+    assert parsed["battery_mah"] == 5000
+    assert parsed["weight_g"] == 198
+    assert parsed["main_camera_mp"] == 50
+
+
 def test_samsung_camera_label_and_implausible_values() -> None:
     valid = parse_official_specs("后置摄像头 - 分辨率 (多重)\n5000万像素+1200万像素+500万像素")
     assert valid["main_camera_mp"] == 50

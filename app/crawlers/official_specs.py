@@ -56,6 +56,7 @@ def _first_text(patterns: list[str], text: str, max_length: int = 120) -> str | 
 def parse_official_specs(text: str) -> dict[str, Any]:
     """从官方规格页可见文本提取保守字段；缺失值保持为空，不猜测。"""
     normalized = re.sub(r"[\t\r \u00a0]+", " ", text)
+    normalized = re.sub(r"(?<=\d),(?=\d{3}(?:\D|$))", "", normalized)
     result: dict[str, Any] = {
         "cpu": _first_text([
             r"(?:CPU\s*型号|处理器型号|移动平台|处理平台|芯片平台)\s*[:：]?\s*\n?([^\n]{2,80})",
@@ -66,6 +67,7 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"尺寸（英寸）\s*[:：]?\s*\n?(\d+(?:\.\d+)?)\s*英寸",
             r"(\d+(?:\.\d+)?)\s*英寸\s*(?:OLED|AMOLED|LCD)",
             r"(\d+(?:\.\d+)?)\s*英寸[^\n]{0,45}(?:OLED|AMOLED|LCD|显示屏|全面屏)",
+            r"(\d+(?:\.\d+)?)\s*[″”'’]{2}\s*\n\s*屏幕尺寸",
         ], normalized),
         "refresh_rate": _first_number([
             r"刷新率\s*[:：]?\s*\n?(?:最高支持|最高可达|最大支持)?\s*(\d{2,3})\s*Hz",
@@ -74,19 +76,22 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"刷新率\s*[:：]?\s*(\d{2,3})\s*Hz",
             r"刷新率\s*[:：]?\s*(?:\d{1,2}\s*[-~至]\s*)?(\d{2,3})\s*Hz",
             r"(?:\d{1,2}\s*[-~至]\s*)?(\d{2,3})\s*Hz[^\n]{0,30}刷新率",
+            r"(\d{2,3})\s*Hz\s*\n[^\n]{0,15}刷新率",
         ], normalized),
         "main_camera_mp": _first_number([
             r"后置摄像头像素\s*\n\s*(\d{3,5})\s*万[^\n]{0,45}(?:主摄|镜头)",
             r"(?:后置|主摄|主摄像头)[^\n]{0,50}?(\d{3,5})\s*万像素",
-            r"(\d{3,5})\s*万像素[^\n]{0,30}(?:主摄|摄像头)",
+            r"(\d{3,5})\s*万像素[^\n]{0,30}主摄",
             r"后置摄像头(?:像素)?\s*\n(?:后置\s*\n)?(\d{3,5})\s*万像素",
             r"后置摄像头[^\n]{0,50}\n(\d{3,5})\s*万像素",
             r"后置\s*\n(\d{3,5})\s*万像素",
+            r"(\d{3,5})\s*万像素的(?:广角摄像头|主摄)",
         ], normalized),
         "battery_mah": _first_number([
             r"等效\s*(\d{4,5})\s*mAh",
             r"(?:电池容量|典型容量)\s*[:：]?\s*\n?(\d{4,5})\s*mAh",
             r"(?:电池信息|电池)[^\n]{0,60}?典型容量\s*[:：]?\s*(\d{4,5})\s*mAh",
+            r"电池容量(?:为)?\s*[:：]?\s*(\d{4,5})\s*毫安时",
             r"(\d{4,5})\s*mAh",
         ], normalized),
         "charging_w": _first_number([
@@ -98,6 +103,8 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"重量\s*[:：]?\s*\n?约?\s*(\d{2,3}(?:\.\d+)?)\s*克",
             r"重量\s*[:：]?\s*\n[^\n]{0,45}?约?\s*(\d{2,3}(?:\.\d+)?)\s*g",
             r"重量\s*[:：]?\s*\n[^\n]{0,45}?约?\s*(\d{2,3}(?:\.\d+)?)\s*克",
+            r"重量(?:仅有|仅为|约为|为)?\s*(\d{2,3}(?:\.\d+)?)\s*g",
+            r"重量(?:仅有|仅为|约为|为)?\s*(\d{2,3}(?:\.\d+)?)\s*克",
             r"约\s*(\d{2,3}(?:\.\d+)?)\s*克",
         ], normalized),
         "thickness_mm": _first_number([
@@ -116,11 +123,18 @@ def parse_official_specs(text: str) -> dict[str, Any]:
     if result["main_camera_mp"]:
         result["main_camera_mp"] = result["main_camera_mp"] / 100
     else:
+        mp_camera = re.search(
+            r"(\d{1,3}(?:\.\d+)?)\s*MP[^\n]{0,35}(?:主摄|主摄像头)",
+            normalized,
+            flags=re.IGNORECASE,
+        )
+        if mp_camera:
+            result["main_camera_mp"] = float(mp_camera.group(1))
         hundred_mp = re.search(
             r"(?:后置(?:摄像头)?像素|主摄)\s*[:：]?\s*\n?[^\n]{0,25}?(\d(?:\.\d+)?)\s*亿像素",
             normalized,
         )
-        if hundred_mp:
+        if hundred_mp and result["main_camera_mp"] is None:
             result["main_camera_mp"] = float(hundred_mp.group(1)) * 100
     # Reject physically implausible matches caused by nearby marketing text,
     # footnote numbers, touch-sampling rates, or auxiliary sensors.  Keeping a
