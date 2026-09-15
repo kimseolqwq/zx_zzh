@@ -43,6 +43,20 @@ def test_model_scores_accepts_unambiguous_nested_score_value() -> None:
     }
 
 
+def test_model_scores_accepts_plural_list_score_and_dimension_average() -> None:
+    plural = ModelOpinion(
+        "gemma", True, 10, 1, 1, 10, "{}",
+        {"scores": [{"id": 101, "scores": 88}]},
+    )
+    dimensions = ModelOpinion(
+        "qwen", True, 10, 1, 1, 10, "{}",
+        {"scores": {"102": {"performance": 90, "camera": 70, "battery": 80}}},
+    )
+    parsed = _model_scores([plural, dimensions])
+    assert parsed[101][0][0] == 88
+    assert parsed[102][0][0] == 80
+
+
 def test_recommendation_fuses_three_models(tmp_path, monkeypatch):
     engine = create_engine(f"sqlite:///{(tmp_path / 'test.db').as_posix()}", connect_args={"check_same_thread": False})
     Base.metadata.create_all(engine)

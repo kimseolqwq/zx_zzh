@@ -379,6 +379,24 @@ def _build_prompt(requirements: Requirements, candidates: list[dict[str, Any]]) 
 
 
 def _model_scores(opinions: list[ModelOpinion]) -> dict[int, list[tuple[float, dict[str, Any]]]]:
+    def score_number(value: Any) -> float:
+        if isinstance(value, dict):
+            for key in ("score", "scores", "overall", "total"):
+                nested = value.get(key)
+                if isinstance(nested, (int, float)) and not isinstance(nested, bool):
+                    return float(nested)
+            dimensions = [
+                float(item)
+                for key, item in value.items()
+                if key not in {"id", "variant_id", "candidate_id"}
+                and isinstance(item, (int, float))
+                and not isinstance(item, bool)
+            ]
+            if dimensions:
+                return sum(dimensions) / len(dimensions)
+            raise ValueError("nested score has no numeric dimensions")
+        return float(value)
+
     result: dict[int, list[tuple[float, dict[str, Any]]]] = {}
     for opinion in opinions:
         payload = opinion.parsed or {}
@@ -398,13 +416,13 @@ def _model_scores(opinions: list[ModelOpinion]) -> dict[int, list[tuple[float, d
                     variant_value = item.get("variant_id", item.get("id"))
                     if variant_value is None:
                         variant_value = next(
-                            (value for key, value in item.items() if key != "score"),
+                            (value for key, value in item.items() if key not in {"score", "scores"}),
                             None,
                         )
                     rankings.append(
                         {
                             "variant_id": variant_value,
-                            "score": item.get("score"),
+                            "score": item.get("score", item.get("scores")),
                         }
                     )
         if not isinstance(rankings, list):
@@ -413,9 +431,7 @@ def _model_scores(opinions: list[ModelOpinion]) -> dict[int, list[tuple[float, d
             try:
                 variant_id = int(item["variant_id"])
                 score_value = item["score"]
-                if isinstance(score_value, dict):
-                    score_value = score_value.get("score", score_value.get("scores"))
-                score = max(0.0, min(100.0, float(score_value)))
+                score = max(0.0, min(100.0, score_number(score_value)))
             except (KeyError, TypeError, ValueError):
                 continue
             # A small model can repeat a candidate while completing JSON. One
