@@ -202,6 +202,21 @@ def test_samsung_chinese_battery_and_main_wide_camera_are_parsed() -> None:
     assert parsed["main_camera_mp"] == 50
 
 
+def test_additional_labelled_marketing_formats_are_parsed() -> None:
+    text = """
+    刷新率：最高 144Hz
+    重量≈191克
+    摄像头
+    Omnivision 13M 主摄
+    显示屏采用圆角设计，按照标准矩形测量时，屏幕的对角线长度约为 6.78 英寸
+    """
+    parsed = parse_official_specs(text)
+    assert parsed["refresh_rate"] == 144
+    assert parsed["weight_g"] == 191
+    assert parsed["main_camera_mp"] == 13
+    assert parsed["screen_size"] == 6.78
+
+
 def test_samsung_camera_label_and_implausible_values() -> None:
     valid = parse_official_specs("后置摄像头 - 分辨率 (多重)\n5000万像素+1200万像素+500万像素")
     assert valid["main_camera_mp"] == 50

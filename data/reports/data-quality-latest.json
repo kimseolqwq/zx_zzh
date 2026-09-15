@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T18:26:58.845667+00:00",
+  "generated_at": "2026-09-15T18:29:55.780976+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
@@ -32,21 +32,21 @@
   "quality_counts": {
     "manual_official_review": 5,
     "official_catalog_only": 53,
-    "official_partial": 48,
-    "official_verified": 97
+    "official_partial": 44,
+    "official_verified": 101
   },
   "field_coverage_percent": {
     "cpu": 52.2,
-    "screen_size": 49.8,
-    "refresh_rate": 49.3,
-    "main_camera_mp": 52.2,
+    "screen_size": 53.2,
+    "refresh_rate": 50.2,
+    "main_camera_mp": 53.2,
     "battery_mah": 53.2,
-    "weight_g": 51.2,
+    "weight_g": 53.2,
     "image_url": 44.3,
     "source_url": 100.0
   },
   "issue_counts": {
-    "missing_specs": 144,
+    "missing_specs": 143,
     "release_date_unverified": 173,
     "missing_variants": 77,
     "outside_two_year_window": 1
@@ -132,12 +132,6 @@
     },
     {
       "severity": "medium",
-      "type": "missing_specs",
-      "phone": "华为 HUAWEI Pura X Max",
-      "detail": "screen_size"
-    },
-    {
-      "severity": "medium",
       "type": "release_date_unverified",
       "phone": "华为 HUAWEI Pura X Max",
       "detail": "官网页未明确标注发布日期"
@@ -146,7 +140,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI nova 16 Pro",
-      "detail": "screen_size, main_camera_mp, weight_g"
+      "detail": "main_camera_mp, weight_g"
     },
     {
       "severity": "medium",
@@ -416,7 +410,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我15 Pro",
-      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+      "detail": "main_camera_mp, image_url"
     },
     {
       "severity": "medium",
@@ -428,7 +422,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我V70",
-      "detail": "main_camera_mp, image_url"
+      "detail": "image_url"
     },
     {
       "severity": "medium",
@@ -674,7 +668,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI Mate X6",
-      "detail": "cpu, screen_size"
+      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -686,7 +680,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI Mate XT 非凡大师",
-      "detail": "cpu, screen_size, refresh_rate"
+      "detail": "cpu, refresh_rate"
     },
     {
       "severity": "medium",
@@ -734,7 +728,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI Pura X",
-      "detail": "cpu, screen_size"
+      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -764,7 +758,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI nova 14 Pro",
-      "detail": "cpu, screen_size, main_camera_mp, weight_g"
+      "detail": "cpu, main_camera_mp, weight_g"
     },
     {
       "severity": "medium",
@@ -782,7 +776,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI nova 14 Ultra",
-      "detail": "cpu, screen_size, main_camera_mp, weight_g"
+      "detail": "cpu, main_camera_mp, weight_g"
     },
     {
       "severity": "medium",
@@ -1310,7 +1304,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我15T",
-      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+      "detail": "refresh_rate, main_camera_mp, image_url"
     },
     {
       "severity": "medium",
@@ -1322,7 +1316,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我15",
-      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+      "detail": "refresh_rate, main_camera_mp, image_url"
     },
     {
       "severity": "medium",
@@ -1334,7 +1328,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我V70s",
-      "detail": "main_camera_mp, image_url"
+      "detail": "image_url"
     },
     {
       "severity": "medium",
@@ -1358,7 +1352,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "realme 真我GT Neo6",
-      "detail": "refresh_rate, weight_g, image_url"
+      "detail": "image_url"
     },
     {
       "severity": "medium",

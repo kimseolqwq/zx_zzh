@@ -68,9 +68,11 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"(\d+(?:\.\d+)?)\s*英寸\s*(?:OLED|AMOLED|LCD)",
             r"(\d+(?:\.\d+)?)\s*英寸[^\n]{0,45}(?:OLED|AMOLED|LCD|显示屏|全面屏)",
             r"(\d+(?:\.\d+)?)\s*[″”'’]{2}\s*\n\s*屏幕尺寸",
+            r"显示屏[^\n]{0,100}?对角线长度(?:约为|是)\s*(\d+(?:\.\d+)?)\s*英寸",
         ], normalized),
         "refresh_rate": _first_number([
             r"刷新率\s*[:：]?\s*\n?(?:最高支持|最高可达|最大支持)?\s*(\d{2,3})\s*Hz",
+            r"刷新率\s*[:：]?\s*(?:最高|最高支持|最高可达|最大支持)\s*(\d{2,3})\s*Hz",
             r"(?:最高支持|刷新率|最高)?\s*(\d{2,3})\s*Hz\s*刷新率",
             r"(?:最高可达|最高支持)\s*(\d{2,3})\s*Hz",
             r"刷新率\s*[:：]?\s*(\d{2,3})\s*Hz",
@@ -103,8 +105,8 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"重量\s*[:：]?\s*\n?约?\s*(\d{2,3}(?:\.\d+)?)\s*克",
             r"重量\s*[:：]?\s*\n[^\n]{0,45}?约?\s*(\d{2,3}(?:\.\d+)?)\s*g",
             r"重量\s*[:：]?\s*\n[^\n]{0,45}?约?\s*(\d{2,3}(?:\.\d+)?)\s*克",
-            r"重量(?:仅有|仅为|约为|为)?\s*(\d{2,3}(?:\.\d+)?)\s*g",
-            r"重量(?:仅有|仅为|约为|为)?\s*(\d{2,3}(?:\.\d+)?)\s*克",
+            r"重量(?:仅有|仅为|约为|为)?\s*[=:：≈]?\s*(\d{2,3}(?:\.\d+)?)\s*g",
+            r"重量(?:仅有|仅为|约为|为)?\s*[=:：≈]?\s*(\d{2,3}(?:\.\d+)?)\s*克",
             r"约\s*(\d{2,3}(?:\.\d+)?)\s*克",
         ], normalized),
         "thickness_mm": _first_number([
@@ -130,6 +132,13 @@ def parse_official_specs(text: str) -> dict[str, Any]:
         )
         if mp_camera:
             result["main_camera_mp"] = float(mp_camera.group(1))
+        m_camera = re.search(
+            r"(\d{1,3}(?:\.\d+)?)\s*M\s*主摄",
+            normalized,
+            flags=re.IGNORECASE,
+        )
+        if m_camera and result["main_camera_mp"] is None:
+            result["main_camera_mp"] = float(m_camera.group(1))
         hundred_mp = re.search(
             r"(?:后置(?:摄像头)?像素|主摄)\s*[:：]?\s*\n?[^\n]{0,25}?(\d(?:\.\d+)?)\s*亿像素",
             normalized,
