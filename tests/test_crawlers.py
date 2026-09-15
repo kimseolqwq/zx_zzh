@@ -67,6 +67,8 @@ def test_official_image_rejects_logos_icons_and_svg_placeholders() -> None:
     }
     assert not is_likely_product_image_url("https://brand.example/assets/logo.svg")
     assert not is_likely_product_image_url("https://brand.example/images/placeholder.png")
+    assert not is_likely_product_image_url("https://images.example/assets/cn/gnb/Phone_88x88.png")
+    assert not is_likely_product_image_url("https://brand.example/footer/WeChat.jpg")
     assert is_likely_product_image_url("https://brand.example/products/phone-front.webp")
 
 

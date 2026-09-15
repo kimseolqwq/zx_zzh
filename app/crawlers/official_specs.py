@@ -22,7 +22,7 @@ SPEC_BOUNDS: dict[str, tuple[float, float]] = {
 
 IMAGE_REJECT_TOKENS = (
     "logo", "favicon", "sprite", "avatar", "qrcode", "qr-code", "placeholder",
-    "loading", "default-image", "/icon/", "icon-", "share-img",
+    "loading", "default-image", "/icon/", "icon-", "share-img", "/gnb/", "wechat", "weixin",
 )
 
 
