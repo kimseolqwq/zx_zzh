@@ -1,18 +1,35 @@
 {
-  "generated_at": "2026-09-13T14:36:50.486662+00:00",
+  "generated_at": "2026-09-15T18:08:22.169621+00:00",
   "limit_seconds": 10.0,
+  "warmup": [
+    {
+      "model": "qwen3:1.7b",
+      "success": true,
+      "latency_ms": 598.5
+    },
+    {
+      "model": "qwen2.5:1.5b",
+      "success": true,
+      "latency_ms": 591.7
+    },
+    {
+      "model": "gemma3:1b",
+      "success": true,
+      "latency_ms": 628.8
+    }
+  ],
   "all_within_limit": true,
   "all_have_three_results": true,
   "all_use_three_models": true,
   "cases": [
     {
       "usage": "摄影创作",
-      "latency_seconds": 3.795,
+      "latency_seconds": 1.269,
       "result_count": 3,
       "top3": [
-        "vivo vivo X300 12GB+256",
-        "vivo vivo S50 Pro mini 12GB+512",
-        "vivo iQOO 15 12GB+256"
+        "vivo vivo X200 Pro mini 12GB+512",
+        "vivo iQOO Neo10 Pro 16GB+1TB",
+        "vivo vivo X200 12GB+512"
       ],
       "valid_model_votes": [
         3,
@@ -23,12 +40,12 @@
     },
     {
       "usage": "重度游戏",
-      "latency_seconds": 1.068,
+      "latency_seconds": 3.021,
       "result_count": 3,
       "top3": [
         "vivo iQOO 15 16GB+256",
-        "vivo vivo Y500 12GB+256",
-        "vivo vivo X300 16GB+256"
+        "vivo iQOO Z10 Turbo 16GB+256",
+        "vivo iQOO Neo10 Pro+ 16GB+256"
       ],
       "valid_model_votes": [
         3,
@@ -39,12 +56,12 @@
     },
     {
       "usage": "轻薄续航",
-      "latency_seconds": 5.133,
+      "latency_seconds": 1.319,
       "result_count": 3,
       "top3": [
         "vivo vivo Y500 8GB+256",
-        "vivo iQOO 15 12GB+256",
-        "vivo vivo X300 12GB+256"
+        "vivo iQOO Z10 Turbo 12GB+256",
+        "vivo iQOO 15 16GB+256"
       ],
       "valid_model_votes": [
         3,
@@ -55,12 +72,12 @@
     },
     {
       "usage": "综合体验",
-      "latency_seconds": 1.854,
+      "latency_seconds": 2.824,
       "result_count": 3,
       "top3": [
         "vivo iQOO 15 16GB+256",
-        "vivo vivo X300 16GB+256",
-        "vivo vivo Y500 12GB+512"
+        "vivo iQOO Z10 Turbo 16GB+512",
+        "vivo iQOO Z10x 12GB+512"
       ],
       "valid_model_votes": [
         3,
