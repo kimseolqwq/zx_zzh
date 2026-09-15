@@ -12,7 +12,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.config import DATA_DIR
-from app.crawlers.catalog_pipeline import CatalogSource, CollectedPhone, import_collected, read_sources
+from app.crawlers.catalog_pipeline import CatalogSource, CollectedPhone, _fallback_variants, import_collected, read_sources
 from app.crawlers.official_specs import (
     completeness,
     extract_official_image,
@@ -49,15 +49,7 @@ def rebuild_items(report_path: Path, sources_path: Path) -> tuple[list[Collected
             specs = parse_official_specs(visible_text)
             variants = parse_memory_variants(visible_text)
             if not variants and source.fallback_variants:
-                variants = [
-                    {
-                        "ram_gb": None,
-                        "storage_gb": int(value),
-                        "variant_name": f"{int(value) if int(value) < 1024 else str(int(value) // 1024) + 'TB'}",
-                        "launch_price": None,
-                    }
-                    for value in source.fallback_variants.split(";") if value.strip()
-                ]
+                variants = _fallback_variants(source.fallback_variants)
             collected.append(CollectedPhone(
                 source=source,
                 final_url=row["url"],

@@ -14,6 +14,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import selectinload
 
 from app.config import DATA_DIR
+from app.crawlers.official_specs import SPEC_BOUNDS
 from app.database import SessionLocal, engine
 from app.models import Brand, PhoneModel, PhoneVariant, PlatformListing, PriceSnapshot
 from app.services.evaluation import is_meaningful
@@ -49,6 +50,12 @@ def audit() -> dict:
                 issues.append({"severity": "high", "type": "outside_two_year_window", "phone": f"{phone.brand.name} {phone.model_name}", "detail": phone.release_date.isoformat()})
             if not any(variant.is_active for variant in phone.variants):
                 issues.append({"severity": "high", "type": "missing_variants", "phone": f"{phone.brand.name} {phone.model_name}", "detail": "未提取到明确内存组合"})
+            invalid_fields = [
+                field for field, (minimum, maximum) in SPEC_BOUNDS.items()
+                if getattr(phone, field) is not None and not minimum <= float(getattr(phone, field)) <= maximum
+            ]
+            if invalid_fields:
+                issues.append({"severity": "high", "type": "invalid_spec_range", "phone": f"{phone.brand.name} {phone.model_name}", "detail": ", ".join(invalid_fields)})
         invalid_active_links = [listing.id for listing in listings if "example.com" in listing.product_url or not listing.store_verified]
         if invalid_active_links:
             issues.append({"severity": "high", "type": "invalid_active_listing", "detail": invalid_active_links})

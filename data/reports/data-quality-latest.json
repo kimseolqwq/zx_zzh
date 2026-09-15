@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-15T16:59:37.340691+00:00",
+  "generated_at": "2026-09-15T17:11:31.319422+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
-    "phones": 201,
-    "variants": 390,
+    "phones": 203,
+    "variants": 394,
     "active_verified_listings": 3,
     "active_price_snapshots": 3,
-    "official_source_phones": 201
+    "official_source_phones": 203
   },
   "brand_counts": {
     "Apple": 8,
@@ -15,7 +15,7 @@
     "realme": 13,
     "vivo": 27,
     "一加": 6,
-    "三星": 13,
+    "三星": 15,
     "华为": 19,
     "小米": 23,
     "荣耀": 44,
@@ -24,22 +24,22 @@
   "quality_counts": {
     "manual_official_review": 5,
     "official_catalog_only": 53,
-    "official_partial": 62,
-    "official_verified": 81
+    "official_partial": 57,
+    "official_verified": 88
   },
   "field_coverage_percent": {
-    "cpu": 51.7,
-    "screen_size": 45.8,
-    "refresh_rate": 39.3,
+    "cpu": 52.2,
+    "screen_size": 48.3,
+    "refresh_rate": 41.4,
     "main_camera_mp": 44.3,
-    "battery_mah": 52.7,
-    "weight_g": 39.8,
-    "image_url": 57.7,
+    "battery_mah": 52.2,
+    "weight_g": 41.4,
+    "image_url": 58.1,
     "source_url": 100.0
   },
   "issue_counts": {
-    "missing_specs": 154,
-    "release_date_unverified": 171,
+    "missing_specs": 156,
+    "release_date_unverified": 173,
     "missing_variants": 77,
     "outside_two_year_window": 1
   },
@@ -78,7 +78,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "Apple iPhone Air",
-      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+      "detail": "battery_mah"
     },
     {
       "severity": "medium",
@@ -90,7 +90,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "Apple iPhone 17e",
-      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+      "detail": "refresh_rate, battery_mah"
     },
     {
       "severity": "medium",
@@ -102,7 +102,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "Apple iPhone 16",
-      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+      "detail": "refresh_rate, battery_mah"
     },
     {
       "severity": "medium",
@@ -330,7 +330,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo vivo S50",
-      "detail": "refresh_rate, main_camera_mp, weight_g"
+      "detail": "main_camera_mp, weight_g"
     },
     {
       "severity": "medium",
@@ -342,13 +342,13 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo iQOO 15 Ultra",
-      "detail": "refresh_rate, image_url"
+      "detail": "image_url"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo iQOO 15",
-      "detail": "refresh_rate, weight_g, image_url"
+      "detail": "weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -462,7 +462,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy S26",
-      "detail": "screen_size, refresh_rate, battery_mah"
+      "detail": "screen_size, refresh_rate, main_camera_mp, battery_mah"
     },
     {
       "severity": "medium",
@@ -498,7 +498,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy S25 Ultra",
-      "detail": "screen_size, refresh_rate, battery_mah"
+      "detail": "refresh_rate, battery_mah"
     },
     {
       "severity": "medium",
@@ -510,7 +510,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy S25",
-      "detail": "refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "refresh_rate, battery_mah, weight_g"
     },
     {
       "severity": "medium",
@@ -2461,6 +2461,30 @@
       "type": "missing_variants",
       "phone": "vivo vivo Y300+",
       "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy S26+",
+      "detail": "refresh_rate, main_camera_mp, battery_mah"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy S26+",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy A56 5G",
+      "detail": "battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy A56 5G",
+      "detail": "官网页未明确标注发布日期"
     }
   ]
 }

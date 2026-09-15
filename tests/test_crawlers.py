@@ -7,6 +7,7 @@ from app.crawlers.official_specs import (
 )
 from app.crawlers.price_parser import parse_price_text
 from app.crawlers.market_import import _valid_product_url
+from app.crawlers.catalog_pipeline import _fallback_variants
 
 
 def test_parse_official_specs() -> None:
@@ -80,6 +81,63 @@ def test_nested_official_labels_and_dual_cell_battery() -> None:
     assert parsed["cpu"] == "麒麟9030S"
     assert parsed["refresh_rate"] == 120
     assert parsed["battery_mah"] == 7000
+
+
+def test_apple_style_specs_are_parsed_from_explicit_labels() -> None:
+    text = """
+    尺寸与重量
+    重量：
+    177 克 (6.24 盎司)
+    显示屏
+    6.3 英寸 (对角线) OLED 全面屏
+    2622 x 1206 像素分辨率，460 ppi
+    ProMotion 自适应刷新率技术，最高可达 120Hz
+    芯片
+    A19 芯片
+    4800 万像素融合式主摄
+    iOS 26
+    """
+    parsed = parse_official_specs(text)
+    assert parsed["weight_g"] == 177
+    assert parsed["screen_size"] == 6.3
+    assert parsed["resolution"] == "2622 x 1206 像素"
+    assert parsed["refresh_rate"] == 120
+    assert parsed["cpu"] == "A19 芯片"
+    assert parsed["main_camera_mp"] == 48
+    assert parsed["operating_system"] == "iOS 26"
+
+
+def test_vivo_and_oppo_style_camera_and_charging_labels() -> None:
+    text = """
+    后置摄像头像素
+    5000万像素蔡司云台级主摄
+    刷新率
+    1-120Hz
+    快速充电
+    最大支持：80 W 超级闪充
+    """
+    parsed = parse_official_specs(text)
+    assert parsed["main_camera_mp"] == 50
+    assert parsed["refresh_rate"] == 120
+    assert parsed["charging_w"] == 80
+
+
+def test_samsung_camera_label_and_implausible_values() -> None:
+    valid = parse_official_specs("后置摄像头 - 分辨率 (多重)\n5000万像素+1200万像素+500万像素")
+    assert valid["main_camera_mp"] == 50
+    invalid = parse_official_specs("主摄 200 万像素\n电池容量 1200 mAh\n重量 65 g")
+    assert invalid["main_camera_mp"] is None
+    assert invalid["battery_mah"] is None
+    assert invalid["weight_g"] is None
+
+
+def test_fallback_variants_support_explicit_ram_storage_pairs() -> None:
+    variants = _fallback_variants("12+256;12+512;1TB")
+    assert [(item["ram_gb"], item["storage_gb"], item["variant_name"]) for item in variants] == [
+        (12, 256, "12GB+256"),
+        (12, 512, "12GB+512"),
+        (None, 1024, "1TB"),
+    ]
 
 
 def test_shared_ram_storage_list_expands_only_explicit_options() -> None:

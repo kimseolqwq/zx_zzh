@@ -1,12 +1,12 @@
 # 手机数据质量报告
 
-生成时间：2026-09-15T16:59:37.340691+00:00
+生成时间：2026-09-15T17:11:31.319422+00:00
 
 ## 数据规模
 
 - 品牌：10
-- 在售机型：201
-- 内存版本：390
+- 在售机型：203
+- 内存版本：394
 - 已核验平台商品：3
 - 有效价格快照：3
 
@@ -17,7 +17,7 @@
 - realme：13 款
 - vivo：27 款
 - 一加：6 款
-- 三星：13 款
+- 三星：15 款
 - 华为：19 款
 - 小米：23 款
 - 荣耀：44 款
@@ -25,19 +25,19 @@
 
 ## 参数字段覆盖率
 
-- cpu：51.7%
-- screen_size：45.8%
-- refresh_rate：39.3%
+- cpu：52.2%
+- screen_size：48.3%
+- refresh_rate：41.4%
 - main_camera_mp：44.3%
-- battery_mah：52.7%
-- weight_g：39.8%
-- image_url：57.7%
+- battery_mah：52.2%
+- weight_g：41.4%
+- image_url：58.1%
 - source_url：100.0%
 
 ## 待处理问题
 
-- missing_specs：154
-- release_date_unverified：171
+- missing_specs：156
+- release_date_unverified：173
 - missing_variants：77
 - outside_two_year_window：1
 

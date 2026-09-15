@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 
 from app.crawlers.base import SafeFetcher
 from app.crawlers.official_specs import (
+    SPEC_BOUNDS,
     completeness,
     extract_official_image,
     parse_memory_variants,
@@ -74,11 +75,19 @@ def _page_matches_model(model_name: str, text: str) -> bool:
 def _fallback_variants(value: str) -> list[dict[str, Any]]:
     variants = []
     for item in filter(None, (part.strip() for part in value.split(";"))):
-        storage = int(item)
+        match = re.fullmatch(r"(?:(4|6|8|12|16|18|24|32)\s*\+\s*)?(64|128|256|512|1024|2048|1TB|2TB)", item, re.IGNORECASE)
+        if not match:
+            raise ValueError(f"官网回退内存版本格式无效：{item}")
+        ram = int(match.group(1)) if match.group(1) else None
+        raw_storage = match.group(2).upper()
+        storage = int(raw_storage[:-2]) * 1024 if raw_storage.endswith("TB") else int(raw_storage)
         variants.append({
-            "ram_gb": None,
+            "ram_gb": ram,
             "storage_gb": storage,
-            "variant_name": f"{storage if storage < 1024 else str(storage // 1024) + 'TB'}",
+            "variant_name": (
+                f"{ram}GB+{storage if storage < 1024 else str(storage // 1024) + 'TB'}"
+                if ram is not None else f"{storage if storage < 1024 else str(storage // 1024) + 'TB'}"
+            ),
             "launch_price": None,
         })
     return variants
@@ -151,6 +160,10 @@ def _upsert_phone(db: Session, item: CollectedPhone) -> tuple[int, int, int]:
     for field, value in fields.items():
         if value is not None:
             setattr(phone, field, value)
+    for field, (minimum, maximum) in SPEC_BOUNDS.items():
+        existing = getattr(phone, field)
+        if existing is not None and not minimum <= float(existing) <= maximum:
+            setattr(phone, field, None)
     if item.specs.get("main_camera_mp"):
         phone.camera_summary = f"官方规格标注 {item.specs['main_camera_mp']:g} MP 主摄"
     if item.image:

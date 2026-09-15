@@ -10,6 +10,17 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
 
+SPEC_BOUNDS: dict[str, tuple[float, float]] = {
+    "screen_size": (3.0, 8.0),
+    "refresh_rate": (30.0, 240.0),
+    "main_camera_mp": (5.0, 250.0),
+    "battery_mah": (2000.0, 10000.0),
+    "charging_w": (5.0, 300.0),
+    "weight_g": (100.0, 400.0),
+    "thickness_mm": (3.0, 20.0),
+}
+
+
 def _first_number(patterns: list[str], text: str) -> float | None:
     for pattern in patterns:
         match = re.search(pattern, text, flags=re.IGNORECASE | re.MULTILINE)
@@ -28,7 +39,7 @@ def _first_text(patterns: list[str], text: str, max_length: int = 120) -> str | 
 
 def parse_official_specs(text: str) -> dict[str, Any]:
     """从官方规格页可见文本提取保守字段；缺失值保持为空，不猜测。"""
-    normalized = re.sub(r"[\t\r ]+", " ", text)
+    normalized = re.sub(r"[\t\r \u00a0]+", " ", text)
     result: dict[str, Any] = {
         "cpu": _first_text([
             r"(?:CPU\s*型号|处理器型号|移动平台|处理平台|芯片平台)\s*[:：]?\s*\n?([^\n]{2,80})",
@@ -38,9 +49,11 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"(?:屏幕)?尺寸\s*[:：]?\s*\n?约?\s*(\d+(?:\.\d+)?)\s*英寸",
             r"尺寸（英寸）\s*[:：]?\s*\n?(\d+(?:\.\d+)?)\s*英寸",
             r"(\d+(?:\.\d+)?)\s*英寸\s*(?:OLED|AMOLED|LCD)",
+            r"(\d+(?:\.\d+)?)\s*英寸[^\n]{0,45}(?:OLED|AMOLED|LCD|显示屏|全面屏)",
         ], normalized),
         "refresh_rate": _first_number([
             r"(?:最高支持|刷新率|最高)?\s*(\d{2,3})\s*Hz\s*刷新率",
+            r"(?:最高可达|最高支持)\s*(\d{2,3})\s*Hz",
             r"刷新率\s*[:：]?\s*(\d{2,3})\s*Hz",
             r"刷新率\s*[:：]?\s*(?:\d{1,2}\s*[-~至]\s*)?(\d{2,3})\s*Hz",
             r"(?:\d{1,2}\s*[-~至]\s*)?(\d{2,3})\s*Hz[^\n]{0,30}刷新率",
@@ -48,6 +61,9 @@ def parse_official_specs(text: str) -> dict[str, Any]:
         "main_camera_mp": _first_number([
             r"(?:后置|主摄|主摄像头)[^\n]{0,50}?(\d{3,5})\s*万像素",
             r"(\d{3,5})\s*万像素[^\n]{0,30}(?:主摄|摄像头)",
+            r"后置摄像头(?:像素)?\s*\n(?:后置\s*\n)?(\d{3,5})\s*万像素",
+            r"后置摄像头[^\n]{0,50}\n(\d{3,5})\s*万像素",
+            r"后置\s*\n(\d{3,5})\s*万像素",
         ], normalized),
         "battery_mah": _first_number([
             r"等效\s*(\d{4,5})\s*mAh",
@@ -57,9 +73,11 @@ def parse_official_specs(text: str) -> dict[str, Any]:
         ], normalized),
         "charging_w": _first_number([
             r"(?:充电规格|有线快充|快速充电|超级闪充|闪充|充电)[^\n]{0,40}?(\d{2,3})\s*W",
+            r"(?:充电规格|有线快充|快速充电|超级闪充|闪充)\s*\n(?:[^\n]{0,50}\n){0,3}[^\n]{0,50}?(\d{2,3})\s*W",
         ], normalized),
         "weight_g": _first_number([
             r"重量\s*[:：]?\s*\n?约?\s*(\d{2,3}(?:\.\d+)?)\s*g",
+            r"重量\s*[:：]?\s*\n?约?\s*(\d{2,3}(?:\.\d+)?)\s*克",
             r"约\s*(\d{2,3}(?:\.\d+)?)\s*克",
         ], normalized),
         "thickness_mm": _first_number([
@@ -67,9 +85,11 @@ def parse_official_specs(text: str) -> dict[str, Any]:
         ], normalized),
         "resolution": _first_text([
             r"分辨率\s*[:：]?\s*\n?([0-9]{3,4}\s*[×xX]\s*[0-9]{3,4}(?:\s*像素)?)",
+            r"([0-9]{3,4}\s*[×xX]\s*[0-9]{3,4}\s*像素)\s*分辨率",
         ], normalized),
         "operating_system": _first_text([
             r"(?:操作系统|系统)\s*[:：]?\s*\n?((?:HarmonyOS|Android|iOS|ColorOS|OriginOS|HyperOS)[^\n]{0,40})",
+            r"\b((?:iOS|ColorOS|OriginOS|HyperOS)\s*\d{1,2}(?:\.\d+)?)\b",
         ], normalized),
     }
     if result["main_camera_mp"]:
@@ -78,6 +98,13 @@ def parse_official_specs(text: str) -> dict[str, Any]:
         hundred_mp = re.search(r"(?:后置|主摄)[^\n]{0,45}?(\d(?:\.\d+)?)\s*亿像素", normalized)
         if hundred_mp:
             result["main_camera_mp"] = float(hundred_mp.group(1)) * 100
+    # Reject physically implausible matches caused by nearby marketing text,
+    # footnote numbers, touch-sampling rates, or auxiliary sensors.  Keeping a
+    # field empty is safer than allowing an incorrect value into ranking.
+    for field_name, (minimum, maximum) in SPEC_BOUNDS.items():
+        value = result.get(field_name)
+        if value is not None and not minimum <= float(value) <= maximum:
+            result[field_name] = None
     return result
 
 
