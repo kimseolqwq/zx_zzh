@@ -20,6 +20,11 @@ def main() -> None:
     parser.add_argument("--sources", type=Path, default=PROJECT_ROOT / "config" / "official_catalog_sources.csv")
     parser.add_argument("--interval", type=float, default=1.5, help="同一站点请求最小间隔秒数")
     parser.add_argument("--limit", type=int)
+    parser.add_argument(
+        "--brand",
+        action="append",
+        help="只采集指定品牌，可重复传入；品牌名不区分英文大小写",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -32,6 +37,11 @@ def main() -> None:
         shutil.copy2(database_path, backup_path)
 
     sources = read_sources(args.sources)
+    if args.brand:
+        selected_brands = {item.strip().casefold() for item in args.brand if item.strip()}
+        sources = [item for item in sources if item.brand.casefold() in selected_brands]
+        if not sources:
+            parser.error("--brand 未匹配官网目录中的任何品牌")
     collected, failures = collect_catalog(sources, minimum_interval=args.interval, limit=args.limit)
     counters = {"brands_added": 0, "phones_added": 0, "phones_updated": 0, "variants_added": 0}
     if not args.dry_run:

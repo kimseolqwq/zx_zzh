@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-09-15T18:18:39.159503+00:00",
+  "summary": {
+    "collected": 6,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 6,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 0,
+    "with_official_image": 0,
+    "average_spec_completeness": 0.0
+  },
+  "items": [
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 17",
+      "url": "https://www.mi.com/prod/xiaomi-17/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.mi.com/20260915T181829Z-cca51faab9.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 17 Pro",
+      "url": "https://www.mi.com/prod/xiaomi-17-pro/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.mi.com/20260915T181831Z-2145749642.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 17 Pro Max",
+      "url": "https://www.mi.com/prod/xiaomi-17-pro-max/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.mi.com/20260915T181833Z-7fc7b5c200.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI K80",
+      "url": "https://www.mi.com/prod/redmi-k80/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.mi.com/20260915T181835Z-c20f145a2b.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI K80 Pro",
+      "url": "https://www.mi.com/prod/redmi-k80-pro/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.mi.com/20260915T181837Z-c42a573b45.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI K80 至尊版",
+      "url": "https://www.mi.com/prod/redmi-k80-ultra/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.mi.com/20260915T181839Z-197d2d0731.txt"
+    }
+  ],
+  "failures": []
+}

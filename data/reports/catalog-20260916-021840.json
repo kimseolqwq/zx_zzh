@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-09-15T18:18:54.825555+00:00",
+  "summary": {
+    "collected": 9,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 9,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 9,
+    "with_variants": 9,
+    "with_official_image": 6,
+    "average_spec_completeness": 77.8
+  },
+  "items": [
+    {
+      "brand": "vivo",
+      "model_name": "vivo X300 Ultra",
+      "url": "https://www.vivo.com.cn/vivo/param/x300ultra",
+      "release_date": "2026-03-01",
+      "variant_count": 4,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181840Z-4814a5dda4.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo X300 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/x300pro",
+      "release_date": "2025-10-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181842Z-abe01241be.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo X300",
+      "url": "https://www.vivo.com.cn/vivo/param/x300",
+      "release_date": "2025-10-01",
+      "variant_count": 5,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181843Z-cb999162ee.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo S50 Pro mini",
+      "url": "https://www.vivo.com.cn/vivo/param/s50promini",
+      "release_date": "2025-12-01",
+      "variant_count": 3,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181845Z-449862ec34.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo S50",
+      "url": "https://www.vivo.com.cn/vivo/param/s50",
+      "release_date": "2025-12-01",
+      "variant_count": 4,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181847Z-6f6927c2e0.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo Y500",
+      "url": "https://www.vivo.com.cn/vivo/param/y500",
+      "release_date": "2025-09-01",
+      "variant_count": 4,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181849Z-8195d84fdb.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO 15 Ultra",
+      "url": "https://www.vivo.com.cn/vivo/param/iqoo15ultra",
+      "release_date": "2026-02-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181851Z-0e9d42d1a6.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO 15",
+      "url": "https://www.vivo.com.cn/vivo/param/iqoo15",
+      "release_date": "2025-10-01",
+      "variant_count": 5,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181852Z-0dc5c5d435.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo X200 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/x200pro",
+      "release_date": "2024-10-01",
+      "variant_count": 3,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260915T181854Z-159ab098ec.txt"
+    }
+  ],
+  "failures": []
+}

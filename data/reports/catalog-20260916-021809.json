@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-09-15T18:18:20.071681+00:00",
+  "summary": {
+    "collected": 6,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 6,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 5,
+    "with_official_image": 5,
+    "average_spec_completeness": 77.8
+  },
+  "items": [
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 90 Pro Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/consumer.huawei.com/20260915T181810Z-7969826cb1.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura X Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x-max/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/consumer.huawei.com/20260915T181812Z-86e4bef398.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI nova 16 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/nova16-pro/",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 50.0,
+      "evidence_path": "data/raw/consumer.huawei.com/20260915T181814Z-0205b5dbda.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Mate 70",
+      "url": "https://consumer.huawei.com/cn/phones/mate70/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260915T181815Z-4a9aa0e628.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Mate 70 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/mate70-pro/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260915T181817Z-5f0ad0beba.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 80 Ultra",
+      "url": "https://consumer.huawei.com/cn/phones/pura80-ultra/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260915T181820Z-0b28978708.txt"
+    }
+  ],
+  "failures": []
+}
