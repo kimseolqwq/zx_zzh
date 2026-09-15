@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T17:38:16.968095+00:00",
+  "generated_at": "2026-09-15T17:41:28.362016+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
@@ -42,11 +42,11 @@
     "main_camera_mp": 46.3,
     "battery_mah": 52.2,
     "weight_g": 42.4,
-    "image_url": 48.3,
+    "image_url": 44.3,
     "source_url": 100.0
   },
   "issue_counts": {
-    "missing_specs": 156,
+    "missing_specs": 157,
     "release_date_unverified": 173,
     "missing_variants": 77,
     "outside_two_year_window": 1
@@ -464,7 +464,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy S26 Ultra",
-      "detail": "screen_size, refresh_rate, battery_mah"
+      "detail": "screen_size, refresh_rate, battery_mah, image_url"
     },
     {
       "severity": "medium",
@@ -476,7 +476,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy S26",
-      "detail": "screen_size, refresh_rate, main_camera_mp, battery_mah"
+      "detail": "screen_size, refresh_rate, main_camera_mp, battery_mah, image_url"
     },
     {
       "severity": "medium",
@@ -488,7 +488,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy Z Fold8",
-      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -500,7 +500,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy Z Flip8",
-      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -1266,6 +1266,12 @@
     },
     {
       "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO A6t",
+      "detail": "image_url"
+    },
+    {
+      "severity": "medium",
       "type": "release_date_unverified",
       "phone": "OPPO OPPO A6t",
       "detail": "官网页未明确标注发布日期"
@@ -1478,7 +1484,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy Z Fold8 Ultra",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -1490,7 +1496,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung W25 Flip",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -2486,7 +2492,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "三星 Samsung Galaxy A56 5G",
-      "detail": "battery_mah, weight_g"
+      "detail": "battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
