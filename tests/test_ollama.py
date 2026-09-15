@@ -18,3 +18,4 @@ def test_warm_models_keeps_requested_order_and_reports_success(monkeypatch) -> N
     assert [item["model"] for item in results] == ["model-a", "model-b"]
     assert all(item["success"] for item in results)
     assert {item[1] for item in calls} == {"model-a", "model-b"}
+    assert all(item[0].endswith("/api/chat") for item in calls)

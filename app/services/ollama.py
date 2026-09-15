@@ -61,13 +61,19 @@ class OllamaClient:
             started = time.perf_counter()
             try:
                 response = httpx.post(
-                    f"{self.base_url}/api/generate",
+                    f"{self.base_url}/api/chat",
                     json={
                         "model": model_name,
-                        "prompt": "只回答OK",
                         "stream": False,
+                        "think": False,
+                        "format": "json",
+                        "messages": [{"role": "user", "content": "输出JSON：{\"ok\":true}"}],
                         "keep_alive": settings.model_keep_alive,
-                        "options": {"num_ctx": 256, "num_predict": 1, "temperature": 0},
+                        "options": {
+                            "num_ctx": settings.model_context_size,
+                            "num_predict": 1,
+                            "temperature": 0,
+                        },
                     },
                     timeout=max(30.0, settings.model_timeout_seconds * 2),
                 )
