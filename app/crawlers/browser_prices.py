@@ -16,7 +16,10 @@ async def capture_public_price_page(url: str, item_id: str, *, headless: bool = 
     """打开公开商品页并留证；不绕过登录、滑块或验证码。"""
     auth_dir = DATA_DIR / "browser-profile"
     auth_dir.mkdir(parents=True, exist_ok=True)
-    evidence_dir = DATA_DIR / "screenshots"
+    # Evidence used by the reviewed importer must stay below data/raw.  Keeping
+    # screenshots beside the extracted text also makes one capture auditable as
+    # a pair and ensures neither file is committed to Git.
+    evidence_dir = DATA_DIR / "raw" / "ecommerce" / "screenshots"
     evidence_dir.mkdir(parents=True, exist_ok=True)
     raw_dir = DATA_DIR / "raw" / "ecommerce"
     raw_dir.mkdir(parents=True, exist_ok=True)
@@ -56,4 +59,3 @@ async def capture_public_price_page(url: str, item_id: str, *, headless: bool = 
 
 def capture(url: str, item_id: str, *, headless: bool = False) -> dict:
     return asyncio.run(capture_public_price_page(url, item_id, headless=headless))
-

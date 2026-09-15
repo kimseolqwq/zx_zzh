@@ -78,6 +78,15 @@ ollama pull gemma3:1b
 
 审核导入器会校验平台域名、官方店名称、审核人、价格范围以及 `data/raw` 下真实存在的文本/截图证据；重复导入同一批价格不会产生重复快照。`pending` 行不会写入数据库。
 
+使用专用 Edge 会话登录三平台后，可对已经填写 `product_url` 的队列行分批留证并回填候选价格：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\setup_market_browser.py
+.\.venv\Scripts\python.exe .\scripts\capture_price_queue.py .\data\review\price_review_queue.csv --platform jd --limit 10
+```
+
+采集结果只会标为 `needs_review`。核对商品版本、官方店、页面价格和截图后，填写审核人并把该行改为 `approved`，再运行上面的审核导入命令。浏览器会话、页面正文和截图均只保存在本机且被 Git 忽略。
+
 导出四张核心表并生成 SQLite 备份：
 
 ```powershell
