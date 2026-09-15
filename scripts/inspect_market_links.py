@@ -57,6 +57,8 @@ async def inspect(url: str, *, headless: bool) -> dict:
 
 
 def main() -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser(description="只读检查商品页暴露的站内店铺和商品链接")
     parser.add_argument("url")
     parser.add_argument("--headless", action="store_true")
