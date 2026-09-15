@@ -9,7 +9,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from sqlalchemy import select
 
-from app.database import SessionLocal
+from app.database import SessionLocal, checkpoint_database
 from app.models import PhoneModel, PlatformListing
 
 
@@ -25,6 +25,7 @@ def main() -> None:
         for phone in phones:
             phone.data_quality = "legacy_demo"
         db.commit()
+    checkpoint_database()
     print({"retired_listings": len(listings), "legacy_demo_phones": len(phones)})
 
 

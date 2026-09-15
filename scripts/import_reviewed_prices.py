@@ -9,7 +9,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.crawlers.market_import import import_reviewed_prices
-from app.database import SessionLocal
+from app.database import SessionLocal, checkpoint_database
 
 
 def main() -> None:
@@ -19,6 +19,8 @@ def main() -> None:
     args = parser.parse_args()
     with SessionLocal() as db:
         result = import_reviewed_prices(db, args.file, dry_run=args.dry_run)
+    if not args.dry_run:
+        checkpoint_database()
     print(("校验通过" if args.dry_run else "入库完成"), result)
 
 

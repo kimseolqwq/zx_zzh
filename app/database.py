@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import sqlite3
 from collections.abc import Generator
+from pathlib import Path
 
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
@@ -56,3 +58,17 @@ def create_schema() -> None:
         if "image_source_url" not in columns:
             connection.exec_driver_sql("ALTER TABLE phone_models ADD COLUMN image_source_url VARCHAR(500)")
         connection.exec_driver_sql("PRAGMA optimize")
+
+
+def checkpoint_database(database_path: Path | None = None) -> tuple[int, int, int] | None:
+    """Flush SQLite WAL pages into the main file for backups and Git snapshots."""
+    if database_path is None:
+        if engine.dialect.name != "sqlite" or not engine.url.database or engine.url.database == ":memory:":
+            return None
+        engine.dispose()
+        database_path = Path(engine.url.database)
+    if not database_path.exists():
+        return None
+    with sqlite3.connect(database_path) as connection:
+        result = connection.execute("PRAGMA wal_checkpoint(TRUNCATE)").fetchone()
+    return tuple(int(value) for value in result) if result else None

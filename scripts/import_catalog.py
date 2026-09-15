@@ -13,7 +13,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from sqlalchemy import select
 
-from app.database import SessionLocal, create_schema
+from app.database import SessionLocal, checkpoint_database, create_schema
 from app.models import Brand, PhoneModel, PhoneVariant, PlatformListing, PriceSnapshot
 
 
@@ -148,6 +148,8 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="只校验，不写入数据库")
     args = parser.parse_args()
     result = import_file(args.file, args.dry_run)
+    if not args.dry_run:
+        checkpoint_database()
     mode = "校验通过（未写入）" if args.dry_run else "导入完成"
     print(mode, result)
 

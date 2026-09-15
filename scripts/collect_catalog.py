@@ -12,7 +12,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from app.config import DATA_DIR
 from app.crawlers.catalog_pipeline import collect_catalog, import_collected, read_sources, write_catalog_report
-from app.database import SessionLocal, create_schema, engine
+from app.database import SessionLocal, checkpoint_database, create_schema, engine
 
 
 def main() -> None:
@@ -37,6 +37,7 @@ def main() -> None:
     if not args.dry_run:
         with SessionLocal() as db:
             counters = import_collected(db, collected)
+        checkpoint_database()
     report_path = DATA_DIR / "reports" / f"catalog-{stamp}.json"
     write_catalog_report(report_path, collected, failures, counters)
     print({"sources": len(sources[:args.limit]), "collected": len(collected), "failed": len(failures), **counters})

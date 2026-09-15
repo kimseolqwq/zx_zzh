@@ -20,7 +20,7 @@ from app.crawlers.official_specs import (
     parse_official_specs,
     parse_release_date,
 )
-from app.database import SessionLocal, create_schema, engine
+from app.database import SessionLocal, checkpoint_database, create_schema, engine
 
 
 def catalog_reports() -> list[Path]:
@@ -97,6 +97,7 @@ def main() -> None:
             shutil.copy2(database_path, backup_path)
         with SessionLocal() as db:
             counters = import_collected(db, collected)
+        checkpoint_database()
     result = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_reports": [str(path.resolve()) for path in report_paths],
