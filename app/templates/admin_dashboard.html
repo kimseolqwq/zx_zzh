@@ -1,0 +1,64 @@
+{% extends "base.html" %}{% block title %}数据管理 · 择机{% endblock %}{% block content %}
+<main class="shell admin-shell">
+  <section class="admin-head"><div><p class="eyebrow">DATABASE CONSOLE</p><h1>数据管理</h1><p>管理员 {{ user.username }} · 所有修改都会写入操作日志</p></div><form method="post" action="/admin/logout"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="ghost-button">退出登录</button></form></section>
+  <section class="admin-metrics"><div><span>品牌</span><b>{{ brands|length }}</b></div><div><span>手机型号</span><b>{{ phones|length }}</b></div><div><span>内存版本</span><b>{{ variants|length }}</b></div><div><span>平台链接</span><b>{{ listings|length }}</b></div><div><span>推荐运行</span><b>{{ rec_stats.runs }}</b></div><div><span>模型调用</span><b>{{ rec_stats.model_runs }}</b></div></section>
+
+  <nav class="admin-tabs"><a href="#phones">手机型号</a><a href="#variants">内存版本</a><a href="#listings">平台价格</a><a href="#brands">品牌</a></nav>
+
+  <section class="admin-section"><div class="section-heading"><div><span>MEASUREMENT</span><h2>模型性能度量</h2></div><span>最近100次调用</span></div>
+    <div class="performance-grid">{% for metric in model_metrics %}<article><span>{{ metric.model_name }}</span><strong>{{ metric.success_rate }}%</strong><small>调用成功率</small><div><b>{{ metric.avg_latency_s or '—' }} s</b><b>{{ metric.avg_tps or '—' }} tok/s</b><b>JSON {{ metric.json_rate }}%</b></div></article>{% else %}<p>完成一次真实推荐后，这里将显示模型响应时间和输出速度。</p>{% endfor %}</div>
+    <div class="audit-line"><b>最近操作</b>{% for log in audit_logs[:6] %}<span>{{ log.created_at.strftime('%m-%d %H:%M') }} · {{ log.action }} {{ log.table_name }} #{{ log.record_id or '—' }}</span>{% else %}<span>暂无操作日志</span>{% endfor %}</div>
+  </section>
+
+  <section class="admin-section" id="phones"><div class="section-heading"><div><span>CRUD 01</span><h2>手机型号</h2></div><button class="ghost-button" data-toggle="#new-phone">新增手机</button></div>
+    <form class="admin-form" id="new-phone" method="post" action="/admin/phones" hidden><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label>品牌<select name="brand_id" required>{% for brand in brands if brand.is_active %}<option value="{{ brand.id }}">{{ brand.name }}</option>{% endfor %}</select></label><label>型号<input name="model_name" required></label><label>发布日期<input type="date" name="release_date"></label><label>CPU<input name="cpu"></label><label>屏幕尺寸<input type="number" step="0.01" name="screen_size"></label><label>刷新率<input type="number" name="refresh_rate"></label><label>主摄像素<input type="number" step="0.1" name="main_camera_mp"></label><label>电池 mAh<input type="number" name="battery_mah"></label><label>重量 g<input type="number" step="0.1" name="weight_g"></label><label>官网URL<input type="url" name="official_url"></label><label>官网产品图片URL<input type="url" name="image_url"></label><label>图片来源页面<input type="url" name="image_source_url"></label><button class="primary-button">保存手机</button></form>
+    <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>品牌/型号</th><th>发布日期</th><th>核心参数</th><th>状态</th><th>版本</th><th>操作</th></tr></thead><tbody>{% for phone in phones %}<tr class="{% if not phone.is_active %}disabled-row{% endif %}"><td><b>{{ phone.brand.name }}</b><br>{{ phone.model_name }}</td><td>{{ phone.release_date or '—' }}</td><td>{{ phone.cpu or '—' }}<br><small>{{ phone.refresh_rate or '—' }}Hz · {{ phone.battery_mah or '—' }}mAh · {{ '有官网图' if phone.image_url else '缺图片' }}</small></td><td><span class="status-tag">{{ phone.sale_status }}</span></td><td>{{ phone.variants|length }}</td><td><button class="table-action" data-toggle="#edit-phone-{{ phone.id }}">编辑</button>{% if phone.is_active %}<form class="inline-form" method="post" action="/admin/phones/{{ phone.id }}/delete"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="table-action danger">停用</button></form>{% endif %}</td></tr><tr id="edit-phone-{{ phone.id }}" hidden><td colspan="6"><form class="inline-edit inline-edit-phone" method="post" action="/admin/phones/{{ phone.id }}/update"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input name="model_name" value="{{ phone.model_name }}" required><select name="sale_status">{% for state in ['on_sale','partial_sale','out_of_stock','discontinued'] %}<option {% if phone.sale_status == state %}selected{% endif %}>{{ state }}</option>{% endfor %}</select><input name="cpu" value="{{ phone.cpu or '' }}" placeholder="CPU"><input type="number" name="battery_mah" value="{{ phone.battery_mah or '' }}" placeholder="电池"><input type="number" name="refresh_rate" value="{{ phone.refresh_rate or '' }}" placeholder="刷新率"><input type="url" name="image_url" value="{{ phone.image_url or '' }}" placeholder="官网图片URL"><input type="url" name="image_source_url" value="{{ phone.image_source_url or '' }}" placeholder="图片来源页"><button>更新</button></form></td></tr>{% endfor %}</tbody></table></div>
+  </section>
+
+  <section class="admin-section" id="variants"><div class="section-heading"><div><span>CRUD 02</span><h2>内存版本</h2></div><button class="ghost-button" data-toggle="#new-variant">新增版本</button></div>
+    <form class="admin-form" id="new-variant" method="post" action="/admin/variants" hidden><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label>手机<select name="model_id" required>{% for phone in phones if phone.is_active %}<option value="{{ phone.id }}">{{ phone.brand.name }} {{ phone.model_name }}</option>{% endfor %}</select></label><label>运行内存 GB<input type="number" name="ram_gb"></label><label>存储 GB<input type="number" name="storage_gb" required></label><label>发售价<input type="number" step="0.01" name="launch_price"></label><button class="primary-button">保存版本</button></form>
+    <div class="card-list">{% for variant in variants %}<article class="admin-item {% if not variant.is_active %}disabled-row{% endif %}"><div><span>{{ variant.model.brand.name }}</span><h3>{{ variant.model.model_name }}</h3></div><b>{{ variant.variant_name }}</b><strong>{{ ('¥' + '{:,.0f}'.format(variant.launch_price)) if variant.launch_price else '待补充' }}</strong>{% if variant.is_active %}<form method="post" action="/admin/variants/{{ variant.id }}/delete"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="table-action danger">停用</button></form>{% endif %}</article>{% endfor %}</div>
+  </section>
+
+  <section class="admin-section" id="listings"><div class="section-heading"><div><span>CRUD 03</span><h2>平台商品与价格</h2></div><button class="ghost-button" data-toggle="#new-listing">新增链接</button></div>
+    <form class="admin-form" id="new-listing" method="post" action="/admin/listings" hidden><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label>手机版本<select name="variant_id" required>{% for variant in variants if variant.is_active %}<option value="{{ variant.id }}">{{ variant.model.model_name }} {{ variant.variant_name }}</option>{% endfor %}</select></label><label>平台<select name="platform"><option value="jd">京东</option><option value="tmall">天猫</option><option value="pdd">拼多多</option></select></label><label>官方店铺名<input name="store_name" required></label><label>商品ID<input name="external_id" required></label><label>SKU文字<input name="sku_text" required></label><label>商品URL<input type="url" name="product_url" required></label><button class="primary-button">保存链接</button></form>
+    <div class="listing-grid">
+      {% for row in listing_rows %}{% set listing = row.listing %}{% set latest = row.latest %}
+      <article class="listing-card {% if not listing.is_active %}disabled-row{% endif %}">
+        <div class="listing-platform">{{ listing.platform|upper }}</div>
+        <div class="listing-main">
+          <span>{{ listing.variant.model.model_name }} · {{ listing.variant.variant_name }}</span>
+          <h3>{{ listing.store_name }}</h3>
+          <small>{{ listing.external_id }} · {{ '官方店已审核' if listing.store_verified else '店铺待审核' }}</small>
+          <div class="listing-latest {{ 'stale' if latest.is_stale and latest.price else '' }}">
+            <strong>{{ ('¥' + '{:,.0f}'.format(latest.price)) if latest.price else '暂无价格快照' }}</strong>
+            <span>{{ latest.freshness_label }}{% if latest.checked_at %} · {{ latest.checked_at }}{% endif %}</span>
+            {% if latest.price %}<em>{{ '审核数据·证据齐全' if latest.is_reviewed and latest.has_evidence else '管理员手动录入' if latest.crawl_status == 'manual' else '待复核' }}</em>{% endif %}
+          </div>
+          {% if latest.promotion_labels %}<div class="promotion-tags">{% for label in latest.promotion_labels %}<i>{{ label }}</i>{% endfor %}</div>{% endif %}
+        </div>
+        <div class="listing-actions">
+          <a class="table-action" href="{{ listing.product_url }}" target="_blank" rel="noopener noreferrer">打开商品页 ↗</a>
+          <button class="table-action" data-toggle="#price-{{ listing.id }}">录入价格</button>
+          {% if listing.is_active %}<form method="post" action="/admin/listings/{{ listing.id }}/delete"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="table-action danger">停用</button></form>{% endif %}
+        </div>
+        <form class="price-form price-form-rich" id="price-{{ listing.id }}" method="post" action="/admin/listings/{{ listing.id }}/price" hidden>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <label>常规价<input type="number" min="300" max="30000" step="0.01" name="regular_price" placeholder="¥"></label>
+          <label>公开活动价<input type="number" min="300" max="30000" step="0.01" name="public_sale_price" placeholder="¥"></label>
+          <label>商品页实显国补<input type="number" min="300" max="30000" step="0.01" name="gov_price" placeholder="¥"></label>
+          <label>估算国补<input type="number" min="300" max="30000" step="0.01" name="estimated_gov_price" placeholder="¥"></label>
+          <label>百亿补贴<input type="number" min="300" max="30000" step="0.01" name="subsidy_price" placeholder="¥"></label>
+          <label>促销标签<input name="promotion_labels" placeholder="例：平台券，限时直降"></label>
+          <label>优惠能否叠加<select name="promotion_stackable"><option value="unknown">未知</option><option value="yes">可以</option><option value="no">不可</option></select></label>
+          <label class="stock-check"><input type="checkbox" name="in_stock" value="true" checked> 当前有货</label>
+          <button>保存新快照</button>
+        </form>
+      </article>
+      {% else %}<p>暂无平台商品链接。</p>{% endfor %}
+    </div>
+  </section>
+
+  <section class="admin-section" id="brands"><div class="section-heading"><div><span>CRUD 04</span><h2>品牌白名单</h2></div></div><form class="admin-form compact-form" method="post" action="/admin/brands"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label>品牌名称<input name="name" required></label><label>官方网站<input type="url" name="official_url"></label><button class="primary-button">新增品牌</button></form><div class="brand-admin-list">{% for brand in brands %}<div><b>{{ brand.name }}</b><span>{{ brand.official_url or '未设置官网' }}</span><form method="post" action="/admin/brands/{{ brand.id }}/toggle"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="table-action">{{ '停用' if brand.is_active else '启用' }}</button></form></div>{% endfor %}</div></section>
+</main>
+{% endblock %}

@@ -1,0 +1,121 @@
+﻿case_id,mode,budget,usage,required_brand,min_storage_gb,candidate_count,returned_count,top1,top1_price,top1_score,constraint_pass,expected_result_presence,case_latency_ms
+E01,rule_only,2000,综合体验,,128,4,4,vivo vivo Y500 8GB+128,1399.0,88.87,True,True,27.8
+E01,single_qwen,2000,综合体验,,128,4,4,vivo vivo Y500 8GB+128,1399.0,87.97,True,True,27.9
+E01,three_model_fusion,2000,综合体验,,128,4,4,vivo vivo Y500 8GB+128,1399.0,87.42,True,True,28.1
+E01,no_consensus,2000,综合体验,,128,4,4,vivo vivo Y500 8GB+128,1399.0,87.97,True,True,28.1
+E02,rule_only,2500,轻薄续航,,256,3,3,vivo vivo Y500 8GB+256,1599.0,86.2,True,True,7.4
+E02,single_qwen,2500,轻薄续航,,256,3,3,vivo vivo Y500 8GB+256,1599.0,86.27,True,True,7.5
+E02,three_model_fusion,2500,轻薄续航,,256,3,3,vivo vivo Y500 8GB+256,1599.0,86.23,True,True,7.6
+E02,no_consensus,2500,轻薄续航,,256,3,3,vivo vivo Y500 8GB+256,1599.0,85.7,True,True,7.6
+E03,rule_only,3000,摄影创作,,256,4,4,vivo vivo Y500 8GB+256,1599.0,71.37,True,True,8.0
+E03,single_qwen,3000,摄影创作,,256,4,4,vivo vivo Y500 8GB+256,1599.0,66.09,True,True,8.0
+E03,three_model_fusion,3000,摄影创作,,256,4,4,vivo vivo Y500 12GB+256,1799.0,68.94,True,True,8.2
+E03,no_consensus,3000,摄影创作,,256,4,4,vivo vivo Y500 8GB+256,1599.0,73.12,True,True,8.3
+E04,rule_only,3500,重度游戏,,256,6,5,vivo vivo Y500 8GB+256,1599.0,89.46,True,True,6.7
+E04,single_qwen,3500,重度游戏,,256,6,5,vivo vivo Y500 8GB+256,1599.0,86.85,True,True,6.8
+E04,three_model_fusion,3500,重度游戏,,256,6,5,vivo vivo Y500 8GB+256,1599.0,85.68,True,True,7.0
+E04,no_consensus,3500,重度游戏,,256,6,5,vivo vivo Y500 8GB+256,1599.0,88.47,True,True,7.0
+E05,rule_only,4000,摄影创作,,512,4,4,vivo vivo Y500 12GB+512,1999.0,71.37,True,True,5.5
+E05,single_qwen,4000,摄影创作,,512,4,4,vivo vivo Y500 12GB+512,1999.0,71.09,True,True,5.6
+E05,three_model_fusion,4000,摄影创作,,512,4,4,vivo vivo Y500 12GB+512,1999.0,71.82,True,True,5.7
+E05,no_consensus,4000,摄影创作,,512,4,4,vivo vivo Y500 12GB+512,1999.0,73.12,True,True,5.7
+E06,rule_only,4500,重度游戏,,256,11,5,vivo vivo Y500 8GB+256,1599.0,89.46,True,True,6.7
+E06,single_qwen,4500,重度游戏,,256,11,5,vivo vivo Y500 8GB+256,1599.0,83.01,True,True,6.8
+E06,three_model_fusion,4500,重度游戏,,256,11,5,vivo vivo Y500 8GB+256,1599.0,89.35,True,True,7.0
+E06,no_consensus,4500,重度游戏,,256,11,5,vivo vivo Y500 8GB+256,1599.0,88.47,True,True,7.1
+E07,rule_only,5000,摄影创作,,256,12,5,vivo iQOO 15 12GB+256,4499.0,79.81,True,True,7.0
+E07,single_qwen,5000,摄影创作,,256,12,5,vivo iQOO 15 12GB+256,4499.0,77.73,True,True,7.1
+E07,three_model_fusion,5000,摄影创作,,256,12,5,vivo iQOO 15 12GB+256,4499.0,77.73,True,True,7.2
+E07,no_consensus,5000,摄影创作,,256,12,5,vivo iQOO 15 12GB+256,4499.0,78.65,True,True,7.3
+E08,rule_only,5500,综合体验,,512,6,5,vivo vivo Y500 12GB+512,1999.0,88.87,True,True,5.1
+E08,single_qwen,5500,综合体验,,512,6,5,vivo vivo X300 12GB+512,5299.0,84.37,True,True,5.2
+E08,three_model_fusion,5500,综合体验,,512,6,5,vivo vivo Y500 12GB+512,1999.0,83.78,True,True,5.3
+E08,no_consensus,5500,综合体验,,512,6,5,vivo vivo Y500 12GB+512,1999.0,87.97,True,True,5.4
+E09,rule_only,6000,摄影创作,,512,12,5,vivo vivo X200 Pro 16GB+512GB,5999.0,81.06,True,True,5.2
+E09,single_qwen,6000,摄影创作,,512,12,5,vivo vivo X200 Pro 16GB+512GB,5999.0,80.56,True,True,5.4
+E09,three_model_fusion,6000,摄影创作,,512,12,5,vivo vivo X200 Pro 16GB+512GB,5999.0,80.56,True,True,5.5
+E09,no_consensus,6000,摄影创作,,512,12,5,vivo vivo X200 Pro 16GB+512GB,5999.0,79.08,True,True,5.6
+E10,rule_only,7000,重度游戏,,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,95.11,True,True,3.6
+E10,single_qwen,7000,重度游戏,,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,92.53,True,True,3.7
+E10,three_model_fusion,7000,重度游戏,,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,92.49,True,True,3.8
+E10,no_consensus,7000,重度游戏,,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,94.04,True,True,3.8
+E11,rule_only,5500,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,97.0,True,True,11.9
+E11,single_qwen,5500,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,94.0,True,True,11.9
+E11,three_model_fusion,5500,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,94.24,True,True,12.0
+E11,no_consensus,5500,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,96.0,True,True,12.0
+E12,rule_only,6000,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,84.81,True,True,7.4
+E12,single_qwen,6000,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,85.06,True,True,7.5
+E12,three_model_fusion,6000,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,84.9,True,True,7.5
+E12,no_consensus,6000,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,84.08,True,True,7.5
+E13,rule_only,6500,摄影创作,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,80.95,True,True,6.6
+E13,single_qwen,6500,摄影创作,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,82.1,True,True,6.7
+E13,three_model_fusion,6500,摄影创作,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,81.94,True,True,6.7
+E13,no_consensus,6500,摄影创作,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,80.14,True,True,6.7
+E14,rule_only,4000,轻薄续航,vivo,256,9,5,vivo vivo Y500 8GB+256,1599.0,86.2,True,True,7.3
+E14,single_qwen,4000,轻薄续航,vivo,256,9,5,vivo vivo Y500 12GB+256,1799.0,85.71,True,True,7.4
+E14,three_model_fusion,4000,轻薄续航,vivo,256,9,5,vivo vivo Y500 8GB+256,1599.0,85.72,True,True,7.6
+E14,no_consensus,4000,轻薄续航,vivo,256,9,5,vivo vivo Y500 8GB+256,1599.0,85.7,True,True,7.6
+E15,rule_only,5500,重度游戏,vivo,256,12,5,vivo vivo Y500 8GB+256,1599.0,89.46,True,True,6.9
+E15,single_qwen,5500,重度游戏,vivo,256,12,5,vivo vivo Y500 12GB+256,1799.0,87.9,True,True,7.0
+E15,three_model_fusion,5500,重度游戏,vivo,256,12,5,vivo vivo Y500 8GB+256,1599.0,87.7,True,True,7.2
+E15,no_consensus,5500,重度游戏,vivo,256,12,5,vivo vivo Y500 8GB+256,1599.0,88.47,True,True,7.3
+E16,rule_only,6000,摄影创作,荣耀,512,1,1,荣耀 荣耀Magic8 Pro 12GB+512GB,5999.0,81.22,True,True,5.0
+E16,single_qwen,6000,摄影创作,荣耀,512,1,1,荣耀 荣耀Magic8 Pro 12GB+512GB,5999.0,80.72,True,True,5.1
+E16,three_model_fusion,6000,摄影创作,荣耀,512,1,1,荣耀 荣耀Magic8 Pro 12GB+512GB,5999.0,80.16,True,True,5.1
+E16,no_consensus,6000,摄影创作,荣耀,512,1,1,荣耀 荣耀Magic8 Pro 12GB+512GB,5999.0,78.3,True,True,5.1
+E17,rule_only,3000,综合体验,Apple,256,0,0,,,,True,True,6.5
+E17,single_qwen,3000,综合体验,Apple,256,0,0,,,,True,True,6.5
+E17,three_model_fusion,3000,综合体验,Apple,256,0,0,,,,True,True,6.5
+E17,no_consensus,3000,综合体验,Apple,256,0,0,,,,True,True,6.5
+E18,rule_only,1000,综合体验,,256,0,0,,,,True,True,6.0
+E18,single_qwen,1000,综合体验,,256,0,0,,,,True,True,6.0
+E18,three_model_fusion,1000,综合体验,,256,0,0,,,,True,True,6.0
+E18,no_consensus,1000,综合体验,,256,0,0,,,,True,True,6.0
+E19,rule_only,5000,摄影创作,不存在品牌,256,0,0,,,,True,True,6.5
+E19,single_qwen,5000,摄影创作,不存在品牌,256,0,0,,,,True,True,6.5
+E19,three_model_fusion,5000,摄影创作,不存在品牌,256,0,0,,,,True,True,6.5
+E19,no_consensus,5000,摄影创作,不存在品牌,256,0,0,,,,True,True,6.5
+E20,rule_only,500,重度游戏,,1024,0,0,,,,True,True,2.5
+E20,single_qwen,500,重度游戏,,1024,0,0,,,,True,True,2.6
+E20,three_model_fusion,500,重度游戏,,1024,0,0,,,,True,True,2.6
+E20,no_consensus,500,重度游戏,,1024,0,0,,,,True,True,2.6
+E21,rule_only,2000,重度游戏,vivo,128,4,4,vivo vivo Y500 8GB+128,1399.0,89.46,True,True,7.5
+E21,single_qwen,2000,重度游戏,vivo,128,4,4,vivo vivo Y500 8GB+128,1399.0,88.35,True,True,7.6
+E21,three_model_fusion,2000,重度游戏,vivo,128,4,4,vivo vivo Y500 8GB+128,1399.0,88.31,True,True,7.7
+E21,no_consensus,2000,重度游戏,vivo,128,4,4,vivo vivo Y500 8GB+128,1399.0,88.47,True,True,7.7
+E22,rule_only,3500,摄影创作,vivo,512,2,2,vivo vivo Y500 12GB+512,1999.0,71.37,True,True,5.2
+E22,single_qwen,3500,摄影创作,vivo,512,2,2,vivo vivo Y500 12GB+512,1999.0,76.84,True,True,5.3
+E22,three_model_fusion,3500,摄影创作,vivo,512,2,2,vivo vivo Y500 12GB+512,1999.0,76.84,True,True,5.3
+E22,no_consensus,3500,摄影创作,vivo,512,2,2,vivo vivo Y500 12GB+512,1999.0,73.12,True,True,5.3
+E23,rule_only,5000,综合体验,小米,256,0,0,,,,True,True,6.0
+E23,single_qwen,5000,综合体验,小米,256,0,0,,,,True,True,6.0
+E23,three_model_fusion,5000,综合体验,小米,256,0,0,,,,True,True,6.0
+E23,no_consensus,5000,综合体验,小米,256,0,0,,,,True,True,6.0
+E24,rule_only,5100,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,97.0,True,True,17.9
+E24,single_qwen,5100,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,94.0,True,True,17.9
+E24,three_model_fusion,5100,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,93.91,True,True,18.0
+E24,no_consensus,5100,综合体验,小米,256,1,1,小米 Xiaomi 17 12GB+256GB,5099.0,96.0,True,True,18.0
+E25,rule_only,5400,摄影创作,华为,256,0,0,,,,True,True,18.4
+E25,single_qwen,5400,摄影创作,华为,256,0,0,,,,True,True,18.4
+E25,three_model_fusion,5400,摄影创作,华为,256,0,0,,,,True,True,18.4
+E25,no_consensus,5400,摄影创作,华为,256,0,0,,,,True,True,18.4
+E26,rule_only,5500,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,84.81,True,True,7.2
+E26,single_qwen,5500,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,85.06,True,True,7.3
+E26,three_model_fusion,5500,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,85.06,True,True,7.3
+E26,no_consensus,5500,摄影创作,华为,256,1,1,华为 HUAWEI Mate 70 12GB+256GB,5499.0,84.08,True,True,7.3
+E27,rule_only,5900,综合体验,Apple,256,0,0,,,,True,True,6.3
+E27,single_qwen,5900,综合体验,Apple,256,0,0,,,,True,True,6.3
+E27,three_model_fusion,5900,综合体验,Apple,256,0,0,,,,True,True,6.3
+E27,no_consensus,5900,综合体验,Apple,256,0,0,,,,True,True,6.3
+E28,rule_only,6000,综合体验,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,87.5,True,True,6.8
+E28,single_qwen,6000,综合体验,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,86.27,True,True,6.8
+E28,three_model_fusion,6000,综合体验,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,86.35,True,True,6.9
+E28,no_consensus,6000,综合体验,Apple,256,1,1,Apple iPhone 17 256GB,5999.0,85.69,True,True,6.9
+E29,rule_only,6500,重度游戏,vivo,1024,1,1,vivo vivo X300 16GB+1TB,6299.0,92.11,True,True,2.9
+E29,single_qwen,6500,重度游戏,vivo,1024,1,1,vivo vivo X300 16GB+1TB,6299.0,89.53,True,True,3.0
+E29,three_model_fusion,6500,重度游戏,vivo,1024,1,1,vivo vivo X300 16GB+1TB,6299.0,89.61,True,True,3.0
+E29,no_consensus,6500,重度游戏,vivo,1024,1,1,vivo vivo X300 16GB+1TB,6299.0,90.04,True,True,3.0
+E30,rule_only,7000,重度游戏,vivo,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,95.11,True,True,3.1
+E30,single_qwen,7000,重度游戏,vivo,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,92.53,True,True,3.2
+E30,three_model_fusion,7000,重度游戏,vivo,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,92.53,True,True,3.2
+E30,no_consensus,7000,重度游戏,vivo,1024,2,2,vivo vivo X300 16GB+1TB,6299.0,94.04,True,True,3.3

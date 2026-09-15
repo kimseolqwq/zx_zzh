@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block title %}手机库 · 择机{% endblock %}{% block content %}
+<main class="shell page-shell library-shell">
+  <section class="library-heading">
+    <div><p class="eyebrow">PHONE DATABASE</p><h1>按品牌探索在售手机</h1><p>来自品牌官网的当前产品目录；参数或日期尚未核验的记录会明确标注。</p></div>
+    <div class="library-summary"><div><b>{{ library_stats.phones }}</b><span>当前机型</span></div><div><b>{{ library_stats.variants }}</b><span>内存版本</span></div><div><b>{{ library_stats.verified }}</b><span>完整核验</span></div></div>
+  </section>
+  <section class="library-controls" aria-label="手机库筛选">
+    <form class="library-search" method="get"><label for="phone-query">搜索机型或品牌</label><div><input id="phone-query" type="search" name="q" value="{{ q }}" placeholder="例如：影像旗舰、iPhone、荣耀"><input type="hidden" name="brand" value="{{ selected_brand or '' }}"><input type="hidden" name="sort" value="{{ sort }}"><button type="submit">搜索</button></div></form>
+    <form class="library-sort" method="get"><input type="hidden" name="q" value="{{ q }}"><input type="hidden" name="brand" value="{{ selected_brand or '' }}"><label for="phone-sort">排序</label><select id="phone-sort" name="sort" onchange="this.form.submit()"><option value="newest" {% if sort == 'newest' %}selected{% endif %}>最新发布</option><option value="name" {% if sort == 'name' %}selected{% endif %}>机型名称</option><option value="price" {% if sort == 'price' %}selected{% endif %}>参考价从低到高</option></select></form>
+  </section>
+  <nav class="brand-filter" aria-label="品牌分类"><a class="{{ 'active' if not selected_brand else '' }}" href="/phones{% if q or sort != 'newest' %}?q={{ q|urlencode }}&sort={{ sort }}{% endif %}"><span>全部</span><b>{{ brand_counts.values()|sum }}</b></a>{% for brand in brands if brand_counts.get(brand.id, 0) %}<a class="{{ 'active' if selected_brand == brand.id else '' }}" href="/phones?brand={{ brand.id }}&q={{ q|urlencode }}&sort={{ sort }}"><span>{{ brand.name }}</span><b>{{ brand_counts.get(brand.id, 0) }}</b></a>{% endfor %}</nav>
+  {% for group in groups %}<section class="brand-group" id="brand-{{ group.brand.id }}"><header><div><span>{{ '%02d'|format(loop.index) }}</span><div><h2>{{ group.brand.name }}</h2><p>{{ group['items']|length }} 款在售机型 · 官网数据持续校验</p></div></div>{% if group.brand.official_url %}<a href="{{ group.brand.official_url }}" target="_blank" rel="noopener noreferrer">品牌官网 ↗</a>{% endif %}</header>
+    <div class="phone-library">{% for item in group['items'] %}{% set phone = item.record %}<a class="phone-library-card" href="/phones/{{ phone.id }}">
+      <div class="library-card-image">{% if phone.image_url %}<img src="{{ phone.image_url }}" alt="{{ phone.model_name }} 官网产品图" loading="lazy" referrerpolicy="no-referrer" data-official-image>{% else %}<span>{{ phone.brand.name[0] }}</span><small>官网图片待补充</small>{% endif %}</div>
+      <div class="library-card-copy"><span>{{ phone.brand.name }}{% if phone.release_date %} · {{ phone.release_date.strftime('%Y.%m') }}{% endif %}</span><h3>{{ phone.model_name }}</h3><p>{{ phone.cpu or phone.camera_summary or '官方参数正在补充' }}</p><div class="library-specs"><b>{{ phone.screen_size or '—' }}″</b><b>{{ phone.refresh_rate or '—' }} Hz</b><b>{{ phone.battery_mah or '—' }} mAh</b></div><footer><small>{% if phone.data_quality == 'official_catalog_only' %}官网目录已核验 · 参数待补齐{% else %}{{ item.variant_count }} 个版本 · 参数完整度 {{ item.data_completeness }}%{% endif %}</small>{% if item.lowest_price %}<strong><i>{{ item.price_kind }}</i>¥{{ '{:,.0f}'.format(item.lowest_price) }}</strong>{% else %}<strong class="pending-price">价格待采集</strong>{% endif %}</footer></div>
+    </a>{% endfor %}</div>
+  </section>{% else %}<div class="empty-result library-empty"><span>⌕</span><h2>没有找到匹配机型</h2><p>请尝试更换品牌或缩短搜索关键词。</p><a href="/phones">清除筛选</a></div>{% endfor %}
+</main>
+{% endblock %}

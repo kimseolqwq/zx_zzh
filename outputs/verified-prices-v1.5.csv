@@ -1,0 +1,7 @@
+﻿id,listing_id,regular_price,public_sale_price,displayed_gov_price,estimated_gov_price,billion_subsidy_price,promotion_labels,promotion_stackable,in_stock,crawl_status,evidence_text_path,screenshot_path,crawled_at
+1,1,5499.00,4899.00,4399.00,4399.00,4699.00,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+2,2,4499.00,4299.00,3799.00,3799.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+3,3,5999.00,5299.00,4799.00,4799.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+4,4,5999.00,4999.00,4499.00,4499.00,,演示数据,unknown,True,demo,,,2026-09-02 09:56:48.330340
+5,5,,4499.00,3999.00,,,京东公开价;部分地区国家补贴;资格和地区以用户实际页面为准,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/jd_iqoo15_12_256.txt,,2026-09-02 16:27:58.545699
+6,6,4899.00,4559.05,,,4559.05,百亿补贴;券后价;闪电加补100元;政府补贴5%资格和实价未核验,unknown,True,reviewed,data/raw/ecommerce/2026-09-03/tmall_iqoo15_16_256.txt,,2026-09-02 16:27:58.546698

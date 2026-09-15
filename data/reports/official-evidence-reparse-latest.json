@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-09-03T09:13:06.387852+00:00",
+  "source_report": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\reports\\catalog-20260902-232836.json",
+  "network_requests": 0,
+  "phones_reparsed": 54,
+  "phones_with_variants": 37,
+  "brands_added": 0,
+  "phones_added": 0,
+  "phones_updated": 54,
+  "variants_added": 0,
+  "failures": [],
+  "backup": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\backups\\before-evidence-reparse-20260903-171306.db"
+}

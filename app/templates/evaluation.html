@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}系统评估 · 择机{% endblock %}
+{% block content %}
+<main class="shell evaluation-shell">
+  <section class="evaluation-hero">
+    <div><p class="eyebrow">EVIDENCE &amp; MEASUREMENT</p><h1>系统评估与证据</h1><p>所有指标直接读取当前 SQLite 数据库与模型运行日志，不使用预先写死的演示数字。</p></div>
+    <div class="evaluation-hero-score"><span>推荐运行成功率</span><b>{{ metrics.runs.success_rate }}%</b><small>最近 {{ metrics.runs.count }} 次{% if not metrics.runs.count %} · 尚无运行样本{% endif %}</small></div>
+  </section>
+
+  <section class="evaluation-kpis" aria-label="数据集摘要">
+    <article><span>品牌覆盖</span><b>{{ metrics.dataset.brands }}</b><small>当前品牌</small></article>
+    <article><span>在售机型</span><b>{{ metrics.dataset.phones }}</b><small>{{ metrics.dataset.official_source_rate }}% 有官网来源</small></article>
+    <article><span>内存版本</span><b>{{ metrics.dataset.variants }}</b><small>{{ metrics.dataset.launch_price_rate }}% 有发售价</small></article>
+    <article><span>核验价格</span><b>{{ metrics.dataset.reviewed_snapshots }}</b><small>{{ metrics.prices.evidence_rate }}% 有留证</small></article>
+    <article><span>端到端 P50</span><b>{{ (metrics.runs.p50_latency_s|string + 's') if metrics.runs.p50_latency_s is not none else '—' }}</b><small>P95 {{ (metrics.runs.p95_latency_s|string + 's') if metrics.runs.p95_latency_s is not none else '—' }}</small></article>
+  </section>
+
+  <section class="evaluation-grid">
+    <article class="evaluation-panel coverage-panel">
+      <header><div><span>DATA QUALITY</span><h2>核心字段覆盖率</h2></div><small>非空且排除“未知/待补充”等占位值</small></header>
+      <div class="coverage-list">
+        {% for item in metrics.field_coverage %}
+        <div><span>{{ item.label }}</span><i><em style="width:{{ item.percent }}%"></em></i><b>{{ item.percent }}%</b><small>{{ item.count }}/{{ item.total }}</small></div>
+        {% endfor %}
+      </div>
+      <footer>官网来源覆盖 {{ metrics.dataset.official_sources }}/{{ metrics.dataset.phones }} · 有版本机型 {{ metrics.dataset.phones_with_variants }}/{{ metrics.dataset.phones }}</footer>
+    </article>
+
+    <article class="evaluation-panel price-evaluation">
+      <header><div><span>PRICE PROVENANCE</span><h2>可信价格覆盖</h2></div><small>只统计已审核官方店或自营链接</small></header>
+      <div class="price-trust-kpis"><div><b>{{ metrics.prices.verified_listings }}</b><span>已核验商品</span></div><div><b>{{ metrics.prices.fresh }}</b><span>7天内价格</span></div><div><b>{{ metrics.prices.evidence }}</b><span>证据齐全</span></div></div>
+      <div class="platform-evaluation">
+        {% for item in metrics.prices.platforms %}
+        <div><span>{{ item.name }}</span><b>{{ item.priced }}</b><small>有价 / {{ item.listings }} 链接</small><em class="{{ 'ready' if item.fresh else '' }}">{{ item.fresh }} 条新鲜</em></div>
+        {% endfor %}
+      </div>
+      <p>价格覆盖仍处于小规模高置信阶段。没有同时确认机型、内存版本、官方店和商品页价格的数据不会入库。</p>
+    </article>
+  </section>
+
+  <section class="evaluation-panel fusion-panel">
+    <header><div><span>EXPLAINABLE FUSION</span><h2>最终答案如何产生</h2></div><small>规则约束最终决策，模型不能直接修改数据库事实</small></header>
+    <div class="fusion-flow">
+      <div><b>01</b><h3>数据库硬筛选</h3><p>限定在售状态、预算、存储和品牌偏好，资格优惠不默认计入预算。</p></div><i>→</i>
+      <div><b>02</b><h3>三模型独立评审</h3><p>Qwen3、Qwen2.5、Gemma 只读取候选数据，分别返回结构化评分。</p></div><i>→</i>
+      <div><b>03</b><h3>一致性校准</h3><p>模型平均分会按标准差惩罚；意见越分散，共识分越低。</p></div><i>→</i>
+      <div><b>04</b><h3>五维加权融合</h3><p>需求35% + 共识25% + 数据20% + 性价比15% + 时效5%。</p></div>
+    </div>
+    <div class="weight-strip"><span style="--weight:35">需求匹配 35%</span><span style="--weight:25">模型共识 25%</span><span style="--weight:20">数据可信 20%</span><span style="--weight:15">性价比 15%</span><span style="--weight:5">时效性 5%</span></div>
+  </section>
+
+  <section class="evaluation-panel model-evaluation">
+    <header><div><span>LOCAL MODEL BENCHMARK</span><h2>本地模型性能</h2></div><small>最近 300 条模型调用日志</small></header>
+    <div class="model-benchmark-head"><span>模型</span><span>调用</span><span>成功率</span><span>JSON成功率</span><span>平均延迟</span><span>P95延迟</span><span>输出速度</span></div>
+    {% for model in metrics.models %}
+    <div class="model-benchmark-row"><b>{{ model.model_name }}</b><span>{{ model.calls }}</span><span>{{ model.success_rate }}%</span><span>{{ model.json_rate }}%</span><span>{{ (model.avg_latency_s|string + ' s') if model.avg_latency_s is not none else '—' }}</span><span>{{ (model.p95_latency_s|string + ' s') if model.p95_latency_s is not none else '—' }}</span><span>{{ (model.avg_tps|string + ' tok/s') if model.avg_tps is not none else '—' }}</span></div>
+    {% else %}<div class="benchmark-empty">完成一次真实推荐后，系统会自动生成各模型的成功率、延迟与吞吐量。</div>{% endfor %}
+  </section>
+
+  <section class="evaluation-grid acceptance-grid">
+    <article class="evaluation-panel">
+      <header><div><span>ACCEPTANCE TARGETS</span><h2>课程验收目标</h2></div></header>
+      <ul class="target-list"><li><b>≥95%</b><span>预算约束准确率</span></li><li><b>≥95%</b><span>抽样数据字段准确率</span></li><li><b>≥85%</b><span>Top-3 人工有用率</span></li><li><b>100%</b><span>单模型失败时服务降级可用</span></li></ul>
+    </article>
+    <article class="evaluation-panel limitation-panel">
+      <header><div><span>LIMITATIONS</span><h2>边界与诚实披露</h2></div></header>
+      <ul><li>电商价格样本尚少，不能宣称覆盖全部品牌与版本。</li><li>优惠资格、地区差异和库存以平台结算页为准。</li><li>当前延迟样本包含模型冷启动，应使用多轮 P50/P95 报告。</li><li>缺失参数不会由大模型猜测，界面统一显示“待补充”。</li></ul>
+    </article>
+  </section>
+</main>
+{% endblock %}

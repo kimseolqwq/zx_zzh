@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="基于多模型融合的手机购买推荐系统页面原型" />
+    <title>择机 · 手机购买推荐</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="择机首页">
+        <span class="brand-mark">择</span>
+        <span>择机</span>
+        <small>多模型手机推荐</small>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item active" data-page="推荐">智能推荐</button>
+        <button class="nav-item" data-page="手机库">手机库</button>
+        <button class="nav-item" data-page="数据管理">数据管理</button>
+      </nav>
+      <div class="status-pill"><i></i> 数据服务正常</div>
+    </header>
+
+    <main class="shell">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">SMARTPHONE DECISION LAB</p>
+          <h1>把需求说清楚，<br /><span>把选择交给证据。</span></h1>
+        </div>
+        <p class="intro-copy">综合本地大模型意见、官方参数与三大平台价格，为每一次推荐给出理由和可信度。</p>
+      </section>
+
+      <section class="workspace">
+        <form class="query-panel" id="recommend-form">
+          <div class="panel-heading">
+            <div>
+              <span class="step">01</span>
+              <h2>告诉我们你的需求</h2>
+            </div>
+            <span class="demo-badge">交互原型</span>
+          </div>
+
+          <label class="field-label" for="budget">购机预算</label>
+          <div class="budget-row">
+            <div class="money-input"><span>¥</span><input id="budget" type="number" value="5000" min="800" max="15000" /></div>
+            <div class="quick-options" aria-label="常用预算">
+              <button type="button" data-budget="3000">3千内</button>
+              <button type="button" data-budget="5000" class="selected">3—5千</button>
+              <button type="button" data-budget="8000">5—8千</button>
+            </div>
+          </div>
+
+          <fieldset>
+            <legend>主要用途</legend>
+            <div class="choice-grid" id="usage-options">
+              <label><input type="radio" name="usage" value="综合体验" checked /><span><b>综合体验</b><small>日常使用更均衡</small></span></label>
+              <label><input type="radio" name="usage" value="摄影创作" /><span><b>摄影创作</b><small>人像、长焦与视频</small></span></label>
+              <label><input type="radio" name="usage" value="重度游戏" /><span><b>重度游戏</b><small>性能、散热与续航</small></span></label>
+              <label><input type="radio" name="usage" value="轻薄续航" /><span><b>轻薄续航</b><small>手感和长时间使用</small></span></label>
+            </div>
+          </fieldset>
+
+          <div class="two-fields">
+            <label>品牌偏好<select id="brand-select"><option>不限品牌</option><option>华为</option><option>小米</option><option>Apple</option><option>vivo</option><option>OPPO</option></select></label>
+            <label>最低存储<select id="storage-select"><option>256GB</option><option>512GB</option><option>1TB</option></select></label>
+          </div>
+
+          <label class="field-label" for="details">还有什么特别要求？</label>
+          <textarea id="details" rows="3" placeholder="例如：经常旅行拍照，希望信号稳定，不要曲面屏……"></textarea>
+
+          <button class="primary-button" type="submit"><span>生成推荐方案</span><b>→</b></button>
+          <p class="form-note">推荐结果基于演示数据，正式版将连接 SQLite 数据库与本地模型。</p>
+        </form>
+
+        <section class="result-panel" aria-live="polite">
+          <div class="result-head">
+            <div>
+              <p>为你筛选出 <strong id="match-count">3</strong> 款</p>
+              <h2 id="result-title">预算 ¥5,000 · 综合体验优先</h2>
+            </div>
+            <button class="ghost-button" id="explain-button">查看融合解释</button>
+          </div>
+
+          <article class="hero-result clickable-card" id="hero-result" role="button" tabindex="0" aria-label="查看第一名手机基本参数">
+            <div class="rank">TOP<br /><strong>1</strong></div>
+            <div class="phone-token" aria-hidden="true"><span id="hero-token">M</span></div>
+            <div class="hero-copy">
+              <div class="title-line"><div><span id="hero-brand">华为</span><h3 id="hero-name">HUAWEI Mate 70</h3></div><strong id="hero-score">92<span>分</span></strong></div>
+              <p id="hero-reason">影像、通信与系统体验均衡，三位模型中有两位将其列为首选。</p>
+              <div class="tags" id="hero-tags"><span>综合均衡</span><span>可靠通信</span><span>长焦影像</span></div>
+              <div class="price-box">
+                <div><small>当前公开最低价</small><b id="hero-price">¥4,899</b><span id="hero-platform">拼多多官方旗舰店</span></div>
+                <div class="conditional"><small>符合资格时</small><span id="hero-gov">国补参考 ¥4,399</span><span id="hero-subsidy">百亿补贴 ¥4,699</span></div>
+              </div>
+            </div>
+          </article>
+
+          <div class="secondary-results" id="secondary-results"></div>
+
+          <div class="evidence-drawer" id="evidence-drawer" hidden>
+            <div class="drawer-title"><b>多模型融合依据</b><span>数据更新：2026-09-02</span></div>
+            <div class="model-row"><span>Qwen 本地模型</span><i><em style="width: 94%"></em></i><b>94</b></div>
+            <div class="model-row"><span>DeepSeek 本地模型</span><i><em style="width: 89%"></em></i><b>89</b></div>
+            <div class="model-row"><span>Llama 本地模型</span><i><em style="width: 86%"></em></i><b>86</b></div>
+            <p>最终分数 = 需求匹配 35% + 模型共识 25% + 数据可信度 20% + 性价比 15% + 时效性 5%</p>
+          </div>
+        </section>
+      </section>
+
+      <section class="data-strip">
+        <div><span>数据库规模</span><strong>128</strong><small>在售机型</small></div>
+        <div><span>版本覆盖</span><strong>386</strong><small>内存版本</small></div>
+        <div><span>价格记录</span><strong>2,846</strong><small>平台快照</small></div>
+        <div><span>数据可信度</span><strong>96.2%</strong><small>人工抽查</small></div>
+        <button id="manage-button">进入数据管理 <span>→</span></button>
+      </section>
+    </main>
+
+    <div class="spec-modal" id="spec-modal" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <section class="spec-dialog" role="dialog" aria-modal="true" aria-labelledby="spec-name">
+        <button class="modal-close" type="button" data-close-modal aria-label="关闭参数信息">×</button>
+        <div class="spec-heading">
+          <div class="spec-token" id="spec-token">M</div>
+          <div><span id="spec-brand">华为</span><h2 id="spec-name">HUAWEI Mate 70</h2><p>基础参数速览 · 演示数据</p></div>
+        </div>
+        <div class="spec-grid">
+          <div><small>处理器 CPU</small><strong id="spec-cpu">麒麟系列处理器</strong></div>
+          <div><small>后置主摄</small><strong id="spec-camera">5000 万像素</strong></div>
+          <div><small>屏幕尺寸</small><strong id="spec-screen">6.7 英寸</strong></div>
+          <div><small>屏幕刷新率</small><strong id="spec-refresh">120 Hz</strong></div>
+          <div><small>电池容量</small><strong id="spec-battery">5300 mAh</strong></div>
+          <div><small>机身重量</small><strong id="spec-weight">约 203 g</strong></div>
+        </div>
+        <div class="spec-foot"><span>数据来源</span><b>品牌官网规格页</b><small>正式版将显示来源链接与采集时间</small></div>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

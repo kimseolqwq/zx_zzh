@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ phone.model_name }} · 择机{% endblock %}
+{% block content %}
+<main class="shell page-shell">
+  <a class="back-link" href="/phones">← 返回手机库</a>
+  <section class="detail-hero">
+    <div>
+      <p class="eyebrow">{{ phone.brand.name }} · {{ phone.sale_status }}</p>
+      <h1>{{ phone.model_name }}</h1>
+      <p>{{ phone.camera_summary or '官方参数持续补充中' }}</p>
+      {% if phone.source_url or phone.official_url %}<a class="source-link" href="{{ phone.source_url or phone.official_url }}" target="_blank" rel="noreferrer">查看官方数据来源 ↗</a>{% endif %}
+    </div>
+    {% if phone.image_url %}
+    <a class="detail-product-image" href="{{ phone.image_source_url or phone.source_url or phone.official_url }}" target="_blank" rel="noopener noreferrer">
+      <img src="{{ phone.image_url }}" alt="{{ phone.model_name }} 官网产品图" referrerpolicy="no-referrer" data-official-image>
+      <small>官网产品图 ↗</small>
+    </a>
+    {% endif %}
+    <div class="detail-score"><span>参数数据状态</span><b>{{ phone.data_quality }}</b><small>{{ phone.source_checked_at.strftime('%Y-%m-%d') if phone.source_checked_at else '未校验' }}</small></div>
+  </section>
+
+  <section class="detail-grid">
+    <div><small>处理器</small><strong>{{ phone.cpu or '—' }}</strong></div>
+    <div><small>屏幕</small><strong>{{ phone.screen_size or '—' }} 英寸 {{ phone.screen_type or '' }}</strong></div>
+    <div><small>刷新率</small><strong>{{ phone.refresh_rate or '—' }} Hz</strong></div>
+    <div><small>主摄</small><strong>{{ phone.main_camera_mp or '—' }} MP</strong></div>
+    <div><small>电池</small><strong>{{ phone.battery_mah or '—' }} mAh</strong></div>
+    <div><small>重量</small><strong>{{ phone.weight_g or '—' }} g</strong></div>
+  </section>
+
+  <section class="price-trust-note">
+    <b>价格口径说明</b>
+    <span>仅展示已审核官方旗舰店或自营链接；“实显国补”来自商品页，“估算国补”只作计算参考。地区、资格、库存和最终成交价请以结算页为准。</span>
+  </section>
+
+  <section class="variant-section">
+    <div class="section-heading"><h2>内存版本与平台价格</h2><span>每条价格均标注最近核验时间</span></div>
+    {% for row in variant_rows %}
+    <article class="variant-row">
+      <div class="variant-summary">
+        <h3>{{ row.variant.variant_name }}</h3>
+        <span>发售价 {{ ('¥' + '{:,.0f}'.format(row.variant.launch_price)) if row.variant.launch_price else '待补充' }}</span>
+        {% if row.variant.launch_price_source %}<a href="{{ row.variant.launch_price_source }}" target="_blank" rel="noreferrer">发售价来源 ↗</a>{% endif %}
+      </div>
+      <div class="platform-price-list">
+        {% for quote in row.quotes %}
+        <article class="detail-quote {{ 'is-stale' if quote.is_stale else '' }}">
+          <header><b>{{ quote.platform_name }}</b><em class="{{ 'warning' if quote.is_stale else '' }}">{{ quote.freshness_label }}</em></header>
+          <span>{{ quote.listing.store_name }}</span>
+          {% if quote.product_url %}
+          <a class="detail-buy-price" href="{{ quote.product_url }}" target="_blank" rel="noopener noreferrer">
+            {{ ('¥' + '{:,.0f}'.format(quote.price)) if quote.price else ('暂时无货' if not quote.in_stock else '价格待补充') }} ↗
+          </a>
+          {% else %}<strong>{{ ('¥' + '{:,.0f}'.format(quote.price)) if quote.price else '暂无价格' }}</strong>{% endif %}
+          {% if quote.regular_price and quote.sale_price and quote.regular_price != quote.sale_price %}<small class="regular-price">常规价 ¥{{ '{:,.0f}'.format(quote.regular_price) }}</small>{% endif %}
+          <div class="detail-benefits">
+            {% if quote.displayed_gov_price %}<a href="{{ quote.product_url }}" target="_blank" rel="noopener noreferrer">实显国补 ¥{{ '{:,.0f}'.format(quote.displayed_gov_price) }}</a>{% endif %}
+            {% if quote.estimated_gov_price %}<span>估算国补 ¥{{ '{:,.0f}'.format(quote.estimated_gov_price) }}</span>{% endif %}
+            {% if quote.billion_subsidy_price %}<a href="{{ quote.product_url }}" target="_blank" rel="noopener noreferrer">百亿补贴 ¥{{ '{:,.0f}'.format(quote.billion_subsidy_price) }}</a>{% endif %}
+          </div>
+          {% if quote.promotion_labels %}<div class="promotion-tags">{% for label in quote.promotion_labels %}<i>{{ label }}</i>{% endfor %}</div>{% endif %}
+          <footer>
+            <span>{{ quote.checked_at or '未记录采集时间' }}</span>
+            <b>{{ '已审核·有证据' if quote.is_reviewed and quote.has_evidence else '管理员录入' if quote.crawl_status == 'manual' else '待复核' }}</b>
+          </footer>
+        </article>
+        {% else %}
+        <div class="no-platform-price"><b>暂无已审核平台商品</b><span>当前可参考左侧发售价，价格采集后会自动显示。</span></div>
+        {% endfor %}
+      </div>
+    </article>
+    {% else %}
+    <div class="no-platform-price"><b>暂无有效内存版本</b></div>
+    {% endfor %}
+  </section>
+</main>
+{% endblock %}

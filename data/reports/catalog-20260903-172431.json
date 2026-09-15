@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-09-03T09:25:02.673231+00:00",
+  "summary": {
+    "collected": 9,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 9,
+    "variants_added": 11
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 9,
+    "with_official_image": 5,
+    "average_spec_completeness": 51.9
+  },
+  "items": [
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 90 Pro Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\consumer.huawei.com\\20260903T092435Z-8f423d8a00.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura X Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x-max/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 66.7,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\consumer.huawei.com\\20260903T092438Z-ab0c4d3522.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8 Pro",
+      "url": "https://www.realme.com/cn/realme-gt-8-pro/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T092439Z-78f8362e1f.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8",
+      "url": "https://www.realme.com/cn/realme-gt-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T092442Z-f2010d5fda.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我Neo8",
+      "url": "https://www.realme.com/cn/realme-neo-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T092445Z-0e7a44fa96.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26 Ultra",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26-ultra/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T092453Z-982982a600.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T092456Z-b67637a1af.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Fold8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold8/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T092458Z-c6f1a9b6a3.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Flip8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-flip8/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T092502Z-ab59b0cee7.txt"
+    }
+  ],
+  "failures": []
+}

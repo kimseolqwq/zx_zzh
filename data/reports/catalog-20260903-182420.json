@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-09-03T10:24:37.330658+00:00",
+  "summary": {
+    "collected": 10,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 10,
+    "variants_added": 1
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 10,
+    "with_official_image": 5,
+    "average_spec_completeness": 51.7
+  },
+  "items": [
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 90 Pro Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\consumer.huawei.com\\20260903T102420Z-8f423d8a00.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura X Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x-max/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 66.7,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\consumer.huawei.com\\20260903T102423Z-ab0c4d3522.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8 Pro",
+      "url": "https://www.realme.com/cn/realme-gt-8-pro/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T102423Z-78f8362e1f.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8",
+      "url": "https://www.realme.com/cn/realme-gt-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T102425Z-f2010d5fda.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我Neo8",
+      "url": "https://www.realme.com/cn/realme-neo-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T102427Z-0e7a44fa96.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我15 Pro",
+      "url": "https://www.realme.com/cn/realme-15-pro/specs",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 50.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T102430Z-54609e4326.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26 Ultra",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26-ultra/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T102430Z-982982a600.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T102432Z-9bd5405240.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Fold8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold8/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T102435Z-c6f1a9b6a3.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Flip8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-flip8/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 0.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.samsung.com.cn\\20260903T102437Z-ab59b0cee7.txt"
+    }
+  ],
+  "failures": []
+}

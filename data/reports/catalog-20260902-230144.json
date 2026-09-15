@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-09-02T15:01:47.913157+00:00",
+  "summary": {
+    "collected": 5,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 0,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 5,
+    "with_official_image": 5,
+    "average_spec_completeness": 33.3
+  },
+  "items": [
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17 Pro",
+      "url": "https://www.apple.com.cn/iphone-17-pro/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 33.3,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.apple.com.cn\\20260902T150145Z-a2bb7d8998.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17 Pro Max",
+      "url": "https://www.apple.com.cn/iphone-17-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 33.3,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.apple.com.cn\\20260902T150145Z-a2bb7d8998.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone Air",
+      "url": "https://www.apple.com.cn/iphone-air/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 33.3,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.apple.com.cn\\20260902T150146Z-6a095846fe.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17",
+      "url": "https://www.apple.com.cn/iphone-17/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 33.3,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.apple.com.cn\\20260902T150147Z-adefa95d0d.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17e",
+      "url": "https://www.apple.com.cn/iphone-17e/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 33.3,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.apple.com.cn\\20260902T150147Z-44d9ddaf4c.txt"
+    }
+  ],
+  "failures": []
+}

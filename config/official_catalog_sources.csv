@@ -1,0 +1,73 @@
+brand,model_name,official_url,fallback_variants,source_note
+Apple,iPhone 17 Pro,https://www.apple.com.cn/iphone-17-pro/specs/,256;512;1024,Apple 中国技术规格页
+Apple,iPhone 17 Pro Max,https://www.apple.com.cn/iphone-17-pro/specs/,256;512;1024;2048,Apple 中国技术规格页
+Apple,iPhone Air,https://www.apple.com.cn/iphone-air/specs/,256;512;1024,Apple 中国技术规格页
+Apple,iPhone 17,https://www.apple.com.cn/iphone-17/specs/,256;512,Apple 中国技术规格页
+Apple,iPhone 17e,https://www.apple.com.cn/iphone-17e/specs/,128;256;512,Apple 中国技术规格页
+Apple,iPhone 16,https://www.apple.com.cn/iphone-16/specs/,128;256;512,Apple 中国技术规格页
+华为,HUAWEI Pura 90 Pro Max,https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/,,华为官方规格页
+华为,HUAWEI Pura X Max,https://consumer.huawei.com/cn/phones/pura-x-max/specs/,,华为官方规格页
+华为,HUAWEI nova 16 Pro,https://consumer.huawei.com/cn/phones/nova16-pro/,,华为消费者业务官网
+华为,HUAWEI Mate 70,https://consumer.huawei.com/cn/phones/mate70/specs/,,华为消费者业务规格页
+华为,HUAWEI Mate 70 Pro,https://consumer.huawei.com/cn/phones/mate70-pro/specs/,,华为消费者业务规格页
+华为,HUAWEI Pura 80 Ultra,https://consumer.huawei.com/cn/phones/pura80-ultra/specs/,,华为消费者业务规格页
+小米,Xiaomi 17,https://www.mi.com/prod/xiaomi-17/specs,,小米官方规格页
+小米,Xiaomi 17 Pro,https://www.mi.com/prod/xiaomi-17-pro/specs,,小米官方规格页
+小米,Xiaomi 17 Pro Max,https://www.mi.com/prod/xiaomi-17-pro-max/specs,,小米官方规格页
+小米,REDMI K80,https://www.mi.com/prod/redmi-k80/specs,,小米官方规格页
+小米,REDMI K80 Pro,https://www.mi.com/prod/redmi-k80-pro/specs,,小米官方规格页
+小米,REDMI K80 至尊版,https://www.mi.com/prod/redmi-k80-ultra/specs,,小米官方规格页
+荣耀,荣耀600 Pro,https://www.honor.com/cn/phones/honor-600-pro/,,荣耀官网当前产品页
+荣耀,荣耀600 超级版,https://www.honor.com/cn/phones/honor-600/,,荣耀官网当前产品页
+荣耀,荣耀600 元气版,https://www.honor.com/cn/phones/honor-600-genki/,,荣耀官网当前产品页
+荣耀,荣耀Magic V6,https://www.honor.com/cn/phones/honor-magic-v6/,,荣耀官网当前产品页
+荣耀,荣耀Magic8 Pro,https://www.honor.com/cn/phones/honor-magic8-pro/,,荣耀官网当前产品页
+荣耀,荣耀Magic8 Pro Air,https://www.honor.com/cn/phones/honor-magic8-pro-air/,,荣耀官网当前产品页
+荣耀,荣耀500 Pro,https://www.honor.com/cn/phones/honor-500-pro/,,荣耀官网当前产品页
+荣耀,荣耀WIN,https://www.honor.com/cn/phones/honor-win/,,荣耀官网当前产品页
+荣耀,荣耀Power2,https://www.honor.com/cn/phones/honor-power2/,,荣耀官网当前产品页
+荣耀,荣耀X80i,https://www.honor.com/cn/phones/honor-x80i/,,荣耀官网当前产品页
+OPPO,OPPO Find X9 Ultra,https://www.oppo.com/cn/smartphones/series-find-x/find-x9-ultra/specs/,,OPPO 官方规格页
+OPPO,OPPO Find X9s Pro,https://www.oppo.com/cn/smartphones/series-find-x/find-x9s-pro/specs/,,OPPO 官方规格页
+OPPO,OPPO Find X9 Pro,https://www.oppo.com/cn/smartphones/series-find-x/find-x9-pro/specs/,,OPPO 官方规格页
+OPPO,OPPO Find X9,https://www.oppo.com/cn/smartphones/series-find-x/find-x9/specs/,,OPPO 官方规格页
+OPPO,OPPO Reno16 Pro,https://www.oppo.com/cn/smartphones/series-reno/reno16-pro/specs/,,OPPO 官方规格页
+OPPO,OPPO Reno16,https://www.oppo.com/cn/smartphones/series-reno/reno16/specs/,,OPPO 官方规格页
+OPPO,OPPO K15 Pro,https://www.oppo.com/cn/smartphones/series-k/k15-pro/specs/,,OPPO 官方规格页
+OPPO,OPPO A6s Pro,https://www.oppo.com/cn/smartphones/series-a/a6s-pro/specs/,,OPPO 官方规格页
+vivo,vivo X300 Ultra,https://www.vivo.com.cn/vivo/param/x300ultra,,vivo 官方参数页
+vivo,vivo X300 Pro,https://www.vivo.com.cn/vivo/param/x300pro,,vivo 官方参数页
+vivo,vivo X300,https://www.vivo.com.cn/vivo/param/x300,,vivo 官方参数页
+vivo,vivo S50 Pro mini,https://www.vivo.com.cn/vivo/param/s50promini,,vivo 官方参数页
+vivo,vivo S50,https://www.vivo.com.cn/vivo/param/s50,,vivo 官方参数页
+vivo,vivo Y500,https://www.vivo.com.cn/vivo/param/y500,,vivo 官方参数页
+vivo,iQOO 15 Ultra,https://www.vivo.com.cn/vivo/param/iqoo15ultra,,vivo 官方参数页
+vivo,iQOO 15,https://www.vivo.com.cn/vivo/param/iqoo15,,vivo 官方参数页
+vivo,vivo X200 Pro,https://www.vivo.com.cn/vivo/param/x200pro,,vivo 官方参数页
+一加,一加 15,https://www.oneplus.com/cn/15/specs,,一加官方规格页
+一加,一加 Ace 6,https://www.oneplus.com/cn/ace-6/specs,,一加官方规格页
+一加,一加 13,https://www.oneplus.com/cn/13/specs,,一加官方规格页
+一加,一加 13T,https://www.oneplus.com/cn/13t/specs,,一加官方规格页
+一加,一加 Ace 5,https://www.oneplus.com/cn/ace-5/specs,,一加官方规格页
+一加,一加 Ace 5 Pro,https://www.oneplus.com/cn/ace-5-pro/specs,,一加官方规格页
+realme,真我GT8 Pro,https://www.realme.com/cn/realme-gt-8-pro/specs,,realme 官方规格页
+realme,真我GT8,https://www.realme.com/cn/realme-gt-8/specs,,realme 官方规格页
+realme,真我GT7,https://www.realme.com/cn/realme-gt-7,,realme 官方产品页
+realme,真我GT7 Pro,https://www.realme.com/cn/realme-gt-7-pro,,realme 官方产品页
+realme,真我Neo8,https://www.realme.com/cn/realme-neo-8/specs,,realme 官方规格页
+realme,真我Neo7 Turbo,https://www.realme.com/cn/realme-neo-7-turbo,,realme 官方产品页
+realme,真我15 Pro,https://www.realme.com/cn/realme-15-pro/specs,,realme 官方规格页
+realme,真我V70,https://www.realme.com/cn/more-products/realme-v-70/specs,,realme 官方规格页
+三星,Samsung Galaxy S26 Ultra,https://www.samsung.com.cn/smartphones/galaxy-s26-ultra/specs/,,三星中国规格页
+三星,Samsung Galaxy S26+,https://www.samsung.com.cn/smartphones/galaxy-s26-plus/,,三星中国产品页
+三星,Samsung Galaxy S26,https://www.samsung.com.cn/smartphones/galaxy-s26/specs/,,三星中国规格页
+三星,Samsung Galaxy Z Fold8,https://www.samsung.com.cn/smartphones/galaxy-z-fold8/specs/,,三星中国规格页
+三星,Samsung Galaxy Z Flip8,https://www.samsung.com.cn/smartphones/galaxy-z-flip8/specs/,,三星中国规格页
+三星,Samsung Galaxy S25 Ultra,https://www.samsung.com.cn/smartphones/galaxy-s25-ultra/,,三星中国产品页
+三星,Samsung Galaxy S25,https://www.samsung.com.cn/smartphones/galaxy-s25/,,三星中国产品页
+三星,Samsung Galaxy A56 5G,https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a56-5g/,,三星中国产品页
+魅族,魅族 22,https://detail.meizu.com/item/meizu22.html,,魅族官方商城产品页
+魅族,魅族 Note 16 Pro,https://detail.meizu.com/item/meizunote16pro.html,,魅族官方商城产品页
+魅族,魅族 Note 16,https://detail.meizu.com/item/meizunote16.html,,魅族官方商城产品页
+魅族,魅族 Lucky 08,https://detail.meizu.com/item/Lucky08.html,,魅族官方商城产品页
+魅族,魅族 21 Note,https://detail.meizu.com/item/meizu21note.html,,魅族官方商城产品页

@@ -1,0 +1,2526 @@
+{
+  "generated_at": "2026-09-13T15:47:51.831130+00:00",
+  "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
+  "summary": {
+    "brands": 10,
+    "phones": 201,
+    "variants": 390,
+    "active_verified_listings": 3,
+    "active_price_snapshots": 3,
+    "official_source_phones": 201
+  },
+  "brand_counts": {
+    "Apple": 8,
+    "OPPO": 42,
+    "realme": 13,
+    "vivo": 27,
+    "一加": 6,
+    "三星": 13,
+    "华为": 19,
+    "小米": 23,
+    "荣耀": 44,
+    "魅族": 6
+  },
+  "quality_counts": {
+    "manual_official_review": 5,
+    "official_catalog_only": 53,
+    "official_partial": 62,
+    "official_verified": 81
+  },
+  "field_coverage_percent": {
+    "cpu": 43.3,
+    "screen_size": 45.8,
+    "refresh_rate": 37.3,
+    "main_camera_mp": 44.3,
+    "battery_mah": 52.7,
+    "weight_g": 39.8,
+    "image_url": 57.7,
+    "source_url": 100.0
+  },
+  "issue_counts": {
+    "missing_specs": 164,
+    "release_date_unverified": 171,
+    "missing_variants": 77,
+    "outside_two_year_window": 1
+  },
+  "issues": [
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone 17",
+      "detail": "battery_mah"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo X200 Pro",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone 17 Pro",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "Apple iPhone 17 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone 17 Pro Max",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "Apple iPhone 17 Pro Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone Air",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "Apple iPhone Air",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone 17e",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "Apple iPhone 17e",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone 16",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "Apple iPhone 16",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura 90 Pro Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Pura X Max",
+      "detail": "screen_size"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura X Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI nova 16 Pro",
+      "detail": "screen_size, refresh_rate, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI nova 16 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "华为 HUAWEI nova 16 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Mate 70 Pro",
+      "detail": "cpu, refresh_rate"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Mate 70 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Pura 80 Ultra",
+      "detail": "cpu, refresh_rate"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura 80 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 17 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 17 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 17 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 17 Pro Max",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 17 Pro Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 17 Pro Max",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI K80",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI K80",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI K80",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI K80 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI K80 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI K80 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI K80 至尊版",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI K80 至尊版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI K80 至尊版",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Find X9 Ultra",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X9 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Find X9s Pro",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X9s Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Find X9 Pro",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X9 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Find X9",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X9",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Reno16 Pro",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno16 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Reno16",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno16",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO K15 Pro",
+      "detail": "cpu, refresh_rate"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO K15 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO A6s Pro",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A6s Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo X300 Ultra",
+      "detail": "cpu, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo X300 Pro",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo X300",
+      "detail": "cpu, main_camera_mp"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo S50 Pro mini",
+      "detail": "cpu, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo S50",
+      "detail": "cpu, refresh_rate, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo Y500",
+      "detail": "cpu, refresh_rate, main_camera_mp"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO 15 Ultra",
+      "detail": "cpu, refresh_rate, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO 15",
+      "detail": "cpu, refresh_rate, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我GT8 Pro",
+      "detail": "image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我GT8 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我GT8",
+      "detail": "image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我GT8",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我GT7",
+      "detail": "screen_size, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我GT7",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我GT7 Pro",
+      "detail": "screen_size, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我GT7 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我Neo8",
+      "detail": "image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我Neo8",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我Neo7 Turbo",
+      "detail": "screen_size, refresh_rate, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我Neo7 Turbo",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我15 Pro",
+      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我15 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我V70",
+      "detail": "main_camera_mp, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我V70",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy S26 Ultra",
+      "detail": "screen_size, refresh_rate, battery_mah"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy S26 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy S26",
+      "detail": "screen_size, refresh_rate, battery_mah"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy S26",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy Z Fold8",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy Z Fold8",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy Z Flip8",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy Z Flip8",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy S25 Ultra",
+      "detail": "screen_size, refresh_rate, battery_mah"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy S25 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy S25",
+      "detail": "refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy S25",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "魅族 魅族 22",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "魅族 魅族 22",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "魅族 魅族 Note 16 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "魅族 魅族 Note 16 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "魅族 魅族 Note 16",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "魅族 魅族 Note 16",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "魅族 魅族 Lucky 08",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "魅族 魅族 Lucky 08",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "魅族 魅族 21 Note",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "魅族 魅族 21 Note",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀600 Pro",
+      "detail": "refresh_rate, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Magic8 Pro",
+      "detail": "cpu, screen_size, refresh_rate, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Magic8 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "一加 一加 13",
+      "detail": "main_camera_mp, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "一加 一加 13",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "一加 一加 Ace 6",
+      "detail": "main_camera_mp, battery_mah, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "一加 一加 Ace 6",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "一加 一加 Ace 5",
+      "detail": "main_camera_mp, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "一加 一加 Ace 5",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone 18 Pro",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "Apple iPhone 18 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "Apple iPhone Duo",
+      "detail": "screen_size, refresh_rate, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "Apple iPhone Duo",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Mate 70 Pro+",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Mate 70 Pro+",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Mate 70 RS 非凡大师",
+      "detail": "cpu, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Mate 70 RS 非凡大师",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Mate X6",
+      "detail": "cpu, screen_size"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Mate X6",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Mate XT 非凡大师",
+      "detail": "cpu, screen_size, refresh_rate"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Mate XT 非凡大师",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Pura 80",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura 80",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Pura 80 Pro",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura 80 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Pura 80 Pro+",
+      "detail": "cpu"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura 80 Pro+",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Pura X",
+      "detail": "cpu, screen_size, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura X",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI nova 14",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI nova 14",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "华为 HUAWEI nova 14",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI nova 14 Pro",
+      "detail": "cpu, screen_size, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI nova 14 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "华为 HUAWEI nova 14 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI nova 14 Ultra",
+      "detail": "cpu, screen_size, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI nova 14 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "华为 HUAWEI nova 14 Ultra",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 15",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 15",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 15",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 15 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 15 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 15 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 15 Ultra",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 15 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 15 Ultra",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 15S Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 15S Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 15S Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI K90",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI K90",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI K90",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI K90 Pro Max",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI K90 Pro Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI K90 Pro Max",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Turbo 4",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Turbo 4",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Turbo 4",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Turbo 4 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Turbo 4 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Turbo 4 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Turbo 5",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Turbo 5",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Turbo 5",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Turbo 5 Max",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Turbo 5 Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Turbo 5 Max",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Note 14",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Note 14",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Note 14",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Note 14 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Note 14 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Note 14 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Note 15",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Note 15",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Note 15",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 REDMI Note 15 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 REDMI Note 15 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 REDMI Note 15 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Find N5",
+      "detail": "screen_size"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find N5",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "OPPO OPPO Find N6",
+      "detail": "screen_size"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find N6",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X8",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X8 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X8 Pro 卫星通信版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X8s",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X8s+",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X8 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Find X9 Pro 卫星通信版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno13",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno13 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno14",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno14 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno15",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno15 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO Reno15c",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO K12 Plus",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO K12s",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO K13 Turbo",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO K13 Turbo Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO K15 Pro+",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A5",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A5 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A5 活力版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A5m",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A5x",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A6",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A6 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A6k",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A6m",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A6t",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A6x",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A7 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "OPPO OPPO A7 Pro Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo X200",
+      "detail": "weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo X200 Ultra",
+      "detail": "main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo S20",
+      "detail": "refresh_rate, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo S20 Pro",
+      "detail": "refresh_rate, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo S30",
+      "detail": "refresh_rate, main_camera_mp"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo S30 Pro mini",
+      "detail": "refresh_rate, main_camera_mp"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo Y300 Pro",
+      "detail": "weight_g"
+    },
+    {
+      "severity": "high",
+      "type": "outside_two_year_window",
+      "phone": "vivo vivo Y300 Pro",
+      "detail": "2024-09-01"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo Y300i",
+      "detail": "refresh_rate, main_camera_mp, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO 13",
+      "detail": "refresh_rate, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO Neo10",
+      "detail": "refresh_rate, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO Neo10 Pro",
+      "detail": "refresh_rate, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO Neo10 Pro+",
+      "detail": "refresh_rate, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO Z10 Turbo",
+      "detail": "refresh_rate, main_camera_mp, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO Z10 Turbo Pro",
+      "detail": "refresh_rate, main_camera_mp"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo iQOO Z10x",
+      "detail": "refresh_rate, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我15T",
+      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我15T",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我15",
+      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我15",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我V70s",
+      "detail": "main_camera_mp, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我V70s",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我Neo7",
+      "detail": "refresh_rate, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我Neo7",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "realme 真我GT Neo6",
+      "detail": "refresh_rate, main_camera_mp, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "realme 真我GT Neo6",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy S25 Edge",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy S25 Edge",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy Z Fold7",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy Z Fold7",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy Z Flip7",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy Z Flip7",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy Z Fold8 Ultra",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy Z Fold8 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung W25 Flip",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung W25 Flip",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "三星 Samsung W25 Flip",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "魅族 魅族 21 PRO",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "魅族 魅族 21 PRO",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Robot Phone",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Robot Phone",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Robot Phone",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀600 超级版",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀600 超级版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀600 超级版",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀600 元气版",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀600 元气版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀600 元气版",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play11",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play11",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play11",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Magic V6",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Magic V6",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Magic V6",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Magic8 Pro Air",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Magic8 Pro Air",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Magic8 Pro Air",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Magic8 RSR 保时捷设计",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Magic8 RSR 保时捷设计",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Magic8 RSR 保时捷设计",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Magic V Flip2",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Magic V Flip2",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Magic V Flip2",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀500 Pro MOLLY 20周年限定版",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀500 Pro MOLLY 20周年限定版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀500 Pro MOLLY 20周年限定版",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀500 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀500 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀500 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀WIN Turbo",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀WIN Turbo",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀WIN Turbo",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀WIN RT",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀WIN RT",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀WIN RT",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀WIN",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀WIN",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀WIN",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Power2",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Power2",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Power2",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Power",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Power",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Power",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀X80 Pro Max",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀X80 Pro Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀X80 Pro Max",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀X70 Pro Max",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀X70 Pro Max",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀X70 Pro Max",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀X80i",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀X80i",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀X80i",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀X70 焕新版",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀X70 焕新版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀X70 焕新版",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀X60 GT",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀X60 GT",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀X60 GT",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play11T",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play11T",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play11T",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play11 Plus",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play11 Plus",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play11 Plus",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play10",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play10",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play10",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play11C",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play11C",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play11C",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩80m",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩80m",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩80m",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩80 Plus",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩80 Plus",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩80 Plus",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩70C",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩70C",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩70C",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩80",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩80",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩80",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩80 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩80 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩80 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Magic8",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Magic8",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Magic8",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Magic V5",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Magic V5",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Magic V5",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀400 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀400 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀400 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀400",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀400",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀400",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play10T",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play10T",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play10T",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩70m Plus",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩70m Plus",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩70m Plus",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play10C",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play10C",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play10C",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩70 Plus",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩70 Plus",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩70 Plus",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀X70i",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀X70i",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀X70i",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀X70",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀X70",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀X70",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀GT Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀GT Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀GT Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀Play 10A",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀Play 10A",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀Play 10A",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "荣耀 荣耀畅玩60A",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "荣耀 荣耀畅玩60A",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "荣耀 荣耀畅玩60A",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Mate XT 2 非凡大师",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Mate XT 2 非凡大师",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "华为 HUAWEI Mate XT 2 非凡大师",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "华为 HUAWEI Pura X View",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "华为 HUAWEI Pura X View",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "华为 HUAWEI Pura X View",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "一加 一加 Ace 5 竞速版",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "一加 一加 Ace 5 竞速版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "一加 一加 Ace 5 竞速版",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "一加 一加 Ace 5 至尊版",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "一加 一加 Ace 5 至尊版",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "一加 一加 Ace 5 至尊版",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "一加 一加 Ace 6T",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "一加 一加 Ace 6T",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "一加 一加 Ace 6T",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 16",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 16",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 16",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 16 Pro",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 16 Pro",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 16 Pro",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 16 Ultra",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "小米 Xiaomi 16 Ultra",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "小米 Xiaomi 16 Ultra",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung W26",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung W26",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "三星 Samsung W26",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "三星 Samsung Galaxy A57 5G",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "三星 Samsung Galaxy A57 5G",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "三星 Samsung Galaxy A57 5G",
+      "detail": "未提取到明确内存组合"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "vivo vivo Y300+",
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
+    },
+    {
+      "severity": "medium",
+      "type": "release_date_unverified",
+      "phone": "vivo vivo Y300+",
+      "detail": "官网页未明确标注发布日期"
+    },
+    {
+      "severity": "high",
+      "type": "missing_variants",
+      "phone": "vivo vivo Y300+",
+      "detail": "未提取到明确内存组合"
+    }
+  ]
+}

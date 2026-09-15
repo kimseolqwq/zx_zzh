@@ -1,0 +1,8 @@
+﻿id,variant_id,platform,store_name,store_verified,external_id,sku_text,product_url,is_active
+1,1,pdd,拼多多官方旗舰店,False,demo-1,12GB+256GB,https://example.com/demo,False
+2,2,jd,京东官方旗舰店,False,demo-2,12GB+256GB,https://example.com/demo,False
+3,3,tmall,天猫官方旗舰店,False,demo-3,256GB,https://example.com/demo,False
+4,4,jd,京东官方旗舰店,False,demo-4,16GB+512GB,https://example.com/demo,False
+5,81,jd,iQOO京东自营旗舰店,True,100283678024,12GB+256GB传奇版,https://item.jd.com/product/JayNFgjbNjrbHW-KBxyUrA.html,True
+6,82,tmall,vivo手机官方旗舰店,True,974850242549,16GB+256GB 凌云,https://detail.tmall.com/item.htm?id=974850242549&skuId=6293702130415,True
+7,2,jd,小米京东自营旗舰店,True,100209621655,12GB+256GB 白色,https://item.jd.com/100209621655.html,True

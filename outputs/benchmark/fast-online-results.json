@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-09-13T14:36:50.486662+00:00",
+  "limit_seconds": 10.0,
+  "all_within_limit": true,
+  "all_have_three_results": true,
+  "all_use_three_models": true,
+  "cases": [
+    {
+      "usage": "摄影创作",
+      "latency_seconds": 3.795,
+      "result_count": 3,
+      "top3": [
+        "vivo vivo X300 12GB+256",
+        "vivo vivo S50 Pro mini 12GB+512",
+        "vivo iQOO 15 12GB+256"
+      ],
+      "valid_model_votes": [
+        3,
+        3,
+        3
+      ],
+      "within_limit": true
+    },
+    {
+      "usage": "重度游戏",
+      "latency_seconds": 1.068,
+      "result_count": 3,
+      "top3": [
+        "vivo iQOO 15 16GB+256",
+        "vivo vivo Y500 12GB+256",
+        "vivo vivo X300 16GB+256"
+      ],
+      "valid_model_votes": [
+        3,
+        3,
+        3
+      ],
+      "within_limit": true
+    },
+    {
+      "usage": "轻薄续航",
+      "latency_seconds": 5.133,
+      "result_count": 3,
+      "top3": [
+        "vivo vivo Y500 8GB+256",
+        "vivo iQOO 15 12GB+256",
+        "vivo vivo X300 12GB+256"
+      ],
+      "valid_model_votes": [
+        3,
+        3,
+        3
+      ],
+      "within_limit": true
+    },
+    {
+      "usage": "综合体验",
+      "latency_seconds": 1.854,
+      "result_count": 3,
+      "top3": [
+        "vivo iQOO 15 16GB+256",
+        "vivo vivo X300 16GB+256",
+        "vivo vivo Y500 12GB+512"
+      ],
+      "valid_model_votes": [
+        3,
+        3,
+        3
+      ],
+      "within_limit": true
+    }
+  ]
+}

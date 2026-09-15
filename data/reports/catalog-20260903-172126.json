@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-09-03T09:21:35.380554+00:00",
+  "summary": {
+    "collected": 4,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 4,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 4,
+    "with_official_image": 0,
+    "average_spec_completeness": 95.8
+  },
+  "items": [
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 90 Pro Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 83.3,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\consumer.huawei.com\\20260903T092127Z-8f423d8a00.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8 Pro",
+      "url": "https://www.realme.com/cn/realme-gt-8-pro/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T092128Z-78f8362e1f.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8",
+      "url": "https://www.realme.com/cn/realme-gt-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T092130Z-f2010d5fda.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我Neo8",
+      "url": "https://www.realme.com/cn/realme-neo-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\raw\\www.realme.com\\20260903T092135Z-0e7a44fa96.txt"
+    }
+  ],
+  "failures": []
+}

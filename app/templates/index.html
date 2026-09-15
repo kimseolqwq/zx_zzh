@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="shell">
+  <section class="intro compact-intro">
+    <div><p class="eyebrow">LOCAL MULTI-MODEL DECISION LAB</p><h1>把需求说清楚，<br><span>把选择交给证据。</span></h1></div>
+    <div class="model-health">
+      {% for model in configured_models %}
+      <span class="{% if model in installed_models %}online{% else %}offline{% endif %}"><i></i>{{ model }}</span>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="workspace live-workspace">
+    <form class="query-panel" action="/recommend" method="post" id="recommend-form">
+      <div class="panel-heading"><div><span class="step">01</span><h2>告诉我们你的需求</h2></div><span class="demo-badge live">本地模型在线</span></div>
+      <label class="field-label" for="budget">购机预算</label>
+      <div class="budget-row">
+        <div class="money-input"><span>¥</span><input id="budget" name="budget" type="number" value="{{ form.budget }}" min="500" max="30000" required /></div>
+        <div class="quick-options">
+          <button type="button" data-budget="3000">3千内</button><button type="button" data-budget="5000">3—5千</button><button type="button" data-budget="8000">5—8千</button>
+        </div>
+      </div>
+      <fieldset><legend>主要用途</legend><div class="choice-grid">
+        {% for value, text, note in [('综合体验','综合体验','日常使用更均衡'),('摄影创作','摄影创作','人像、长焦与视频'),('重度游戏','重度游戏','性能、散热与续航'),('轻薄续航','轻薄续航','手感和长时间使用')] %}
+        <label><input type="radio" name="usage" value="{{ value }}" {% if form.usage == value %}checked{% endif %}><span><b>{{ text }}</b><small>{{ note }}</small></span></label>
+        {% endfor %}
+      </div></fieldset>
+      <div class="two-fields">
+        <label>品牌偏好<select name="brand"><option value="">不限品牌</option>{% for brand in brands %}<option value="{{ brand.name }}" {% if form.brand == brand.name %}selected{% endif %}>{{ brand.name }}</option>{% endfor %}</select></label>
+        <label>最低存储<select name="storage">{% for value in [128,256,512,1024] %}<option value="{{ value }}" {% if form.storage == value %}selected{% endif %}>{{ value if value < 1024 else 1 }}{{ 'GB' if value < 1024 else 'TB' }}</option>{% endfor %}</select></label>
+      </div>
+      <label class="field-label" for="details">还有什么特别要求？</label>
+      <textarea id="details" name="details" rows="3" maxlength="500" placeholder="例如：经常旅行拍照，希望信号稳定，不要曲面屏……">{{ form.details }}</textarea>
+      <button class="primary-button" type="submit" id="submit-recommend"><span>调用 3 个本地模型</span><b>→</b></button>
+      <p class="form-note">模型只在数据库候选中评分；最终结果由可解释融合算法计算。</p>
+    </form>
+
+    <section class="result-panel">
+      {% if result and result.results %}
+      <div class="result-head"><div><p>融合运行 #{{ result.run_id }} · 用时 {{ '%.1f'|format(result.total_latency_ms / 1000) }} 秒</p><h2>为你推荐 {{ result.results|length }} 个版本</h2></div><button class="ghost-button" type="button" data-toggle="#model-evidence">查看模型性能</button></div>
+      {% set top = result.results[0] %}
+      <div class="recommendation-stack" data-recommendation-stack>
+        {% for item in result.results[:3] %}
+        <article class="recommendation-card {{ 'is-expanded' if loop.first else '' }}" tabindex="0" aria-expanded="{{ 'true' if loop.first else 'false' }}" data-recommendation-card>
+          <div class="recommendation-rank"><span>TOP</span><strong>{{ loop.index }}</strong></div>
+          <div class="recommendation-image">{% if item.image_url %}<img src="{{ item.image_url }}" alt="{{ item.model }} 官网产品图" loading="{{ 'eager' if loop.first else 'lazy' }}" referrerpolicy="no-referrer" data-official-image>{% else %}<span class="official-image-error">暂无官网图片</span>{% endif %}<a class="expanded-only" href="{{ item.image_source_url or item.source_url }}" target="_blank" rel="noopener noreferrer">官网图片 ↗</a></div>
+          <div class="recommendation-copy"><div class="recommendation-title"><div><span>{{ item.brand }} · {{ item.variant }}</span><h3>{{ item.model }}</h3></div><strong>{{ item.score }}<small>分</small></strong></div>
+            <p>{{ item.reason }}</p>
+            <div class="tags expanded-only"><span>置信度 {{ item.confidence }}</span><span>{{ item.model_votes }} 个模型有效投票</span><span>数据可信度 {{ item.components.data_trust }}</span></div>
+            <div class="recommendation-prices expanded-only"><div class="recommendation-lowest"><small>当前公开最低价</small>{% if item.price_detail %}<a href="{{ item.price_detail.purchase_url }}" target="_blank" rel="noopener noreferrer" title="{{ '已核验商品页' if item.price_detail.link_verified else '平台搜索页，商品链接尚未核验' }}"><b>¥{{ '{:,.0f}'.format(item.current_price) }}</b><span>{{ item.price_detail.platform_name }} · {{ '商品直达' if item.price_detail.link_verified else '去搜索' }} ↗</span></a>{% else %}<b>¥{{ '{:,.0f}'.format(item.current_price) }}</b><span>发售价参考</span>{% endif %}</div>
+              <div class="recommendation-platforms">
+                {% for quote in item.platform_prices %}
+                <div class="recommendation-platform {{ 'best' if quote.is_lowest else '' }} {{ 'stale' if quote.is_stale and quote.price else '' }}">
+                  <span>{{ quote.platform_name }}<em>{{ quote.freshness_label if quote.link_verified else '搜索页' }}</em></span>
+                  {% if quote.price %}<a class="recommendation-platform-price" href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer" title="已核验商品页">¥{{ '{:,.0f}'.format(quote.price) }} ↗</a>{% else %}<a class="recommendation-platform-search" href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer">去平台搜索 ↗</a>{% endif %}
+                  <div>
+                    {% if quote.gov_price %}<a href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer">{{ '实显国补' if quote.gov_price_type == 'displayed' else '估算国补' }} ¥{{ '{:,.0f}'.format(quote.gov_price) }}</a>{% endif %}
+                    {% if quote.billion_subsidy_price %}<a href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer">百亿补贴 ¥{{ '{:,.0f}'.format(quote.billion_subsidy_price) }}</a>{% endif %}
+                  </div>
+                  {% if quote.promotion_labels %}<small class="recommendation-promotions">{{ quote.promotion_labels|join(' · ') }}</small>{% endif %}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="recommendation-compact compact-only"><b>最低 ¥{{ '{:,.0f}'.format(item.current_price) }}</b>{% for quote in item.platform_prices %}<a href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer">{{ quote.platform_name }} {{ ('¥' + '{:,.0f}'.format(quote.price)) if quote.price else '搜索' }}</a>{% endfor %}</div>
+            <button class="spec-open-button spec-trigger" type="button" data-spec='{{ {"brand":item.brand,"name":item.model,"variant":item.variant,"cpu":item.cpu,"camera":item.camera_summary or ((item.main_camera_mp|string)+" MP"),"screen":(item.screen_size|string)+" 英寸 "+(item.screen_type or ""),"refresh":(item.refresh_rate|string)+" Hz","battery":(item.battery_mah|string)+" mAh","weight":(item.weight_g|string)+" g","source":item.source_url}|tojson|forceescape }}'>查看完整参数 →</button>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <div class="evidence-drawer" id="model-evidence" hidden>
+        <div class="drawer-title"><b>模型调用与融合依据</b><span>{{ result.formula }}</span></div>
+        {% for model in result.models %}<div class="model-metric"><span>{{ model.name }}</span><b class="{{ 'ok' if model.success else 'bad' }}">{{ '成功' if model.success else '失败' }}</b><span>{{ '%.1f'|format(model.latency_ms / 1000) }} s</span><span>{{ (model.tokens_per_second|string + ' tok/s') if model.tokens_per_second else '—' }}</span><span>JSON {{ '✓' if model.json_parse_success else '×' }}</span></div>{% endfor %}
+        <div class="score-grid">{% for key, label in [('requirement_match','需求匹配 35%'),('model_consensus','模型共识 25%'),('data_trust','数据可信 20%'),('value','性价比 15%'),('freshness','时效性 5%')] %}<div><span>{{ label }}</span><b>{{ top.components[key] }}</b><i><em style="width:{{ top.components[key] }}%"></em></i></div>{% endfor %}</div>
+        {% if top.score_breakdown %}<div class="contribution-table"><div><span>评分项</span><span>原始分</span><span>权重</span><span>贡献分</span></div>{% for row in top.score_breakdown %}<div><b>{{ row.label }}</b><span>{{ row.raw }}</span><span>{{ row.weight }}%</span><strong>+{{ row.contribution }}</strong></div>{% endfor %}<footer>加权总分 <b>{{ top.score }}</b></footer></div>{% endif %}
+        {% if top.evidence_lines %}<div class="decision-evidence"><b>Top 1 结论证据链</b><ol>{% for line in top.evidence_lines %}<li>{{ line }}</li>{% endfor %}</ol></div>{% endif %}
+      </div>
+      {% elif result %}
+      <div class="empty-result"><span>!</span><h2>暂时没有符合条件的在售版本</h2><p>{{ result.message }}</p></div>
+      {% else %}
+      <div class="ready-state"><span class="ready-orbit">3</span><p class="eyebrow">SYSTEM READY</p><h2>三个模型，<br>一个可解释的结论</h2><p>提交需求后，系统先用 SQLite 和领域规则精筛候选，再并行调用 Qwen3、Qwen2.5 与 Gemma 轻量复核，最终返回 3 个带自然语言依据的结果。</p>
+        <div class="pipeline"><div><b>01</b><span>数据库检索</span></div><i>→</i><div><b>02</b><span>模型独立评分</span></div><i>→</i><div><b>03</b><span>融合与解释</span></div></div>
+      </div>
+      {% endif %}
+    </section>
+  </section>
+  <section class="data-strip"><div><span>品牌覆盖</span><strong>{{ stats.brands }}</strong><small>已录入品牌</small></div><div><span>数据库规模</span><strong>{{ stats.phones }}</strong><small>在售机型</small></div><div><span>版本覆盖</span><strong>{{ stats.variants }}</strong><small>内存版本</small></div><div><span>价格记录</span><strong>{{ stats.prices }}</strong><small>平台快照</small></div><a href="/admin">进入数据管理 <span>→</span></a></section>
+</main>
+
+<div class="spec-modal" id="spec-modal" hidden><div class="modal-backdrop" data-close-modal></div><section class="spec-dialog" role="dialog" aria-modal="true" aria-labelledby="spec-name"><button class="modal-close" data-close-modal>×</button><div class="spec-heading"><div class="spec-token" id="spec-token">机</div><div><span id="spec-brand"></span><h2 id="spec-name"></h2><p id="spec-variant"></p></div></div><div class="spec-grid"><div><small>处理器 CPU</small><strong id="spec-cpu"></strong></div><div><small>影像系统</small><strong id="spec-camera"></strong></div><div><small>屏幕</small><strong id="spec-screen"></strong></div><div><small>刷新率</small><strong id="spec-refresh"></strong></div><div><small>电池容量</small><strong id="spec-battery"></strong></div><div><small>机身重量</small><strong id="spec-weight"></strong></div></div><div class="spec-foot"><span>数据来源</span><b>品牌官网规格页</b><a id="spec-source" target="_blank" rel="noreferrer">查看来源</a></div></section></div>
+{% endblock %}
