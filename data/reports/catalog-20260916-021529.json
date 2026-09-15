@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-09-15T18:15:39.246716+00:00",
+  "summary": {
+    "collected": 6,
+    "failed": 0,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 6,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 6,
+    "with_official_image": 6,
+    "average_spec_completeness": 55.6
+  },
+  "items": [
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17 Pro",
+      "url": "https://www.apple.com.cn/iphone/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.apple.com.cn/20260915T181530Z-2a0ede8cbd.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17 Pro Max",
+      "url": "https://www.apple.com.cn/iphone/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.apple.com.cn/20260915T181532Z-2a0ede8cbd.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone Air",
+      "url": "https://www.apple.com.cn/iphone-air/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.apple.com.cn/20260915T181533Z-0018cd60f3.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17",
+      "url": "https://www.apple.com.cn/iphone-17/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.apple.com.cn/20260915T181535Z-31e553d2ba.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 17e",
+      "url": "https://www.apple.com.cn/iphone-17e/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.apple.com.cn/20260915T181537Z-cfa308ac98.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 16",
+      "url": "https://www.apple.com.cn/iphone-16/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.apple.com.cn/20260915T181539Z-b57f974dfa.txt"
+    }
+  ],
+  "failures": []
+}

@@ -11,6 +11,7 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.config import BASE_DIR
 from app.crawlers.base import SafeFetcher
 from app.crawlers.official_specs import (
     SPEC_BOUNDS,
@@ -222,6 +223,14 @@ def write_catalog_report(
     counters: dict[str, int],
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+
+    def report_path(value: str) -> str:
+        evidence = Path(value)
+        try:
+            return evidence.resolve().relative_to(BASE_DIR.resolve()).as_posix()
+        except ValueError:
+            return evidence.name
+
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "summary": {"collected": len(collected), "failed": len(failures), **counters},
@@ -239,7 +248,7 @@ def write_catalog_report(
                 "release_date": item.release_date.isoformat() if item.release_date else None,
                 "variant_count": len(item.variants),
                 "spec_completeness": item.completeness,
-                "evidence_path": item.evidence_path,
+                "evidence_path": report_path(item.evidence_path),
             }
             for item in collected
         ],

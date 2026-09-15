@@ -9,7 +9,15 @@ from app.crawlers.official_specs import (
 from app.crawlers.price_parser import parse_price_text
 from app.crawlers.browser_prices import detect_blocked_page
 from app.crawlers.market_import import _valid_product_url
-from app.crawlers.catalog_pipeline import _fallback_variants
+from datetime import datetime, timezone
+import json
+
+from app.crawlers.catalog_pipeline import (
+    CatalogSource,
+    CollectedPhone,
+    _fallback_variants,
+    write_catalog_report,
+)
 
 
 def test_parse_official_specs() -> None:
@@ -185,3 +193,25 @@ def test_market_product_url_is_limited_to_matching_platform() -> None:
     assert _valid_product_url("pdd", "https://mobile.yangkeduo.com/goods.html?goods_id=1")
     assert not _valid_product_url("jd", "https://example.com/fake")
     assert not _valid_product_url("pdd", "http://mobile.yangkeduo.com/goods.html")
+
+
+def test_catalog_report_does_not_expose_absolute_workspace_path(tmp_path, monkeypatch) -> None:
+    import app.crawlers.catalog_pipeline as pipeline
+
+    monkeypatch.setattr(pipeline, "BASE_DIR", tmp_path)
+    evidence = tmp_path / "data" / "raw" / "brand" / "page.txt"
+    item = CollectedPhone(
+        source=CatalogSource("测试", "测试手机", "https://brand.example/phone"),
+        final_url="https://brand.example/phone",
+        fetched_at=datetime.now(timezone.utc),
+        evidence_path=str(evidence),
+        specs={},
+        release_date=None,
+        variants=[],
+        image=None,
+        completeness=0,
+    )
+    report = tmp_path / "report.json"
+    write_catalog_report(report, [item], [], {})
+    payload = json.loads(report.read_text(encoding="utf-8"))
+    assert payload["items"][0]["evidence_path"] == "data/raw/brand/page.txt"
