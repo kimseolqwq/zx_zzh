@@ -45,6 +45,7 @@ async def discover(queue: Path, output: Path, *, platform: str, limit: int, head
     completed_keys = {
         (row.get("platform", ""), row.get("model_name", ""), row.get("ram_gb", ""), row.get("storage_gb", ""))
         for row in existing
+        if row.get("review_status", "").strip().lower() not in {"blocked", "failed"}
     }
     counters = {"searched": 0, "candidates": 0, "blocked": 0, "failed": 0}
     evidence_dir = DATA_DIR / "raw" / "ecommerce" / "searches"

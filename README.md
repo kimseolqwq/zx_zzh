@@ -76,6 +76,8 @@ ollama pull gemma3:1b
 .\.venv\Scripts\python.exe .\scripts\import_reviewed_prices.py .\data\review\price_review_queue.csv
 ```
 
+队列按“缺少平台数据优先、发布时间倒序”排列；再次生成会按品牌、型号、内存和平台合并旧队列，保留已经填写的商品链接与审核进度。
+
 审核导入器会校验平台域名、官方店名称、审核人、价格范围以及 `data/raw` 下真实存在的文本/截图证据；重复导入同一批价格不会产生重复快照。`pending` 行不会写入数据库。
 
 使用专用 Edge 会话登录三平台后，可对已经填写 `product_url` 的队列行分批留证并回填候选价格：
