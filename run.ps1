@@ -29,6 +29,12 @@ try {
 }
 
 Set-Location -LiteralPath $projectRoot
+$warmupScript = Join-Path $projectRoot "scripts\warm_models.py"
+Write-Host "Warming the three local models in parallel..."
+& $pythonPath $warmupScript
+if ($LASTEXITCODE -ne 0) {
+    Write-Warning "One or more models could not be warmed. The website will still start with timeout fallback enabled."
+}
 $lanAddress = Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias "WLAN" -ErrorAction SilentlyContinue |
     Where-Object { $_.IPAddress -notlike "169.254.*" } |
     Select-Object -First 1 -ExpandProperty IPAddress

@@ -40,6 +40,8 @@ ollama pull gemma3:1b
 3. 启动系统：`powershell -ExecutionPolicy Bypass -File .\run.ps1`
 4. 浏览器访问：`http://127.0.0.1:8000`
 
+`run.ps1` 会在启动 Web 服务前并行预热三个轻量模型。预热耗时属于一次性启动准备，不计入用户推荐响应时间；模型、融合权重和输出上限均未减少。
+
 默认管理员账号仅用于本地首次演示：
 
 - 用户名：`admin`

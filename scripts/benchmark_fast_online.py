@@ -11,6 +11,8 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.database import SessionLocal
+from app.config import settings
+from app.services.ollama import OllamaClient
 from app.services.recommendation import Requirements, recommend
 
 
@@ -31,6 +33,7 @@ def main() -> None:
         default=PROJECT_ROOT / "outputs" / "benchmark" / "fast-online-results.json",
     )
     args = parser.parse_args()
+    warmup = OllamaClient().warm_models(settings.ollama_models)
     rows = []
     with SessionLocal() as db:
         for case in CASES:
@@ -48,6 +51,7 @@ def main() -> None:
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "limit_seconds": args.limit_seconds,
+        "warmup": warmup,
         "all_within_limit": all(row["within_limit"] for row in rows),
         "all_have_three_results": all(row["result_count"] == 3 for row in rows),
         "all_use_three_models": all(

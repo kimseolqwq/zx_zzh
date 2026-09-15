@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from typing import Any
 
@@ -51,6 +52,37 @@ class OllamaClient:
             return [item["name"] for item in response.json().get("models", [])]
         except (httpx.HTTPError, KeyError, TypeError):
             return []
+
+    def warm_models(self, model_names: tuple[str, ...] | list[str] | None = None) -> list[dict[str, Any]]:
+        """Load configured models concurrently without counting warmup as query latency."""
+        names = list(model_names or settings.ollama_models)
+
+        def warm(model_name: str) -> dict[str, Any]:
+            started = time.perf_counter()
+            try:
+                response = httpx.post(
+                    f"{self.base_url}/api/generate",
+                    json={
+                        "model": model_name,
+                        "prompt": "只回答OK",
+                        "stream": False,
+                        "keep_alive": settings.model_keep_alive,
+                        "options": {"num_ctx": 256, "num_predict": 1, "temperature": 0},
+                    },
+                    timeout=max(30.0, settings.model_timeout_seconds * 2),
+                )
+                response.raise_for_status()
+                return {"model": model_name, "success": True, "latency_ms": round((time.perf_counter() - started) * 1000, 1)}
+            except (httpx.HTTPError, ValueError) as exc:
+                return {
+                    "model": model_name, "success": False,
+                    "latency_ms": round((time.perf_counter() - started) * 1000, 1), "error": str(exc),
+                }
+
+        if not names:
+            return []
+        with ThreadPoolExecutor(max_workers=len(names)) as executor:
+            return list(executor.map(warm, names))
 
     def chat_json(self, model_name: str, system_prompt: str, user_prompt: str) -> ModelOpinion:
         started = time.perf_counter()
