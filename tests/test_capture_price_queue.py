@@ -46,3 +46,46 @@ def test_process_queue_backfills_capture_without_auto_approval(tmp_path, monkeyp
     assert row["review_status"] == "needs_review"
     assert row["gov_price"] == "3599.0"
     assert row["capture_status"] == "success"
+
+
+def test_process_queue_can_target_one_variant(tmp_path, monkeypatch) -> None:
+    queue = tmp_path / "queue.csv"
+    fields = [
+        "brand", "model_name", "ram_gb", "storage_gb", "platform", "product_url",
+        "product_title", "regular_price", "public_sale_price", "gov_price",
+        "billion_subsidy_price", "evidence_text_path", "screenshot_path", "review_status",
+    ]
+    with queue.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        for storage in ("256", "512"):
+            writer.writerow({
+                "brand": "vivo", "model_name": "iQOO 13", "ram_gb": "16",
+                "storage_gb": storage, "platform": "jd",
+                "product_url": f"https://item.jd.com/{storage}.html", "review_status": "needs_collection",
+            })
+
+    seen = []
+
+    def fake_capture(url: str, item_id: str, *, headless: bool) -> dict:
+        seen.append(url)
+        return {
+            "title": "", "captured_at": "20260916T000000Z", "status": "blocked",
+            "blocked_reason": "访问频繁", "text_path": "", "screenshot_path": "",
+            "parsed": {"regular_price": None, "public_sale_price": None,
+                       "displayed_gov_price": None, "billion_subsidy_price": None,
+                       "confidence": "low"},
+        }
+
+    monkeypatch.setattr(MODULE, "capture", fake_capture)
+    result = MODULE.process_queue(
+        queue, limit=5, platform="jd", headless=True,
+        model_name="iQOO 13", ram_gb="16", storage_gb="512",
+    )
+    assert result["attempted"] == 1
+    assert seen == ["https://item.jd.com/512.html"]
+
+
+def test_portable_path_makes_project_evidence_relative() -> None:
+    value = str(MODULE.PROJECT_ROOT / "data" / "raw" / "ecommerce" / "proof.txt")
+    assert MODULE._portable_path(value) == "data/raw/ecommerce/proof.txt"

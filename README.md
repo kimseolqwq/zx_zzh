@@ -92,11 +92,13 @@ ollama pull gemma3:1b
 .\.venv\Scripts\python.exe .\scripts\setup_market_browser.py
 .\.venv\Scripts\python.exe .\scripts\discover_market_candidates.py .\data\review\price_review_queue.csv --platform jd --limit 10
 .\.venv\Scripts\python.exe .\scripts\capture_price_queue.py .\data\review\price_review_queue.csv --platform jd --limit 10
+.\.venv\Scripts\python.exe .\scripts\attach_price_candidate.py .\data\review\price_review_queue.csv --platform jd --model "iQOO 13" --ram 16 --storage 256 --url "https://item.jd.com/100151088622.html" --store "iQOO京东自营旗舰店"
+.\.venv\Scripts\python.exe .\scripts\capture_price_queue.py .\data\review\price_review_queue.csv --platform jd --model "iQOO 13" --ram 16 --storage 256 --limit 1
 .\.venv\Scripts\python.exe .\scripts\reparse_price_evidence.py .\data\review\price_review_queue.csv
 .\.venv\Scripts\python.exe .\scripts\approve_price_row.py .\data\review\price_review_queue.csv --platform tmall --model "iQOO 15" --ram 16 --storage 256 --reviewer "审核人"
 ```
 
-商品发现只输出最多 5 个带可解释匹配分数的候选链接；需要先核对店铺与内存版本，再把正确链接复制到价格队列。采集结果只会标为 `needs_review`。核对商品版本、官方店、页面价格和截图后，填写审核人并把该行改为 `approved`，再运行上面的审核导入命令。浏览器会话、页面正文和截图均只保存在本机且被 Git 忽略。
+商品发现只输出最多 5 个带可解释匹配分数的候选链接；核对店铺与内存版本后，用 `attach_price_candidate.py` 写入队列。该工具只接受白名单官方店，会清空旧价格和旧证据，并标为 `needs_collection`，不会自动批准。`capture_price_queue.py` 支持用 `--model`、`--ram`、`--storage` 精确采集一个版本，采集结果只会标为 `needs_review` 或 `blocked`。核对商品版本、官方店、页面价格和截图后，填写审核人并把该行改为 `approved`，再运行上面的审核导入命令。浏览器会话、页面正文和截图均只保存在本机且被 Git 忽略；审核表仅保存仓库相对证据路径，便于跨电脑复现。
 
 导出四张核心表并生成 SQLite 备份：
 

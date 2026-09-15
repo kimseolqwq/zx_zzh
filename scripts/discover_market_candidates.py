@@ -25,13 +25,28 @@ FIELDS = (
 BLOCKED_WORDS = ("验证码", "滑块", "访问过于频繁", "访问频繁", "无法搜索", "安全验证")
 
 
+def _portable_path(value: str) -> str:
+    if not value:
+        return ""
+    candidate = Path(value)
+    if not candidate.is_absolute():
+        return candidate.as_posix()
+    try:
+        return candidate.resolve().relative_to(PROJECT_ROOT.resolve()).as_posix()
+    except ValueError:
+        return value
+
+
 def _write(path: Path, rows: list[dict[str, str]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(f"{path.suffix}.tmp")
     with temporary.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=FIELDS)
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows([
+            {**row, "evidence_screenshot": _portable_path(row.get("evidence_screenshot", ""))}
+            for row in rows
+        ])
     temporary.replace(path)
 
 

@@ -16,7 +16,22 @@ from app.crawlers.browser_prices import capture
 CAPTURE_FIELDS = ("capture_status", "capture_note", "captured_at")
 
 
+def _portable_path(value: str) -> str:
+    if not value:
+        return ""
+    candidate = Path(value)
+    if not candidate.is_absolute():
+        return candidate.as_posix()
+    try:
+        return candidate.resolve().relative_to(PROJECT_ROOT.resolve()).as_posix()
+    except ValueError:
+        return value
+
+
 def _save(path: Path, rows: list[dict[str, str]], fieldnames: list[str]) -> None:
+    for row in rows:
+        for field in ("evidence_text_path", "screenshot_path"):
+            row[field] = _portable_path(row.get(field, ""))
     temporary = path.with_suffix(f"{path.suffix}.tmp")
     with temporary.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames, extrasaction="ignore")
@@ -30,7 +45,16 @@ def _safe_item_id(parts: tuple[str, ...]) -> str:
     return re.sub(r"[^0-9A-Za-z_.\-\u4e00-\u9fff]+", "_", joined)[:160] or "market-item"
 
 
-def process_queue(path: Path, *, limit: int, platform: str | None, headless: bool) -> dict[str, int]:
+def process_queue(
+    path: Path,
+    *,
+    limit: int,
+    platform: str | None,
+    headless: bool,
+    model_name: str | None = None,
+    ram_gb: str | None = None,
+    storage_gb: str | None = None,
+) -> dict[str, int]:
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         fieldnames = list(reader.fieldnames or [])
@@ -48,6 +72,12 @@ def process_queue(path: Path, *, limit: int, platform: str | None, headless: boo
         if counters["attempted"] >= limit:
             break
         if platform and row.get("platform", "").strip().lower() != platform:
+            continue
+        if model_name and row.get("model_name", "").strip() != model_name:
+            continue
+        if ram_gb and row.get("ram_gb", "").strip() != ram_gb:
+            continue
+        if storage_gb and row.get("storage_gb", "").strip() != storage_gb:
             continue
         if row.get("review_status", "").strip().lower() not in {"pending", "needs_collection", "blocked", "existing_reviewed"}:
             counters["skipped"] += 1
@@ -87,6 +117,8 @@ def process_queue(path: Path, *, limit: int, platform: str | None, headless: boo
             # evidence already collected earlier in the run.
             rows[index] = row
             _save(path, rows, fieldnames)
+    # Also migrates legacy absolute evidence paths when filters match no rows.
+    _save(path, rows, fieldnames)
     return counters
 
 
@@ -95,11 +127,22 @@ def main() -> None:
     parser.add_argument("file", type=Path)
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--platform", choices=("jd", "tmall", "pdd"))
+    parser.add_argument("--model", help="只处理指定型号")
+    parser.add_argument("--ram", help="只处理指定运行内存（GB）")
+    parser.add_argument("--storage", help="只处理指定存储容量（GB）")
     parser.add_argument("--headless", action="store_true")
     args = parser.parse_args()
     if args.limit < 1:
         parser.error("--limit 必须大于 0")
-    result = process_queue(args.file, limit=args.limit, platform=args.platform, headless=args.headless)
+    result = process_queue(
+        args.file,
+        limit=args.limit,
+        platform=args.platform,
+        headless=args.headless,
+        model_name=args.model,
+        ram_gb=args.ram,
+        storage_gb=args.storage,
+    )
     print(result)
 
 
