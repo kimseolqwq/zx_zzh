@@ -51,6 +51,15 @@ def test_price_parser_does_not_invent_unlabelled_price() -> None:
     assert parsed.confidence == "low"
 
 
+def test_price_parser_handles_tmall_multiline_coupon_price() -> None:
+    text = "券后\n￥\n4319.1\n优惠前￥4899\n领取政府补贴10%"
+    parsed = parse_price_text(text)
+    assert parsed.public_sale_price == 4319.1
+    assert parsed.regular_price == 4899
+    assert parsed.displayed_gov_price is None
+    assert parsed.confidence == "high"
+
+
 def test_official_image_uses_explicit_metadata_and_resolves_relative_url() -> None:
     html = '<meta property="og:image" content="/assets/phone.webp"><img src="camera-sample.jpg">'
     assert extract_official_image(html, "https://brand.example/phones/model/") == {

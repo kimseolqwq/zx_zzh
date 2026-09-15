@@ -31,7 +31,17 @@ def parse_price_text(text: str) -> ParsedPrice:
     gov = _prices_near(r"国补(?:价|后|到手)?", text)
     subsidy = _prices_near(r"百亿补贴(?:价|后|到手)?", text)
     sale = _prices_near(r"(?:活动价|到手价|优惠价|券后价)", text)
-    regular = _prices_near(r"(?:售价|京东价|商城价|官方价)", text)
+    regular = _prices_near(r"(?:售价|京东价|商城价|官方价|优惠前)", text)
+    # Tmall commonly renders the label, currency sign and price on separate
+    # lines, followed by an explicit pre-discount price.  The two labels make
+    # this relation unambiguous enough to parse without guessing.
+    for match in re.finditer(
+        r"券后\s*\n\s*[¥￥]\s*\n?\s*(\d{3,5}(?:\.\d{1,2})?)\s*\n\s*优惠前\s*[¥￥]\s*(\d{3,5}(?:\.\d{1,2})?)",
+        text,
+        flags=re.IGNORECASE,
+    ):
+        sale.append((float(match.group(1)), match.group(0).strip()))
+        regular.append((float(match.group(2)), match.group(0).strip()))
     evidence = [item[1] for group in [gov, subsidy, sale, regular] for item in group][:12]
     result = ParsedPrice(
         regular_price=min((item[0] for item in regular), default=None),
