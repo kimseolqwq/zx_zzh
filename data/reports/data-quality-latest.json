@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T17:33:11.948827+00:00",
+  "generated_at": "2026-09-15T17:38:16.968095+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
@@ -42,16 +42,22 @@
     "main_camera_mp": 46.3,
     "battery_mah": 52.2,
     "weight_g": 42.4,
-    "image_url": 58.1,
+    "image_url": 48.3,
     "source_url": 100.0
   },
   "issue_counts": {
-    "missing_specs": 155,
+    "missing_specs": 156,
     "release_date_unverified": 173,
     "missing_variants": 77,
     "outside_two_year_window": 1
   },
   "issues": [
+    {
+      "severity": "medium",
+      "type": "missing_specs",
+      "phone": "小米 Xiaomi 17",
+      "detail": "image_url"
+    },
     {
       "severity": "medium",
       "type": "missing_specs",
@@ -182,7 +188,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 Xiaomi 17 Pro",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -200,7 +206,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 Xiaomi 17 Pro Max",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -218,7 +224,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI K80",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -236,7 +242,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI K80 Pro",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -254,7 +260,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI K80 至尊版",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -818,7 +824,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 Xiaomi 15",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -836,7 +842,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 Xiaomi 15 Pro",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -854,7 +860,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 Xiaomi 15 Ultra",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -872,7 +878,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 Xiaomi 15S Pro",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -890,7 +896,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI K90",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -908,7 +914,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI K90 Pro Max",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -926,7 +932,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Turbo 4",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -944,7 +950,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Turbo 4 Pro",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -962,7 +968,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Turbo 5",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -980,7 +986,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Turbo 5 Max",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -998,7 +1004,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Note 14",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -1016,7 +1022,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Note 14 Pro",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -1034,7 +1040,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Note 15",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
@@ -1052,7 +1058,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "小米 REDMI Note 15 Pro",
-      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g"
+      "detail": "cpu, screen_size, refresh_rate, main_camera_mp, battery_mah, weight_g, image_url"
     },
     {
       "severity": "medium",
