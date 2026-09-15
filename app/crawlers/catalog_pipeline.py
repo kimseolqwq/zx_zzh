@@ -16,6 +16,7 @@ from app.crawlers.official_specs import (
     SPEC_BOUNDS,
     completeness,
     extract_official_image,
+    is_likely_product_image_url,
     parse_memory_variants,
     parse_official_specs,
     parse_release_date,
@@ -169,6 +170,9 @@ def _upsert_phone(db: Session, item: CollectedPhone) -> tuple[int, int, int]:
     if item.image:
         phone.image_url = item.image["image_url"]
         phone.image_source_url = item.image["image_source_url"]
+    elif phone.image_url and not is_likely_product_image_url(phone.image_url):
+        phone.image_url = None
+        phone.image_source_url = None
     phone.sale_status = "on_sale"
     phone.official_url = item.final_url
     phone.source_url = item.final_url

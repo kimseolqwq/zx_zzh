@@ -1,6 +1,7 @@
 from app.crawlers.official_specs import (
     completeness,
     extract_official_image,
+    is_likely_product_image_url,
     parse_memory_variants,
     parse_official_specs,
     parse_release_date,
@@ -56,6 +57,17 @@ def test_official_image_uses_explicit_metadata_and_resolves_relative_url() -> No
         "image_url": "https://brand.example/assets/phone.webp",
         "image_source_url": "https://brand.example/phones/model/",
     }
+
+
+def test_official_image_rejects_logos_icons_and_svg_placeholders() -> None:
+    html = '<meta property="og:image" content="/assets/logo.svg"><img alt="Test Phone" src="/images/test-phone.webp">'
+    assert extract_official_image(html, "https://brand.example/phones/model/", "Test Phone") == {
+        "image_url": "https://brand.example/images/test-phone.webp",
+        "image_source_url": "https://brand.example/phones/model/",
+    }
+    assert not is_likely_product_image_url("https://brand.example/assets/logo.svg")
+    assert not is_likely_product_image_url("https://brand.example/images/placeholder.png")
+    assert is_likely_product_image_url("https://brand.example/products/phone-front.webp")
 
 
 def test_release_date_and_variants_require_explicit_labels() -> None:

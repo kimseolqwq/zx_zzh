@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
 
@@ -19,6 +19,22 @@ SPEC_BOUNDS: dict[str, tuple[float, float]] = {
     "weight_g": (100.0, 400.0),
     "thickness_mm": (3.0, 20.0),
 }
+
+IMAGE_REJECT_TOKENS = (
+    "logo", "favicon", "sprite", "avatar", "qrcode", "qr-code", "placeholder",
+    "loading", "default-image", "/icon/", "icon-", "share-img",
+)
+
+
+def is_likely_product_image_url(url: str) -> bool:
+    parsed = urlparse(url)
+    target = f"{parsed.path}?{parsed.query}".lower()
+    return (
+        parsed.scheme in {"http", "https"}
+        and bool(parsed.netloc)
+        and not parsed.path.lower().endswith(".svg")
+        and not any(token in target for token in IMAGE_REJECT_TOKENS)
+    )
 
 
 def _first_number(patterns: list[str], text: str) -> float | None:
@@ -127,8 +143,9 @@ def extract_official_image(html: str, page_url: str, expected_name: str | None =
     ):
         tag = soup.select_one(selector)
         content = (tag.get("content") or "").strip() if tag else ""
-        if content and not content.startswith("data:"):
-            return {"image_url": urljoin(page_url, content), "image_source_url": page_url}
+        image_url = urljoin(page_url, content)
+        if content and not content.startswith("data:") and is_likely_product_image_url(image_url):
+            return {"image_url": image_url, "image_source_url": page_url}
     for tag in soup.select('script[type="application/ld+json"]'):
         try:
             import json
@@ -141,8 +158,9 @@ def extract_official_image(html: str, page_url: str, expected_name: str | None =
             current = stack.pop()
             if isinstance(current, dict):
                 image = current.get("image")
-                if isinstance(image, str) and image and not image.startswith("data:"):
-                    return {"image_url": urljoin(page_url, image), "image_source_url": page_url}
+                image_url = urljoin(page_url, image) if isinstance(image, str) else ""
+                if isinstance(image, str) and image and not image.startswith("data:") and is_likely_product_image_url(image_url):
+                    return {"image_url": image_url, "image_source_url": page_url}
                 if isinstance(image, list):
                     stack.extend(image)
                 elif isinstance(image, dict):
@@ -158,8 +176,9 @@ def extract_official_image(html: str, page_url: str, expected_name: str | None =
             if compact_name not in alt and not any(token in alt for token in name_tokens[-2:]):
                 continue
             content = next((image.get(attr) for attr in ("src", "data-src", "data-original") if image.get(attr)), "")
-            if content and not content.startswith(("data:", "blob:")):
-                return {"image_url": urljoin(page_url, content), "image_source_url": page_url}
+            image_url = urljoin(page_url, content)
+            if content and not content.startswith(("data:", "blob:")) and is_likely_product_image_url(image_url):
+                return {"image_url": image_url, "image_source_url": page_url}
     return None
 
 

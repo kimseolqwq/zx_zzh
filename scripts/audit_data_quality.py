@@ -14,7 +14,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import selectinload
 
 from app.config import DATA_DIR
-from app.crawlers.official_specs import SPEC_BOUNDS
+from app.crawlers.official_specs import SPEC_BOUNDS, is_likely_product_image_url
 from app.database import SessionLocal, engine
 from app.models import Brand, PhoneModel, PhoneVariant, PlatformListing, PriceSnapshot
 from app.services.evaluation import is_meaningful
@@ -72,6 +72,8 @@ def audit() -> dict:
             ]
             if invalid_fields:
                 issues.append({"severity": "high", "type": "invalid_spec_range", "phone": f"{phone.brand.name} {phone.model_name}", "detail": ", ".join(invalid_fields)})
+            if phone.image_url and not is_likely_product_image_url(phone.image_url):
+                issues.append({"severity": "high", "type": "invalid_product_image", "phone": f"{phone.brand.name} {phone.model_name}", "detail": phone.image_url})
         invalid_active_links = [listing.id for listing in listings if "example.com" in listing.product_url or not listing.store_verified]
         if invalid_active_links:
             issues.append({"severity": "high", "type": "invalid_active_listing", "detail": invalid_active_links})
