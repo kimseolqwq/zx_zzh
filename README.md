@@ -91,6 +91,7 @@ ollama pull gemma3:1b
 .\.venv\Scripts\python.exe .\scripts\discover_market_candidates.py .\data\review\price_review_queue.csv --platform jd --limit 10
 .\.venv\Scripts\python.exe .\scripts\capture_price_queue.py .\data\review\price_review_queue.csv --platform jd --limit 10
 .\.venv\Scripts\python.exe .\scripts\reparse_price_evidence.py .\data\review\price_review_queue.csv
+.\.venv\Scripts\python.exe .\scripts\approve_price_row.py .\data\review\price_review_queue.csv --platform tmall --model "iQOO 15" --ram 16 --storage 256 --reviewer "审核人"
 ```
 
 商品发现只输出最多 5 个带可解释匹配分数的候选链接；需要先核对店铺与内存版本，再把正确链接复制到价格队列。采集结果只会标为 `needs_review`。核对商品版本、官方店、页面价格和截图后，填写审核人并把该行改为 `approved`，再运行上面的审核导入命令。浏览器会话、页面正文和截图均只保存在本机且被 Git 忽略。
