@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T15:47:51.831130+00:00",
+  "generated_at": "2026-09-15T16:59:37.340691+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
@@ -28,9 +28,9 @@
     "official_verified": 81
   },
   "field_coverage_percent": {
-    "cpu": 43.3,
+    "cpu": 51.7,
     "screen_size": 45.8,
-    "refresh_rate": 37.3,
+    "refresh_rate": 39.3,
     "main_camera_mp": 44.3,
     "battery_mah": 52.7,
     "weight_g": 39.8,
@@ -38,7 +38,7 @@
     "source_url": 100.0
   },
   "issue_counts": {
-    "missing_specs": 164,
+    "missing_specs": 154,
     "release_date_unverified": 171,
     "missing_variants": 77,
     "outside_two_year_window": 1
@@ -49,12 +49,6 @@
       "type": "missing_specs",
       "phone": "Apple iPhone 17",
       "detail": "battery_mah"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo X200 Pro",
-      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -138,7 +132,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI nova 16 Pro",
-      "detail": "screen_size, refresh_rate, main_camera_mp, weight_g"
+      "detail": "screen_size, main_camera_mp, weight_g"
     },
     {
       "severity": "medium",
@@ -156,7 +150,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI Mate 70 Pro",
-      "detail": "cpu, refresh_rate"
+      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -168,7 +162,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI Pura 80 Ultra",
-      "detail": "cpu, refresh_rate"
+      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -268,21 +262,9 @@
     },
     {
       "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO Find X9 Ultra",
-      "detail": "cpu"
-    },
-    {
-      "severity": "medium",
       "type": "release_date_unverified",
       "phone": "OPPO OPPO Find X9 Ultra",
       "detail": "官网页未明确标注发布日期"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO Find X9s Pro",
-      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -292,21 +274,9 @@
     },
     {
       "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO Find X9 Pro",
-      "detail": "cpu"
-    },
-    {
-      "severity": "medium",
       "type": "release_date_unverified",
       "phone": "OPPO OPPO Find X9 Pro",
       "detail": "官网页未明确标注发布日期"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO Find X9",
-      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -316,21 +286,9 @@
     },
     {
       "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO Reno16 Pro",
-      "detail": "cpu"
-    },
-    {
-      "severity": "medium",
       "type": "release_date_unverified",
       "phone": "OPPO OPPO Reno16 Pro",
       "detail": "官网页未明确标注发布日期"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO Reno16",
-      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -340,21 +298,9 @@
     },
     {
       "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO K15 Pro",
-      "detail": "cpu, refresh_rate"
-    },
-    {
-      "severity": "medium",
       "type": "release_date_unverified",
       "phone": "OPPO OPPO K15 Pro",
       "detail": "官网页未明确标注发布日期"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "OPPO OPPO A6s Pro",
-      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -366,49 +312,43 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo vivo X300 Ultra",
-      "detail": "cpu, main_camera_mp, weight_g, image_url"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo X300 Pro",
-      "detail": "cpu"
+      "detail": "main_camera_mp, weight_g, image_url"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo vivo X300",
-      "detail": "cpu, main_camera_mp"
+      "detail": "main_camera_mp"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo vivo S50 Pro mini",
-      "detail": "cpu, main_camera_mp, weight_g"
+      "detail": "main_camera_mp, weight_g"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo vivo S50",
-      "detail": "cpu, refresh_rate, main_camera_mp, weight_g"
+      "detail": "refresh_rate, main_camera_mp, weight_g"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo vivo Y500",
-      "detail": "cpu, refresh_rate, main_camera_mp"
+      "detail": "refresh_rate, main_camera_mp"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo iQOO 15 Ultra",
-      "detail": "cpu, refresh_rate, image_url"
+      "detail": "refresh_rate, image_url"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo iQOO 15",
-      "detail": "cpu, refresh_rate, weight_g, image_url"
+      "detail": "refresh_rate, weight_g, image_url"
     },
     {
       "severity": "medium",

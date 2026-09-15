@@ -1,6 +1,6 @@
 # 手机数据质量报告
 
-生成时间：2026-09-13T15:47:51.831130+00:00
+生成时间：2026-09-15T16:59:37.340691+00:00
 
 ## 数据规模
 
@@ -25,9 +25,9 @@
 
 ## 参数字段覆盖率
 
-- cpu：43.3%
+- cpu：51.7%
 - screen_size：45.8%
-- refresh_rate：37.3%
+- refresh_rate：39.3%
 - main_camera_mp：44.3%
 - battery_mah：52.7%
 - weight_g：39.8%
@@ -36,7 +36,7 @@
 
 ## 待处理问题
 
-- missing_specs：164
+- missing_specs：154
 - release_date_unverified：171
 - missing_variants：77
 - outside_two_year_window：1
