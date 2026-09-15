@@ -10,6 +10,7 @@ data/*.db-wal
 data/backups/
 data/raw/
 data/benchmark_cache/
+data/browser-profile/
 data/screenshots/
 exports/
 work/
