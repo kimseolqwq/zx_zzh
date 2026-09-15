@@ -36,3 +36,12 @@ def test_rebuild_items_uses_newest_successful_evidence_across_reports(tmp_path) 
     assert collected[0].evidence_path == str(new_text.resolve())
     assert collected[0].variants[0]["ram_gb"] == 16
     assert collected[0].variants[0]["storage_gb"] == 512
+
+
+def test_report_path_hides_locations_outside_project(tmp_path, monkeypatch) -> None:
+    project = tmp_path / "project"
+    inside = project / "data" / "reports" / "catalog.json"
+    outside = tmp_path / "private" / "backup.db"
+    monkeypatch.setattr(MODULE, "PROJECT_ROOT", project)
+    assert MODULE.report_path(inside) == "data/reports/catalog.json"
+    assert MODULE.report_path(outside) == "backup.db"

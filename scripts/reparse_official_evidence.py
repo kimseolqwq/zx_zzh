@@ -30,6 +30,16 @@ def catalog_reports() -> list[Path]:
     return reports
 
 
+def report_path(path: Path | None) -> str | None:
+    if path is None:
+        return None
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(PROJECT_ROOT.resolve()).as_posix()
+    except ValueError:
+        return resolved.name
+
+
 def rebuild_items(report_paths: list[Path], sources_paths: list[Path]) -> tuple[list[CollectedPhone], list[dict[str, str]]]:
     sources = [source for path in sources_paths if path.exists() for source in read_sources(path)]
     source_map = {(item.brand.casefold(), item.model_name.casefold()): item for item in sources}
@@ -45,6 +55,8 @@ def rebuild_items(report_paths: list[Path], sources_paths: list[Path]) -> tuple[
     for key, row in latest_rows.items():
         source = source_map.get(key) or CatalogSource(row["brand"], row["model_name"], row["url"])
         text_path = Path(row["evidence_path"])
+        if not text_path.is_absolute():
+            text_path = PROJECT_ROOT / text_path
         if not text_path.exists():
             failures.append({"phone": f"{row['brand']} {row['model_name']}", "error": "evidence text missing"})
             continue
@@ -100,13 +112,13 @@ def main() -> None:
         checkpoint_database()
     result = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "source_reports": [str(path.resolve()) for path in report_paths],
+        "source_reports": [report_path(path) for path in report_paths],
         "network_requests": 0,
         "phones_reparsed": len(collected),
         "phones_with_variants": before_with_variants,
         **counters,
         "failures": failures,
-        "backup": str(backup_path.resolve()) if backup_path else None,
+        "backup": report_path(backup_path),
     }
     output = DATA_DIR / "reports" / "official-evidence-reparse-latest.json"
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")

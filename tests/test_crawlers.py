@@ -161,6 +161,30 @@ def test_vivo_and_oppo_style_camera_and_charging_labels() -> None:
     assert parsed["charging_w"] == 80
 
 
+def test_vivo_multiline_colour_specs_remain_label_scoped() -> None:
+    text = """
+    厚度
+    黑色：8.19mm
+    重量
+    黑色：232g
+    刷新率
+    最大支持120Hz
+    后置摄像头像素
+    5000 万索尼超感光大底主摄
+    """
+    parsed = parse_official_specs(text)
+    assert parsed["thickness_mm"] == 8.19
+    assert parsed["weight_g"] == 232
+    assert parsed["refresh_rate"] == 120
+    assert parsed["main_camera_mp"] == 50
+
+
+def test_vivo_hundred_megapixel_camera_requires_rear_camera_label() -> None:
+    parsed = parse_official_specs("后置摄像头像素\n2亿像素35mm 蔡司人文主摄")
+    assert parsed["main_camera_mp"] == 200
+    assert parse_official_specs("营销文案：2亿像素体验")["main_camera_mp"] is None
+
+
 def test_samsung_camera_label_and_implausible_values() -> None:
     valid = parse_official_specs("后置摄像头 - 分辨率 (多重)\n5000万像素+1200万像素+500万像素")
     assert valid["main_camera_mp"] == 50

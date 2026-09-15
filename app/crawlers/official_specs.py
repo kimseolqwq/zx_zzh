@@ -68,6 +68,7 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"(\d+(?:\.\d+)?)\s*英寸[^\n]{0,45}(?:OLED|AMOLED|LCD|显示屏|全面屏)",
         ], normalized),
         "refresh_rate": _first_number([
+            r"刷新率\s*[:：]?\s*\n?(?:最高支持|最高可达|最大支持)?\s*(\d{2,3})\s*Hz",
             r"(?:最高支持|刷新率|最高)?\s*(\d{2,3})\s*Hz\s*刷新率",
             r"(?:最高可达|最高支持)\s*(\d{2,3})\s*Hz",
             r"刷新率\s*[:：]?\s*(\d{2,3})\s*Hz",
@@ -75,6 +76,7 @@ def parse_official_specs(text: str) -> dict[str, Any]:
             r"(?:\d{1,2}\s*[-~至]\s*)?(\d{2,3})\s*Hz[^\n]{0,30}刷新率",
         ], normalized),
         "main_camera_mp": _first_number([
+            r"后置摄像头像素\s*\n\s*(\d{3,5})\s*万[^\n]{0,45}(?:主摄|镜头)",
             r"(?:后置|主摄|主摄像头)[^\n]{0,50}?(\d{3,5})\s*万像素",
             r"(\d{3,5})\s*万像素[^\n]{0,30}(?:主摄|摄像头)",
             r"后置摄像头(?:像素)?\s*\n(?:后置\s*\n)?(\d{3,5})\s*万像素",
@@ -94,10 +96,13 @@ def parse_official_specs(text: str) -> dict[str, Any]:
         "weight_g": _first_number([
             r"重量\s*[:：]?\s*\n?约?\s*(\d{2,3}(?:\.\d+)?)\s*g",
             r"重量\s*[:：]?\s*\n?约?\s*(\d{2,3}(?:\.\d+)?)\s*克",
+            r"重量\s*[:：]?\s*\n[^\n]{0,45}?约?\s*(\d{2,3}(?:\.\d+)?)\s*g",
+            r"重量\s*[:：]?\s*\n[^\n]{0,45}?约?\s*(\d{2,3}(?:\.\d+)?)\s*克",
             r"约\s*(\d{2,3}(?:\.\d+)?)\s*克",
         ], normalized),
         "thickness_mm": _first_number([
             r"厚度\s*[:：]?\s*\n?约?\s*(\d+(?:\.\d+)?)\s*mm",
+            r"厚度\s*[:：]?\s*\n[^\n]{0,45}?约?\s*(\d+(?:\.\d+)?)\s*mm",
         ], normalized),
         "resolution": _first_text([
             r"分辨率\s*[:：]?\s*\n?([0-9]{3,4}\s*[×xX]\s*[0-9]{3,4}(?:\s*像素)?)",
@@ -111,7 +116,10 @@ def parse_official_specs(text: str) -> dict[str, Any]:
     if result["main_camera_mp"]:
         result["main_camera_mp"] = result["main_camera_mp"] / 100
     else:
-        hundred_mp = re.search(r"(?:后置|主摄)[^\n]{0,45}?(\d(?:\.\d+)?)\s*亿像素", normalized)
+        hundred_mp = re.search(
+            r"(?:后置(?:摄像头)?像素|主摄)\s*[:：]?\s*\n?[^\n]{0,25}?(\d(?:\.\d+)?)\s*亿像素",
+            normalized,
+        )
         if hundred_mp:
             result["main_camera_mp"] = float(hundred_mp.group(1)) * 100
     # Reject physically implausible matches caused by nearby marketing text,

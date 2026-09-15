@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T18:19:05.267766+00:00",
+  "generated_at": "2026-09-15T18:22:58.602309+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
@@ -32,21 +32,21 @@
   "quality_counts": {
     "manual_official_review": 5,
     "official_catalog_only": 53,
-    "official_partial": 52,
-    "official_verified": 93
+    "official_partial": 51,
+    "official_verified": 94
   },
   "field_coverage_percent": {
     "cpu": 52.2,
     "screen_size": 49.3,
-    "refresh_rate": 47.8,
-    "main_camera_mp": 46.3,
+    "refresh_rate": 48.8,
+    "main_camera_mp": 50.7,
     "battery_mah": 52.2,
-    "weight_g": 42.4,
+    "weight_g": 50.2,
     "image_url": 44.3,
     "source_url": 100.0
   },
   "issue_counts": {
-    "missing_specs": 157,
+    "missing_specs": 144,
     "release_date_unverified": 173,
     "missing_variants": 77,
     "outside_two_year_window": 1
@@ -326,31 +326,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo vivo X300 Ultra",
-      "detail": "main_camera_mp, weight_g, image_url"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo X300",
-      "detail": "main_camera_mp"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo S50 Pro mini",
-      "detail": "main_camera_mp, weight_g"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo S50",
-      "detail": "main_camera_mp, weight_g"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo Y500",
-      "detail": "refresh_rate, main_camera_mp"
+      "detail": "image_url"
     },
     {
       "severity": "medium",
@@ -362,7 +338,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo iQOO 15",
-      "detail": "weight_g, image_url"
+      "detail": "image_url"
     },
     {
       "severity": "medium",
@@ -686,7 +662,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI Mate 70 RS 非凡大师",
-      "detail": "cpu, weight_g"
+      "detail": "cpu"
     },
     {
       "severity": "medium",
@@ -758,7 +734,7 @@
       "severity": "medium",
       "type": "missing_specs",
       "phone": "华为 HUAWEI Pura X",
-      "detail": "cpu, screen_size, weight_g"
+      "detail": "cpu, screen_size"
     },
     {
       "severity": "medium",
@@ -1297,44 +1273,8 @@
     {
       "severity": "medium",
       "type": "missing_specs",
-      "phone": "vivo vivo X200",
-      "detail": "weight_g"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
       "phone": "vivo vivo X200 Ultra",
-      "detail": "weight_g, image_url"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo S20",
-      "detail": "main_camera_mp, weight_g"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo S20 Pro",
-      "detail": "main_camera_mp, weight_g"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo S30",
-      "detail": "main_camera_mp"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo S30 Pro mini",
-      "detail": "main_camera_mp"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo vivo Y300 Pro",
-      "detail": "weight_g"
+      "detail": "image_url"
     },
     {
       "severity": "high",
@@ -1345,32 +1285,14 @@
     {
       "severity": "medium",
       "type": "missing_specs",
-      "phone": "vivo vivo Y300i",
-      "detail": "refresh_rate, weight_g"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
       "phone": "vivo iQOO 13",
-      "detail": "weight_g, image_url"
+      "detail": "image_url"
     },
     {
       "severity": "medium",
       "type": "missing_specs",
       "phone": "vivo iQOO Neo10",
-      "detail": "weight_g, image_url"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo iQOO Neo10 Pro",
-      "detail": "weight_g"
-    },
-    {
-      "severity": "medium",
-      "type": "missing_specs",
-      "phone": "vivo iQOO Neo10 Pro+",
-      "detail": "weight_g"
+      "detail": "image_url"
     },
     {
       "severity": "medium",
