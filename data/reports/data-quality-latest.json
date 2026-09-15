@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T17:11:31.319422+00:00",
+  "generated_at": "2026-09-15T17:27:51.147986+00:00",
   "database": "C:/Users/19158/Documents/Codex/2026-09-01/gemini-ui/data/phone_recommender.db",
   "summary": {
     "brands": 10,
@@ -7,7 +7,15 @@
     "variants": 394,
     "active_verified_listings": 3,
     "active_price_snapshots": 3,
+    "priced_variants": 3,
+    "three_platform_variants": 0,
+    "fresh_price_snapshots_7d": 0,
+    "price_evidence_snapshots": 3,
     "official_source_phones": 203
+  },
+  "reviewed_platform_counts": {
+    "jd": 2,
+    "tmall": 1
   },
   "brand_counts": {
     "Apple": 8,
