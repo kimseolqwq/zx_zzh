@@ -22,7 +22,7 @@ FIELDS = (
     "candidate_rank", "candidate_score", "product_title", "product_url", "context_text",
     "evidence_screenshot", "review_status", "review_note",
 )
-BLOCKED_WORDS = ("验证码", "滑块", "访问过于频繁", "安全验证")
+BLOCKED_WORDS = ("验证码", "滑块", "访问过于频繁", "访问频繁", "无法搜索", "安全验证")
 
 
 def _write(path: Path, rows: list[dict[str, str]]) -> None:
@@ -45,7 +45,7 @@ async def discover(queue: Path, output: Path, *, platform: str, limit: int, head
     completed_keys = {
         (row.get("platform", ""), row.get("model_name", ""), row.get("ram_gb", ""), row.get("storage_gb", ""))
         for row in existing
-        if row.get("review_status", "").strip().lower() not in {"blocked", "failed"}
+        if row.get("review_status", "").strip().lower() not in {"blocked", "failed", "no_candidates"}
     }
     counters = {"searched": 0, "candidates": 0, "blocked": 0, "failed": 0}
     evidence_dir = DATA_DIR / "raw" / "ecommerce" / "searches"
@@ -72,6 +72,12 @@ async def discover(queue: Path, output: Path, *, platform: str, limit: int, head
                 screenshot = evidence_dir / f"{platform}-{counters['searched']:03d}-{stamp}.png"
                 await page.screenshot(path=screenshot, full_page=True)
                 blocked = next((word for word in BLOCKED_WORDS if word in body), None)
+                if not blocked:
+                    verification = page.locator(
+                        '[class*="captcha"], [class*="verify"], [class*="nc-container"], iframe[src*="captcha"]'
+                    )
+                    if await verification.count() and await verification.first.is_visible():
+                        blocked = "页面验证控件"
                 if blocked:
                     counters["blocked"] += 1
                     existing.append({
@@ -100,6 +106,13 @@ async def discover(queue: Path, output: Path, *, platform: str, limit: int, head
                     if product_url not in candidates or score > int(candidates[product_url]["score"]):
                         candidates[product_url] = candidate
                 ranked = sorted(candidates.values(), key=lambda item: int(item["score"]), reverse=True)[:5]
+                if not ranked:
+                    existing.append({
+                        **{field: row.get(field, "") for field in FIELDS},
+                        "candidate_rank": "0", "candidate_score": "0",
+                        "evidence_screenshot": str(screenshot), "review_status": "no_candidates",
+                        "review_note": "页面已打开，但未发现可识别的商品详情链接；允许后续重试",
+                    })
                 for rank, candidate in enumerate(ranked, start=1):
                     existing.append({
                         **{field: row.get(field, "") for field in FIELDS},

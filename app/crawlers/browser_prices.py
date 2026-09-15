@@ -42,7 +42,7 @@ async def capture_public_price_page(url: str, item_id: str, *, headless: bool = 
         await page.screenshot(path=screenshot, full_page=True)
         text_path.write_text(text, encoding="utf-8")
         parsed = parse_price_text(text)
-        blocked_words = ["验证码", "滑块", "登录后查看", "访问过于频繁"]
+        blocked_words = ["验证码", "滑块", "登录后查看", "访问过于频繁", "访问频繁", "无法搜索", "安全验证"]
         blocked = next((word for word in blocked_words if word in text), None)
         await context.close()
     return {

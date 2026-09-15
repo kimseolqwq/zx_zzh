@@ -49,7 +49,7 @@ def process_queue(path: Path, *, limit: int, platform: str | None, headless: boo
             break
         if platform and row.get("platform", "").strip().lower() != platform:
             continue
-        if row.get("review_status", "").strip().lower() not in {"pending", "needs_collection", "blocked"}:
+        if row.get("review_status", "").strip().lower() not in {"pending", "needs_collection", "blocked", "existing_reviewed"}:
             counters["skipped"] += 1
             continue
         product_url = row.get("product_url", "").strip()
