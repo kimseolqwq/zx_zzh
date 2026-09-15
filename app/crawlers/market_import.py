@@ -21,6 +21,26 @@ PLATFORM_DOMAINS = {
 }
 
 
+def _store_whitelist() -> set[tuple[str, str, str]]:
+    path = BASE_DIR / "config" / "official_store_whitelist.csv"
+    if not path.is_file():
+        raise ValueError("缺少 config/official_store_whitelist.csv，不能核验官方店")
+    with path.open("r", encoding="utf-8-sig", newline="") as handle:
+        rows = csv.DictReader(handle)
+        return {
+            (
+                (row.get("platform") or "").strip().lower(),
+                (row.get("brand") or "").strip().casefold(),
+                (row.get("store_name") or "").strip().casefold(),
+            )
+            for row in rows
+            if (row.get("platform") or "").strip()
+            and (row.get("brand") or "").strip()
+            and (row.get("store_name") or "").strip()
+            and (row.get("verified_at") or "").strip()
+        }
+
+
 def _text(row: dict[str, str], key: str) -> str:
     return (row.get(key) or "").strip()
 
@@ -56,6 +76,7 @@ def _validated_evidence_path(value: str, line_no: int) -> str:
 
 def import_reviewed_prices(db: Session, path: Path, *, dry_run: bool = False) -> dict[str, int]:
     counters = {"rows": 0, "approved": 0, "skipped": 0, "duplicates_skipped": 0, "listings_added": 0, "snapshots_added": 0}
+    allowed_stores = _store_whitelist()
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         required = {"brand", "model_name", "storage_gb", "platform", "product_url", "review_status"}
@@ -76,6 +97,9 @@ def import_reviewed_prices(db: Session, path: Path, *, dry_run: bool = False) ->
             store_name = _text(row, "store_name")
             if not store_name or not any(label in store_name for label in ("官方旗舰店", "自营")):
                 raise ValueError(f"第 {line_no} 行店铺名称未通过官方店规则")
+            store_key = (platform, _text(row, "brand").casefold(), store_name.casefold())
+            if store_key not in allowed_stores:
+                raise ValueError(f"第 {line_no} 行店铺未进入官方店白名单：{store_name}")
             if not _text(row, "reviewer"):
                 raise ValueError(f"第 {line_no} 行缺少审核人")
             evidence_text = _text(row, "evidence_text_path")

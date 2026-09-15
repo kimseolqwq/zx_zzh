@@ -13,6 +13,13 @@ def test_reviewed_price_import_is_evidence_checked_and_idempotent(tmp_path, monk
     evidence = project / "data" / "raw" / "capture.txt"
     evidence.parent.mkdir(parents=True)
     evidence.write_text("public price: 3999", encoding="utf-8")
+    config = project / "config"
+    config.mkdir(parents=True)
+    (config / "official_store_whitelist.csv").write_text(
+        "platform,brand,store_name,store_url,verified_at,verification_note\n"
+        "jd,测试品牌,测试京东自营旗舰店,https://item.jd.com/10001.html,2026-09-16,测试核验\n",
+        encoding="utf-8-sig",
+    )
     monkeypatch.setattr(market_import, "BASE_DIR", project)
     monkeypatch.setattr(market_import, "DATA_DIR", project / "data")
 
@@ -50,3 +57,37 @@ def test_reviewed_price_import_is_evidence_checked_and_idempotent(tmp_path, monk
         assert second["snapshots_added"] == 0
         assert second["duplicates_skipped"] == 1
         assert db.scalar(select(func.count()).select_from(PriceSnapshot)) == 1
+
+
+def test_reviewed_price_import_rejects_store_not_in_whitelist(tmp_path, monkeypatch) -> None:
+    project = tmp_path / "project"
+    (project / "config").mkdir(parents=True)
+    (project / "config" / "official_store_whitelist.csv").write_text(
+        "platform,brand,store_name,store_url,verified_at,verification_note\n",
+        encoding="utf-8-sig",
+    )
+    monkeypatch.setattr(market_import, "BASE_DIR", project)
+    monkeypatch.setattr(market_import, "DATA_DIR", project / "data")
+    engine = create_engine(f"sqlite:///{(tmp_path / 'reject.db').as_posix()}")
+    Base.metadata.create_all(engine)
+    Session = sessionmaker(bind=engine, expire_on_commit=False)
+    csv_path = tmp_path / "untrusted.csv"
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=[
+            "brand", "model_name", "storage_gb", "platform", "product_url", "review_status",
+            "store_name", "reviewer", "evidence_text_path", "public_sale_price",
+        ])
+        writer.writeheader()
+        writer.writerow({
+            "brand": "测试品牌", "model_name": "测试机", "storage_gb": "256", "platform": "jd",
+            "product_url": "https://item.jd.com/2.html", "review_status": "approved",
+            "store_name": "仿冒官方旗舰店", "reviewer": "审核人",
+            "evidence_text_path": "data/raw/capture.txt", "public_sale_price": "3999",
+        })
+    with Session() as db:
+        try:
+            market_import.import_reviewed_prices(db, csv_path)
+        except ValueError as exc:
+            assert "未进入官方店白名单" in str(exc)
+        else:
+            raise AssertionError("非白名单店铺不应通过审核导入")

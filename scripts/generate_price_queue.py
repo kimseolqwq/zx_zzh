@@ -115,7 +115,7 @@ def generate(path: Path) -> int:
                             "in_stock": str(snapshot.in_stock).lower(),
                             "evidence_text_path": snapshot.evidence_text_path or "",
                             "screenshot_path": snapshot.screenshot_path or "",
-                            "review_status": "approved",
+                            "review_status": "approved" if row.get("reviewer", "").strip() else "existing_reviewed",
                         })
                     rows.append(row)
     priority_order = {"HIGH": 0, "MEDIUM": 1, "LOW": 2}
