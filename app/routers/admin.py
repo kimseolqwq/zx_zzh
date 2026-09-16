@@ -12,6 +12,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.config import BASE_DIR
+from app.crawlers.market_import import _store_whitelist, _valid_product_url
 from app.database import get_db
 from app.models import (
     AuditLog,
@@ -60,6 +61,36 @@ def _audit(db: Session, user: User, request: Request, action: str, table: str, r
 
 def _redirect(path: str = "/admin") -> RedirectResponse:
     return RedirectResponse(path, status_code=303)
+
+
+def _validate_listing_input(*, brand_name: str, platform: str, store_name: str, product_url: str) -> None:
+    platform = platform.strip().lower()
+    store_name = store_name.strip()
+    product_url = product_url.strip()
+    if platform not in {"jd", "tmall", "pdd"}:
+        raise HTTPException(422, "平台无效")
+    if not _valid_product_url(platform, product_url):
+        raise HTTPException(422, "商品链接必须是对应平台的 HTTPS 地址")
+    key = (platform, brand_name.strip().casefold(), store_name.casefold())
+    if key not in _store_whitelist():
+        raise HTTPException(422, "店铺尚未进入‘平台 + 品牌 + 精确店名’官方店白名单")
+
+
+def _validate_price_relationships(
+    regular: Decimal | None,
+    public: Decimal | None,
+    displayed_gov: Decimal | None,
+    estimated_gov: Decimal | None,
+    billion: Decimal | None,
+) -> None:
+    reference = public or regular
+    if regular is not None and public is not None and public > regular:
+        raise HTTPException(422, "公开活动价不能高于常规价")
+    if reference is None:
+        return
+    for label, value in (("实显国补价", displayed_gov), ("估算国补价", estimated_gov), ("百亿补贴价", billion)):
+        if value is not None and value > reference:
+            raise HTTPException(422, f"{label}不能高于公开参考价")
 
 
 @router.get("/login", response_class=HTMLResponse)
@@ -287,9 +318,36 @@ def create_listing(
     db: Session = Depends(get_db),
 ):
     user = require_admin(request, db); verify_csrf(request, csrf_token)
+    platform = platform.strip().lower()
+    store_name = store_name.strip()
+    external_id = external_id.strip()
+    sku_text = sku_text.strip()
+    product_url = product_url.strip()
+    variant = db.scalar(
+        select(PhoneVariant)
+        .options(selectinload(PhoneVariant.model).selectinload(PhoneModel.brand))
+        .where(PhoneVariant.id == variant_id)
+    )
+    if variant is None or not variant.is_active:
+        raise HTTPException(404, "手机版本不存在或已停用")
+    _validate_listing_input(
+        brand_name=variant.model.brand.name,
+        platform=platform,
+        store_name=store_name,
+        product_url=product_url,
+    )
+    if not external_id or not sku_text:
+        raise HTTPException(422, "商品 ID 和 SKU 文字不能为空")
+    duplicate = db.scalar(select(PlatformListing).where(
+        PlatformListing.platform == platform,
+        PlatformListing.external_id == external_id,
+        PlatformListing.sku_text == sku_text,
+    ))
+    if duplicate is not None:
+        raise HTTPException(409, "相同平台、商品 ID 和 SKU 已存在")
     listing = PlatformListing(
-        variant_id=variant_id, platform=platform, store_name=store_name.strip(), store_verified=True,
-        external_id=external_id.strip(), sku_text=sku_text.strip(), product_url=product_url.strip(), region="中国大陆", is_active=True,
+        variant_id=variant_id, platform=platform, store_name=store_name, store_verified=True,
+        external_id=external_id, sku_text=sku_text, product_url=product_url, region="中国大陆", is_active=True,
     )
     db.add(listing); db.flush(); _audit(db, user, request, "create", "platform_listings", listing.id, new={"platform": platform}); db.commit()
     return _redirect("/admin#listings")
@@ -325,6 +383,7 @@ def add_price(
     billion = price(subsidy_price)
     if not any((regular, public, displayed_gov, estimated_gov, billion)):
         raise HTTPException(422, "至少填写一个价格")
+    _validate_price_relationships(regular, public, displayed_gov, estimated_gov, billion)
     if promotion_stackable not in {"yes", "no", "unknown"}:
         promotion_stackable = "unknown"
     snapshot = PriceSnapshot(
