@@ -155,11 +155,9 @@ def import_reviewed_prices(db: Session, path: Path, *, dry_run: bool = False) ->
                 listing.product_url = product_url
                 listing.is_active = True
             listing.last_checked_at = datetime.now(timezone.utc)
-            prices = [_money(row, key) for key in ("regular_price", "public_sale_price", "gov_price", "billion_subsidy_price")]
+            prices = [_money(row, key) for key in ("regular_price", "public_sale_price")]
             if not any(price is not None for price in prices):
                 raise ValueError(f"第 {line_no} 行没有任何价格")
-            promotion_labels = _text(row, "promotion_labels") or "人工审核公开价格"
-            promotion_stackable = _text(row, "promotion_stackable") or "unknown"
             in_stock = _text(row, "in_stock").lower() not in {"false", "0", "no"}
             previous = db.scalar(
                 select(PriceSnapshot)
@@ -170,10 +168,6 @@ def import_reviewed_prices(db: Session, path: Path, *, dry_run: bool = False) ->
             is_duplicate = previous is not None and all((
                 previous.regular_price == prices[0],
                 previous.public_sale_price == prices[1],
-                previous.displayed_gov_price == prices[2],
-                previous.billion_subsidy_price == prices[3],
-                previous.promotion_labels == promotion_labels,
-                previous.promotion_stackable == promotion_stackable,
                 previous.in_stock == in_stock,
                 previous.crawl_status == "reviewed",
                 previous.evidence_text_path == (evidence_text or None),
@@ -186,10 +180,7 @@ def import_reviewed_prices(db: Session, path: Path, *, dry_run: bool = False) ->
                     listing_id=listing.id,
                     regular_price=prices[0],
                     public_sale_price=prices[1],
-                    displayed_gov_price=prices[2],
-                    billion_subsidy_price=prices[3],
-                    promotion_labels=promotion_labels,
-                    promotion_stackable=promotion_stackable,
+                    promotion_labels="人工审核公开价格",
                     in_stock=in_stock,
                     crawl_status="reviewed",
                     evidence_text_path=evidence_text or None,

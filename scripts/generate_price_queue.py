@@ -23,8 +23,7 @@ HEADERS = [
     "priority", "release_date", "launch_price",
     "brand", "model_name", "ram_gb", "storage_gb", "variant_name", "platform", "search_url",
     "store_name", "external_id", "sku_text", "product_title", "product_url", "region",
-    "regular_price", "public_sale_price", "gov_price", "billion_subsidy_price",
-    "promotion_labels", "promotion_stackable", "in_stock", "evidence_text_path", "screenshot_path",
+    "regular_price", "public_sale_price", "in_stock", "evidence_text_path", "screenshot_path",
     "reviewer", "review_status",
 ]
 
@@ -92,7 +91,6 @@ def generate(path: Path) -> int:
                         "search_url": search_url,
                         "sku_text": row.get("sku_text") or variant.variant_name,
                         "region": row.get("region") or "中国大陆",
-                        "promotion_stackable": row.get("promotion_stackable") or "unknown",
                         "in_stock": row.get("in_stock") or "true",
                         "review_status": row.get("review_status") or "pending",
                     })
@@ -108,10 +106,6 @@ def generate(path: Path) -> int:
                             "region": listing.region,
                             "regular_price": str(snapshot.regular_price or ""),
                             "public_sale_price": str(snapshot.public_sale_price or ""),
-                            "gov_price": str(snapshot.displayed_gov_price or ""),
-                            "billion_subsidy_price": str(snapshot.billion_subsidy_price or ""),
-                            "promotion_labels": snapshot.promotion_labels or "",
-                            "promotion_stackable": snapshot.promotion_stackable,
                             "in_stock": str(snapshot.in_stock).lower(),
                             "evidence_text_path": snapshot.evidence_text_path or "",
                             "screenshot_path": snapshot.screenshot_path or "",

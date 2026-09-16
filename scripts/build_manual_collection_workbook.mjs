@@ -3,8 +3,8 @@ import path from "node:path";
 import { FileBlob, SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 
 const projectRoot = process.cwd();
-const outputDir = path.join(projectRoot, "outputs", "manual-collection-20260916");
-const outputPath = path.join(outputDir, "手机数据人工采集模板.xlsx");
+const outputDir = path.join(projectRoot, "outputs", "manual-collection-public-prices-20260916");
+const outputPath = path.join(outputDir, "手机数据人工采集模板_仅公开售价.xlsx");
 const previewDir = path.join(outputDir, "preview");
 
 const COLORS = {
@@ -91,8 +91,8 @@ function setWidths(sheet, widthMap) {
   }
 }
 
-const phoneRows = objectsFromRows(await csvValues("outputs/data-export-v1.7/phones.csv"));
-const variantRows = objectsFromRows(await csvValues("outputs/data-export-v1.7/variants.csv"));
+const phoneRows = objectsFromRows(await csvValues("work/data-export-public-prices/phones.csv"));
+const variantRows = objectsFromRows(await csvValues("work/data-export-public-prices/variants.csv"));
 const priceRows = objectsFromRows(await csvValues("data/review/price_review_queue.csv"));
 const whitelistRows = objectsFromRows(await csvValues("config/official_store_whitelist.csv"));
 
@@ -122,8 +122,8 @@ guide.getRange("A5:B12").values = [
   ["版本发售价待补充", null],
 ];
 guide.getRange("B6").formulas = [[`=COUNTA('三平台价格'!$A$6:$A$${priceRows.length + 5})`]];
-guide.getRange("B7").formulas = [[`=COUNTIF('三平台价格'!$AC$6:$AC$${priceRows.length + 5},"可提交")`]];
-guide.getRange("B8").formulas = [[`=COUNTIF('三平台价格'!$AC$6:$AC$${priceRows.length + 5},"待补充")`]];
+guide.getRange("B7").formulas = [[`=COUNTIF('三平台价格'!$Y$6:$Y$${priceRows.length + 5},"可提交")`]];
+guide.getRange("B8").formulas = [[`=COUNTIF('三平台价格'!$Y$6:$Y$${priceRows.length + 5},"待补充")`]];
 guide.getRange("B9").formulas = [[`=COUNTA('手机参数'!$A$6:$A$${phoneRows.length + 5})`]];
 guide.getRange("B10").formulas = [[`=COUNTIF('手机参数'!$AC$6:$AC$${phoneRows.length + 5},"待补充")`]];
 guide.getRange("B11").formulas = [[`=COUNTA('内存版本'!$A$6:$A$${variantRows.length + 5})`]];
@@ -137,7 +137,7 @@ guide.getRange("D5:H10").values = [
   ["1", "先查看“官方店白名单”，确认平台、品牌和店铺精确名称。", null, null, null],
   ["2", "在“三平台价格”中筛选负责人、品牌和平台，逐行打开搜索入口。", null, null, null],
   ["3", "只填写官方旗舰店或官方自营旗舰店的商品直达页；型号与内存版本必须一致。", null, null, null],
-  ["4", "价格填写纯数字，单位为元。没有明确显示的国补或百亿补贴留空，禁止按百分比推算。", null, null, null],
+  ["4", "价格填写纯数字，单位为元。只记录官方发售价、官方店常规价及无需资格的公开活动价。", null, null, null],
   ["5", "每个商品页保存截图，文件名使用任务ID，例如 PRICE-00001.png。", null, null, null],
   ["6", "完成后不要删除任务ID、不要改工作表名称；将 Excel 与截图文件夹一起交回。", null, null, null],
 ];
@@ -153,7 +153,7 @@ guide.getRange("A16:H23").values = [
   ["黄色单元格", "需要人工填写或复核；已有内容可保留，发现错误时可修正。", null, null, null, null, null, null],
   ["灰色单元格", "系统预填的任务标识和参考字段，尽量不要修改。", null, null, null, null, null, null],
   ["价格", "使用页面当前公开展示的价格，不填 0，不把会员券、以旧换新或账号专享价当作通用售价。", null, null, null, null, null, null],
-  ["国补价格", "只有页面明确显示确定金额时才填“实显国补价”；资格由最终购买者自行判断。", null, null, null, null, null, null],
+  ["价格口径", "每个平台只采用公开可见的官方旗舰店价格；会员专享、需资格或叠加券后价不填写。", null, null, null, null, null, null],
   ["官方店", "店名必须逐字记录；新店同时补充到“官方店白名单”并填写店铺主页。", null, null, null, null, null, null],
   ["商品链接", "填写商品详情直达链接，不填写搜索结果页、分享中转页或第三方店铺链接。", null, null, null, null, null, null],
   ["无法确认", "遇到验证码、下架、无对应版本或无法确认官方店时选择“无法确认”，并在备注写原因。", null, null, null, null, null, null],
@@ -172,10 +172,10 @@ guide.getRange("E:H").format.columnWidth = 18;
 guide.getRange("A16:H23").format.rowHeight = 40;
 
 // Price collection sheet
-baseSheet(prices, "三平台价格人工采集任务", "数据来源：项目价格审核队列 data/review/price_review_queue.csv；黄色列由采集人填写或复核。", "AC");
+baseSheet(prices, "三平台价格人工采集任务", "数据来源：项目价格审核队列 data/review/price_review_queue.csv；黄色列由采集人填写或复核。", "Y");
 prices.tabColor = COLORS.dark2;
-const priceHeaders = ["任务ID", "优先级", "发布日期", "品牌", "型号", "RAM(GB)", "存储(GB)", "内存版本", "平台", "发售价参考", "搜索入口", "官方店精确名称", "商品ID", "SKU文字", "商品标题", "商品直达链接", "常规价", "公开活动价", "实显国补价", "百亿补贴价", "促销标签", "优惠叠加", "当前有货", "采集日期", "采集人", "证据文件名", "采集状态", "备注", "完整性检查"];
-prices.getRange("A5:AC5").values = [priceHeaders];
+const priceHeaders = ["任务ID", "优先级", "发布日期", "品牌", "型号", "RAM(GB)", "存储(GB)", "内存版本", "平台", "发售价参考", "搜索入口", "官方店精确名称", "商品ID", "SKU文字", "商品标题", "商品直达链接", "常规价", "公开活动价", "当前有货", "采集日期", "采集人", "证据文件名", "采集状态", "备注", "完整性检查"];
+prices.getRange("A5:Y5").values = [priceHeaders];
 const priceData = priceRows.map((row, index) => {
   const evidence = String(row.screenshot_path || row.evidence_text_path || "").split(/[\\/]/).pop();
   const status = row.review_status === "approved" ? "已完成" : row.review_status === "blocked" ? "无法确认" : "未开始";
@@ -183,38 +183,36 @@ const priceData = priceRows.map((row, index) => {
     `PRICE-${String(index + 1).padStart(5, "0")}`, row.priority || "NORMAL", dateOnly(row.release_date), row.brand, row.model_name,
     num(row.ram_gb), num(row.storage_gb), row.variant_name, row.platform, num(row.launch_price), row.search_url,
     row.store_name, row.external_id, row.sku_text, row.product_title, row.product_url,
-    num(row.regular_price), num(row.public_sale_price), num(row.gov_price), num(row.billion_subsidy_price), row.promotion_labels,
-    row.promotion_stackable || "unknown", String(row.in_stock || "").toLowerCase() === "true" ? "是" : String(row.in_stock || "").toLowerCase() === "false" ? "否" : "", dateOnly(row.captured_at), row.reviewer, evidence,
+    num(row.regular_price), num(row.public_sale_price), String(row.in_stock || "").toLowerCase() === "true" ? "是" : String(row.in_stock || "").toLowerCase() === "false" ? "否" : "", dateOnly(row.captured_at), row.reviewer, evidence,
     status, row.capture_note || "", null,
   ];
 });
-prices.getRange(`A6:AC${priceRows.length + 5}`).values = priceData;
-prices.getRange(`AC6:AC${priceRows.length + 5}`).formulasR1C1 = priceRows.map(() => [
-  '=IF(RC[-2]="无法确认","无法确认",IF(AND(RC[-17]<>"",RC[-16]<>"",RC[-15]<>"",RC[-13]<>"",RC[-6]<>"",RC[-4]<>"",RC[-3]<>"",OR(RC[-12]<>"",RC[-11]<>"",RC[-10]<>"",RC[-9]<>"")),"可提交","待补充"))'
+prices.getRange(`A6:Y${priceRows.length + 5}`).values = priceData;
+prices.getRange(`Y6:Y${priceRows.length + 5}`).formulasR1C1 = priceRows.map(() => [
+  '=IF(RC[-2]="无法确认","无法确认",IF(AND(RC[-13]<>"",RC[-12]<>"",RC[-11]<>"",RC[-9]<>"",RC[-6]<>"",RC[-4]<>"",RC[-3]<>"",OR(RC[-8]<>"",RC[-7]<>"")),"可提交","待补充"))'
 ]);
-styleHeader(prices, "A5:AC5");
+styleHeader(prices, "A5:Y5");
 prices.getRange(`A6:K${priceRows.length + 5}`).format.fill = COLORS.gray;
-prices.getRange(`L6:AB${priceRows.length + 5}`).format.fill = COLORS.input;
-prices.getRange(`AC6:AC${priceRows.length + 5}`).format.fill = COLORS.light;
+prices.getRange(`L6:X${priceRows.length + 5}`).format.fill = COLORS.input;
+prices.getRange(`Y6:Y${priceRows.length + 5}`).format.fill = COLORS.light;
 prices.getRange(`C6:C${priceRows.length + 5}`).setNumberFormat("yyyy-mm-dd");
 prices.getRange(`J6:J${priceRows.length + 5}`).setNumberFormat('¥#,##0');
-prices.getRange(`Q6:T${priceRows.length + 5}`).setNumberFormat('¥#,##0.00');
-prices.getRange(`X6:X${priceRows.length + 5}`).setNumberFormat("yyyy-mm-dd");
-prices.getRange(`V6:V${priceRows.length + 5}`).dataValidation = { rule: { type: "list", values: ["unknown", "yes", "no"] } };
-prices.getRange(`W6:W${priceRows.length + 5}`).dataValidation = { rule: { type: "list", values: ["是", "否"] } };
-prices.getRange(`AA6:AA${priceRows.length + 5}`).dataValidation = { rule: { type: "list", values: ["未开始", "采集中", "已完成", "无法确认"] } };
-addStatusFormatting(prices.getRange(`AC6:AC${priceRows.length + 5}`));
-prices.getRange(`A5:AC${priceRows.length + 5}`).format.borders = { insideHorizontal: { style: "thin", color: COLORS.line } };
-prices.getRange(`A5:AC${priceRows.length + 5}`).format.rowHeight = 22;
+prices.getRange(`Q6:R${priceRows.length + 5}`).setNumberFormat('¥#,##0.00');
+prices.getRange(`T6:T${priceRows.length + 5}`).setNumberFormat("yyyy-mm-dd");
+prices.getRange(`S6:S${priceRows.length + 5}`).dataValidation = { rule: { type: "list", values: ["是", "否"] } };
+prices.getRange(`W6:W${priceRows.length + 5}`).dataValidation = { rule: { type: "list", values: ["未开始", "采集中", "已完成", "无法确认"] } };
+addStatusFormatting(prices.getRange(`Y6:Y${priceRows.length + 5}`));
+prices.getRange(`A5:Y${priceRows.length + 5}`).format.borders = { insideHorizontal: { style: "thin", color: COLORS.line } };
+prices.getRange(`A5:Y${priceRows.length + 5}`).format.rowHeight = 22;
 prices.getRange(`K6:P${priceRows.length + 5}`).format.wrapText = false;
-setWidths(prices, { A: 15, B: 10, C: 12, D: 10, E: 22, F: 9, G: 10, H: 14, I: 8, J: 12, K: 30, L: 24, M: 17, N: 16, O: 34, P: 38, Q: 12, R: 13, S: 13, T: 13, U: 24, V: 11, W: 10, X: 12, Y: 12, Z: 24, AA: 12, AB: 28, AC: 13 });
+setWidths(prices, { A: 15, B: 10, C: 12, D: 10, E: 22, F: 9, G: 10, H: 14, I: 8, J: 12, K: 30, L: 24, M: 17, N: 16, O: 34, P: 38, Q: 12, R: 13, S: 10, T: 12, U: 12, V: 24, W: 12, X: 28, Y: 13 });
 prices.freezePanes.freezeRows(5);
 prices.freezePanes.freezeColumns(5);
-const priceTable = prices.tables.add(`A5:AC${priceRows.length + 5}`, true, "PriceCollectionTable");
+const priceTable = prices.tables.add(`A5:Y${priceRows.length + 5}`, true, "PriceCollectionTable");
 priceTable.style = "TableStyleMedium4";
 
 // Phone parameter sheet
-baseSheet(phones, "手机参数复核与补充", "数据来源：项目 SQLite 导出 outputs/data-export-v1.7/phones.csv；空白核心字段需要从品牌官网补充。", "AC");
+baseSheet(phones, "手机参数复核与补充", "数据来源：当前 SQLite 数据导出；空白核心字段需要从品牌官网补充。", "AC");
 phones.tabColor = "#4F7668";
 const phoneHeaders = ["手机ID", "品牌", "型号", "发布日期", "销售状态", "CPU", "屏幕尺寸(英寸)", "屏幕类型", "分辨率", "刷新率(Hz)", "主摄(MP)", "相机说明", "电池(mAh)", "有线充电(W)", "无线充电(W)", "重量(g)", "厚度(mm)", "防水等级", "操作系统", "官网图片URL", "图片来源页", "官网参数页", "来源核验日期", "数据质量", "采集人", "采集日期", "采集状态", "备注", "完整性检查"];
 phones.getRange("A5:AC5").values = [phoneHeaders];
@@ -251,7 +249,7 @@ const phoneTable = phones.tables.add(`A5:AC${phoneRows.length + 5}`, true, "Phon
 phoneTable.style = "TableStyleMedium4";
 
 // Variant sheet
-baseSheet(variants, "内存版本与发售价复核", "数据来源：项目 SQLite 导出 outputs/data-export-v1.7/variants.csv；每个内存版本独立核验发售价及来源。", "P");
+baseSheet(variants, "内存版本与发售价复核", "数据来源：当前 SQLite 数据导出；每个内存版本独立核验发售价及来源。", "P");
 variants.tabColor = "#789B8E";
 const variantHeaders = ["版本ID", "手机ID", "品牌", "型号", "RAM(GB)", "存储(GB)", "版本名称", "发售价", "发售价来源", "限量配色", "当前有效", "采集人", "采集日期", "采集状态", "备注", "完整性检查"];
 variants.getRange("A5:P5").values = [variantHeaders];
@@ -313,24 +311,24 @@ workbook.recalculate();
 
 // Disposable workflow check: a completed row must become submittable, while
 // an explicit blocker must remain visible. Restore the original row afterward.
-const originalPriceInputs = prices.getRange("L6:AB6").values;
-prices.getRange("L6:AB6").values = [[
+const originalPriceInputs = prices.getRange("L6:X6").values;
+prices.getRange("L6:X6").values = [[
   "测试官方旗舰店", "TEST-001", "12GB+512GB", "测试商品标题", "https://item.jd.com/100000000001.html",
-  4999, 4699, null, null, "公开活动价", "unknown", "是", new Date(2026, 8, 16), "测试采集人",
+  4999, 4699, "是", new Date(2026, 8, 16), "测试采集人",
   "PRICE-00001.png", "已完成", "临时验证行",
 ]];
 workbook.recalculate();
-if (prices.getRange("AC6").values[0][0] !== "可提交") throw new Error("价格任务完整性公式未在完整输入后返回“可提交”");
-prices.getRange("AA6").values = [["无法确认"]];
+if (prices.getRange("Y6").values[0][0] !== "可提交") throw new Error("价格任务完整性公式未在完整输入后返回“可提交”");
+prices.getRange("W6").values = [["无法确认"]];
 workbook.recalculate();
-if (prices.getRange("AC6").values[0][0] !== "无法确认") throw new Error("价格任务完整性公式未保留阻断状态");
-prices.getRange("L6:AB6").values = originalPriceInputs;
+if (prices.getRange("Y6").values[0][0] !== "无法确认") throw new Error("价格任务完整性公式未保留阻断状态");
+prices.getRange("L6:X6").values = originalPriceInputs;
 workbook.recalculate();
 
 await fs.mkdir(previewDir, { recursive: true });
 for (const [sheetName, range] of [
   ["填写说明", "A1:H23"],
-  ["三平台价格", "A1:AC18"],
+  ["三平台价格", "A1:Y18"],
   ["手机参数", "A1:AC18"],
   ["内存版本", "A1:P18"],
   ["官方店白名单", "A1:I20"],
@@ -349,10 +347,10 @@ const summary = await workbook.inspect({
 console.log(summary.ndjson);
 const sample = await workbook.inspect({
   kind: "table",
-  range: "三平台价格!A5:AC8",
+  range: "三平台价格!A5:Y8",
   include: "values,formulas",
   tableMaxRows: 8,
-  tableMaxCols: 29,
+  tableMaxCols: 25,
 });
 console.log(sample.ndjson);
 const errors = await workbook.inspect({

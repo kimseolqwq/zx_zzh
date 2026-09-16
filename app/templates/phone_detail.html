@@ -30,7 +30,7 @@
 
   <section class="price-trust-note">
     <b>价格口径说明</b>
-    <span>仅展示已审核官方旗舰店或自营链接；“实显国补”来自商品页，“估算国补”只作计算参考。地区、资格、库存和最终成交价请以结算页为准。</span>
+    <span>仅展示已审核官方旗舰店或自营链接的公开售价及各版本发售价；库存和最终成交价请以商品页为准。</span>
   </section>
 
   <section class="variant-section">
@@ -52,13 +52,6 @@
             {{ ('¥' + '{:,.0f}'.format(quote.price)) if quote.price else ('暂时无货' if not quote.in_stock else '价格待补充') }} ↗
           </a>
           {% else %}<strong>{{ ('¥' + '{:,.0f}'.format(quote.price)) if quote.price else '暂无价格' }}</strong>{% endif %}
-          {% if quote.regular_price and quote.sale_price and quote.regular_price != quote.sale_price %}<small class="regular-price">常规价 ¥{{ '{:,.0f}'.format(quote.regular_price) }}</small>{% endif %}
-          <div class="detail-benefits">
-            {% if quote.displayed_gov_price %}<a href="{{ quote.product_url }}" target="_blank" rel="noopener noreferrer">实显国补 ¥{{ '{:,.0f}'.format(quote.displayed_gov_price) }}</a>{% endif %}
-            {% if quote.estimated_gov_price %}<span>估算国补 ¥{{ '{:,.0f}'.format(quote.estimated_gov_price) }}</span>{% endif %}
-            {% if quote.billion_subsidy_price %}<a href="{{ quote.product_url }}" target="_blank" rel="noopener noreferrer">百亿补贴 ¥{{ '{:,.0f}'.format(quote.billion_subsidy_price) }}</a>{% endif %}
-          </div>
-          {% if quote.promotion_labels %}<div class="promotion-tags">{% for label in quote.promotion_labels %}<i>{{ label }}</i>{% endfor %}</div>{% endif %}
           <footer>
             <span>{{ quote.checked_at or '未记录采集时间' }}</span>
             <b>{{ '已审核·有证据' if quote.is_reviewed and quote.has_evidence else '管理员录入' if quote.crawl_status == 'manual' else '待复核' }}</b>

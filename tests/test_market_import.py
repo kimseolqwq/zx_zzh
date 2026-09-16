@@ -30,7 +30,7 @@ def test_reviewed_price_import_is_evidence_checked_and_idempotent(tmp_path, monk
     fields = [
         "brand", "model_name", "ram_gb", "storage_gb", "platform", "product_url",
         "review_status", "store_name", "reviewer", "evidence_text_path", "external_id",
-        "sku_text", "public_sale_price", "promotion_labels", "promotion_stackable", "in_stock",
+        "sku_text", "public_sale_price", "in_stock",
     ]
     with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
@@ -40,7 +40,7 @@ def test_reviewed_price_import_is_evidence_checked_and_idempotent(tmp_path, monk
             "platform": "jd", "product_url": "https://item.jd.com/10001.html", "review_status": "approved",
             "store_name": "测试京东自营旗舰店", "reviewer": "reviewer", "evidence_text_path": "data/raw/capture.txt",
             "external_id": "10001", "sku_text": "12GB+256GB", "public_sale_price": "3999",
-            "promotion_labels": "限时直降", "promotion_stackable": "unknown", "in_stock": "true",
+            "in_stock": "true",
         })
 
     with Session() as db:

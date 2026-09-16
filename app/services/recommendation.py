@@ -17,7 +17,7 @@ from sqlalchemy.orm import Session, selectinload
 from app.config import settings
 from app.models import ModelRun, PhoneModel, PhoneVariant, PlatformListing, RecommendationRun
 from app.services.ollama import ModelOpinion, OllamaClient
-from app.services.pricing import freshness_metadata, latest_snapshot, split_promotion_labels
+from app.services.pricing import freshness_metadata, latest_snapshot
 
 
 @dataclass
@@ -54,7 +54,7 @@ def _latest_prices(variant: PhoneVariant) -> tuple[float | None, dict[str, Any] 
     for listing in variant.listings:
         if not listing.is_active or not listing.store_verified:
             continue
-        latest = latest_snapshot(listing, require_in_stock=True)
+        latest = latest_snapshot(listing, require_in_stock=True, require_public_price=True)
         if latest is None:
             continue
         price = latest.public_sale_price or latest.regular_price
@@ -68,13 +68,6 @@ def _latest_prices(variant: PhoneVariant) -> tuple[float | None, dict[str, Any] 
                     "platform": listing.platform,
                     "platform_name": PLATFORM_NAMES.get(listing.platform, listing.platform),
                     "store_name": listing.store_name,
-                    "regular_price": _number(latest.regular_price),
-                    "sale_price": _number(latest.public_sale_price),
-                    "gov_price": _number(latest.displayed_gov_price or latest.estimated_gov_price),
-                    "gov_price_type": "displayed" if latest.displayed_gov_price is not None else "estimated" if latest.estimated_gov_price is not None else None,
-                    "billion_subsidy_price": _number(latest.billion_subsidy_price),
-                    "stackable": latest.promotion_stackable,
-                    "promotion_labels": split_promotion_labels(latest.promotion_labels),
                     "crawl_status": latest.crawl_status,
                     "is_reviewed": latest.crawl_status == "reviewed",
                     "has_evidence": bool(latest.evidence_text_path or latest.screenshot_path),

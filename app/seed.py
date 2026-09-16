@@ -91,14 +91,14 @@ def seed_demo_data(db: Session) -> None:
     db.flush()
 
     prices = {
-        "HUAWEI Mate 70": (12, 256, 5499, 4899, 4399, 4699, "pdd"),
-        "Xiaomi 17": (12, 256, 4499, 4299, 3799, None, "jd"),
-        "iPhone 17": (None, 256, 5999, 5299, 4799, None, "tmall"),
-        "vivo X200 Pro": (16, 512, 5999, 4999, 4499, None, "jd"),
+        "HUAWEI Mate 70": (12, 256, 5499, 4899, "pdd"),
+        "Xiaomi 17": (12, 256, 4499, 4299, "jd"),
+        "iPhone 17": (None, 256, 5999, 5299, "tmall"),
+        "vivo X200 Pro": (16, 512, 5999, 4999, "jd"),
     }
     platform_names = {"jd": "京东官方旗舰店", "tmall": "天猫官方旗舰店", "pdd": "拼多多官方旗舰店"}
     for phone in phones:
-        ram, storage, launch, sale, gov, subsidy, platform = prices[phone.model_name]
+        ram, storage, launch, sale, platform = prices[phone.model_name]
         variant = PhoneVariant(
             model=phone, ram_gb=ram, storage_gb=storage,
             variant_name=f"{ram}GB+{storage}GB" if ram else f"{storage}GB",
@@ -118,9 +118,6 @@ def seed_demo_data(db: Session) -> None:
             PriceSnapshot(
                 listing=listing, regular_price=Decimal(str(launch)),
                 public_sale_price=Decimal(str(sale)),
-                displayed_gov_price=Decimal(str(gov)) if gov else None,
-                estimated_gov_price=Decimal(str(gov)) if gov else None,
-                billion_subsidy_price=Decimal(str(subsidy)) if subsidy else None,
                 promotion_labels="演示数据", in_stock=True, crawl_status="demo", crawled_at=now,
             )
         )

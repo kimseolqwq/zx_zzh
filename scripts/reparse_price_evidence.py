@@ -41,10 +41,7 @@ def reparse(path: Path) -> dict[str, int]:
         text = evidence.read_text(encoding="utf-8")
         parsed = parse_price_text(text)
         blocked = next((word for word in BLOCKED_WORDS if word in text), None)
-        values = (
-            parsed.regular_price, parsed.public_sale_price,
-            parsed.displayed_gov_price, parsed.billion_subsidy_price,
-        )
+        values = (parsed.regular_price, parsed.public_sale_price)
         if blocked or ("你好，请登录" in text and not any(value is not None for value in values)):
             row["capture_status"] = "blocked"
             row["capture_note"] = f"页面要求人工处理：{blocked or '未登录或商品内容未加载'}"
@@ -53,8 +50,6 @@ def reparse(path: Path) -> dict[str, int]:
             continue
         row["regular_price"] = parsed.regular_price or ""
         row["public_sale_price"] = parsed.public_sale_price or ""
-        row["gov_price"] = parsed.displayed_gov_price or ""
-        row["billion_subsidy_price"] = parsed.billion_subsidy_price or ""
         row["capture_note"] = f"离线重解析置信度：{parsed.confidence}"
         row["review_status"] = "needs_review"
         if any(value is not None for value in values):

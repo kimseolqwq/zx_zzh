@@ -17,8 +17,7 @@ def test_reparse_updates_explicit_prices_and_marks_login_page_blocked(tmp_path) 
     blocked.write_text("你好，请登录\n页面内容未加载", encoding="utf-8")
     queue = tmp_path / "queue.csv"
     fields = [
-        "evidence_text_path", "regular_price", "public_sale_price", "gov_price",
-        "billion_subsidy_price", "review_status",
+        "evidence_text_path", "regular_price", "public_sale_price", "review_status",
     ]
     with queue.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)

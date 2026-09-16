@@ -22,20 +22,14 @@ def latest_snapshot(
     listing: PlatformListing,
     *,
     require_in_stock: bool = False,
+    require_public_price: bool = False,
 ) -> PriceSnapshot | None:
     snapshots: Iterable[PriceSnapshot] = listing.prices
     if require_in_stock:
         snapshots = (item for item in snapshots if item.in_stock)
+    if require_public_price:
+        snapshots = (item for item in snapshots if item.regular_price is not None or item.public_sale_price is not None)
     return max(snapshots, key=lambda item: as_aware_utc(item.crawled_at), default=None)
-
-
-def split_promotion_labels(value: str | None) -> list[str]:
-    if not value:
-        return []
-    normalized = value
-    for separator in ("，", "、", "|", ";", "；"):
-        normalized = normalized.replace(separator, ",")
-    return [item.strip() for item in normalized.split(",") if item.strip()][:6]
 
 
 def freshness_metadata(snapshot: PriceSnapshot | None, *, now: datetime | None = None) -> dict[str, Any]:
@@ -71,13 +65,6 @@ def snapshot_summary(snapshot: PriceSnapshot | None) -> dict[str, Any]:
         return {
             **freshness_metadata(None),
             "price": None,
-            "regular_price": None,
-            "sale_price": None,
-            "displayed_gov_price": None,
-            "estimated_gov_price": None,
-            "billion_subsidy_price": None,
-            "promotion_labels": [],
-            "promotion_stackable": "unknown",
             "crawl_status": None,
             "is_reviewed": False,
             "has_evidence": False,
@@ -86,13 +73,6 @@ def snapshot_summary(snapshot: PriceSnapshot | None) -> dict[str, Any]:
     return {
         **freshness_metadata(snapshot),
         "price": float(snapshot.public_sale_price or snapshot.regular_price) if (snapshot.public_sale_price or snapshot.regular_price) is not None else None,
-        "regular_price": float(snapshot.regular_price) if snapshot.regular_price is not None else None,
-        "sale_price": float(snapshot.public_sale_price) if snapshot.public_sale_price is not None else None,
-        "displayed_gov_price": float(snapshot.displayed_gov_price) if snapshot.displayed_gov_price is not None else None,
-        "estimated_gov_price": float(snapshot.estimated_gov_price) if snapshot.estimated_gov_price is not None else None,
-        "billion_subsidy_price": float(snapshot.billion_subsidy_price) if snapshot.billion_subsidy_price is not None else None,
-        "promotion_labels": split_promotion_labels(snapshot.promotion_labels),
-        "promotion_stackable": snapshot.promotion_stackable,
         "crawl_status": snapshot.crawl_status,
         "is_reviewed": snapshot.crawl_status == "reviewed",
         "has_evidence": bool(snapshot.evidence_text_path or snapshot.screenshot_path),

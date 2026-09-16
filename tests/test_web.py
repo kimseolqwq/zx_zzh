@@ -32,8 +32,9 @@ def test_admin_login_and_protected_dashboard() -> None:
         )
         assert response.status_code == 200
         assert "DATABASE CONSOLE" in response.text
-        assert "商品页实显国补" in response.text
-        assert "优惠能否叠加" in response.text
+        assert "公开活动价" in response.text
+        assert "国补" not in response.text
+        assert "百亿补贴" not in response.text
 
 
 def test_recommendation_result_template(monkeypatch) -> None:
@@ -78,7 +79,8 @@ def test_recommendation_result_template(monkeypatch) -> None:
         assert "data-recommendation-stack" in response.text
         assert "data-recommendation-card" in response.text
         assert "搜索页" in response.text
-        assert "实显国补" in response.text
+        assert "国补" not in response.text
+        assert "百亿补贴" not in response.text
         assert "今日核验" in response.text
         assert "Top 1 结论证据链" in response.text
         assert "贡献分" in response.text

@@ -28,12 +28,10 @@ def test_listing_input_rejects_untrusted_combinations(platform: str, store: str,
         _validate_listing_input(brand_name="vivo", platform=platform, store_name=store, product_url=url)
 
 
-def test_price_relationships_reject_impossible_discount_price() -> None:
-    with pytest.raises(HTTPException, match="国补价"):
-        _validate_price_relationships(
-            Decimal("4999"), Decimal("4599"), Decimal("4699"), None, None,
-        )
+def test_price_relationships_reject_public_price_above_regular() -> None:
+    with pytest.raises(HTTPException, match="公开活动价"):
+        _validate_price_relationships(Decimal("4599"), Decimal("4699"))
 
 
 def test_price_relationships_accept_partial_snapshot() -> None:
-    _validate_price_relationships(None, None, Decimal("3999"), None, None)
+    _validate_price_relationships(None, Decimal("3999"))

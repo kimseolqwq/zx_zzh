@@ -35,7 +35,6 @@
             <span>{{ latest.freshness_label }}{% if latest.checked_at %} · {{ latest.checked_at }}{% endif %}</span>
             {% if latest.price %}<em>{{ '审核数据·证据齐全' if latest.is_reviewed and latest.has_evidence else '管理员手动录入' if latest.crawl_status == 'manual' else '待复核' }}</em>{% endif %}
           </div>
-          {% if latest.promotion_labels %}<div class="promotion-tags">{% for label in latest.promotion_labels %}<i>{{ label }}</i>{% endfor %}</div>{% endif %}
         </div>
         <div class="listing-actions">
           <a class="table-action" href="{{ listing.product_url }}" target="_blank" rel="noopener noreferrer">打开商品页 ↗</a>
@@ -46,11 +45,6 @@
           <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
           <label>常规价<input type="number" min="300" max="30000" step="0.01" name="regular_price" placeholder="¥"></label>
           <label>公开活动价<input type="number" min="300" max="30000" step="0.01" name="public_sale_price" placeholder="¥"></label>
-          <label>商品页实显国补<input type="number" min="300" max="30000" step="0.01" name="gov_price" placeholder="¥"></label>
-          <label>估算国补<input type="number" min="300" max="30000" step="0.01" name="estimated_gov_price" placeholder="¥"></label>
-          <label>百亿补贴<input type="number" min="300" max="30000" step="0.01" name="subsidy_price" placeholder="¥"></label>
-          <label>促销标签<input name="promotion_labels" placeholder="例：平台券，限时直降"></label>
-          <label>优惠能否叠加<select name="promotion_stackable"><option value="unknown">未知</option><option value="yes">可以</option><option value="no">不可</option></select></label>
           <label class="stock-check"><input type="checkbox" name="in_stock" value="true" checked> 当前有货</label>
           <button>保存新快照</button>
         </form>

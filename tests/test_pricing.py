@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
 
 from app.models import PriceSnapshot
-from app.services.pricing import freshness_metadata, split_promotion_labels
+from decimal import Decimal
+
+from app.services.pricing import freshness_metadata, snapshot_summary
 
 
 def test_price_freshness_labels_and_stale_threshold() -> None:
@@ -17,5 +19,12 @@ def test_price_freshness_labels_and_stale_threshold() -> None:
     assert stale["freshness_label"] == "已超过7天"
 
 
-def test_promotion_labels_support_common_separators() -> None:
-    assert split_promotion_labels("百亿补贴; 券后价，限时直降") == ["百亿补贴", "券后价", "限时直降"]
+def test_snapshot_summary_only_exposes_public_price() -> None:
+    snapshot = PriceSnapshot(
+        listing_id=1, regular_price=Decimal("4299"), public_sale_price=Decimal("3999"),
+        displayed_gov_price=Decimal("3499"), billion_subsidy_price=Decimal("3599"),
+        crawled_at=datetime(2026, 9, 1, tzinfo=timezone.utc),
+    )
+    summary = snapshot_summary(snapshot)
+    assert summary["price"] == 3999
+    assert not any("gov" in key or "subsidy" in key for key in summary)

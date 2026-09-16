@@ -75,8 +75,7 @@ def attach_candidate(
     # Replacing a link invalidates any evidence and price fields from a previous
     # capture. They must be collected and reviewed again from the new page.
     for field in (
-        "product_title", "regular_price", "public_sale_price", "gov_price",
-        "billion_subsidy_price", "promotion_labels", "evidence_text_path",
+        "product_title", "regular_price", "public_sale_price", "evidence_text_path",
         "screenshot_path", "reviewer", "captured_at",
     ):
         row[field] = ""

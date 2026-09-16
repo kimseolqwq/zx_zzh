@@ -54,7 +54,7 @@ def main() -> None:
                             "priority": "HIGH" if variant.launch_price is not None else "MEDIUM",
                             "brand": phone.brand.name, "model": phone.model_name, "variant": variant.variant_name,
                             "platform": platform, "launch_price": variant.launch_price or "", "official_store": "",
-                            "product_url": "", "public_price": "", "gov_price": "", "billion_subsidy_price": "",
+                            "product_url": "", "public_price": "",
                             "evidence_path": "", "review_status": "pending", "reviewer": "",
                         })
     for name, rows in (("official-data-gap-queue-v1.7.csv", spec_rows), ("market-price-gap-queue-v1.7.csv", price_rows)):

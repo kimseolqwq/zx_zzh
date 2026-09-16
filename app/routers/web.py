@@ -82,7 +82,7 @@ def _phone_library_item(phone: PhoneModel) -> dict:
         for listing in variant.listings:
             if not listing.is_active or not listing.store_verified or not listing.prices:
                 continue
-            current = latest_snapshot(listing, require_in_stock=True)
+            current = latest_snapshot(listing, require_in_stock=True, require_public_price=True)
             value = (current.public_sale_price or current.regular_price) if current else None
             if value is not None:
                 prices.append(float(value))
@@ -188,7 +188,7 @@ def phone_detail(request: Request, phone_id: int, db: Session = Depends(get_db))
             (item for item in variant.listings if item.is_active and item.store_verified),
             key=lambda item: item.platform,
         ):
-            summary = snapshot_summary(latest_snapshot(listing))
+            summary = snapshot_summary(latest_snapshot(listing, require_public_price=True))
             valid_url = listing.product_url if "example.com" not in listing.product_url else None
             quotes.append({
                 "listing": listing,

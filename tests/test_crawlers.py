@@ -48,9 +48,15 @@ def test_price_parser_keeps_price_types_separate() -> None:
     parsed = parse_price_text(text)
     assert parsed.regular_price == 4299
     assert parsed.public_sale_price == 3999
-    assert parsed.displayed_gov_price == 3499
-    assert parsed.billion_subsidy_price == 3699
+    assert not hasattr(parsed, "displayed_gov_price")
+    assert not hasattr(parsed, "billion_subsidy_price")
     assert parsed.confidence == "high"
+
+
+def test_price_parser_does_not_treat_conditional_only_price_as_public() -> None:
+    parsed = parse_price_text("国补到手价 3499元\n百亿补贴售价 3699元")
+    assert parsed.regular_price is None
+    assert parsed.public_sale_price is None
 
 
 def test_price_parser_does_not_invent_unlabelled_price() -> None:
@@ -65,7 +71,7 @@ def test_price_parser_handles_tmall_multiline_coupon_price() -> None:
     parsed = parse_price_text(text)
     assert parsed.public_sale_price == 4319.1
     assert parsed.regular_price == 4899
-    assert parsed.displayed_gov_price is None
+    assert not hasattr(parsed, "displayed_gov_price")
     assert parsed.confidence == "high"
 
 

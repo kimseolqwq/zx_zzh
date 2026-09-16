@@ -110,9 +110,7 @@ def export_all(output: Path) -> None:
             output / "price_snapshots.csv",
             [
                 "id", "listing_id", "brand", "model_name", "variant_name", "platform",
-                "store_name", "regular_price", "public_sale_price", "displayed_gov_price",
-                "estimated_gov_price", "billion_subsidy_price", "promotion_labels",
-                "promotion_stackable", "in_stock", "crawl_status", "evidence_text_path",
+                "store_name", "regular_price", "public_sale_price", "in_stock", "crawl_status", "evidence_text_path",
                 "screenshot_path", "crawled_at",
             ],
             (
@@ -123,9 +121,7 @@ def export_all(output: Path) -> None:
                     listing_by_id[price.listing_id].variant.variant_name,
                     listing_by_id[price.listing_id].platform,
                     listing_by_id[price.listing_id].store_name,
-                    price.regular_price, price.public_sale_price, price.displayed_gov_price,
-                    price.estimated_gov_price, price.billion_subsidy_price,
-                    price.promotion_labels, price.promotion_stackable, price.in_stock,
+                    price.regular_price, price.public_sale_price, price.in_stock,
                     price.crawl_status, price.evidence_text_path, price.screenshot_path,
                     price.crawled_at,
                 )
@@ -144,7 +140,6 @@ def export_all(output: Path) -> None:
             [
                 "snapshot_id", "brand", "model_name", "variant_name", "platform",
                 "store_name", "product_url", "regular_price", "public_sale_price",
-                "displayed_gov_price", "billion_subsidy_price", "promotion_labels",
                 "evidence_text_path", "screenshot_path", "crawled_at",
             ],
             (
@@ -156,8 +151,7 @@ def export_all(output: Path) -> None:
                     listing_by_id[price.listing_id].store_name,
                     listing_by_id[price.listing_id].product_url,
                     price.regular_price, price.public_sale_price,
-                    price.displayed_gov_price, price.billion_subsidy_price,
-                    price.promotion_labels, price.evidence_text_path,
+                    price.evidence_text_path,
                     price.screenshot_path, price.crawled_at,
                 )
                 for price in reviewed_prices

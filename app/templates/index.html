@@ -47,17 +47,12 @@
           <div class="recommendation-copy"><div class="recommendation-title"><div><span>{{ item.brand }} · {{ item.variant }}</span><h3>{{ item.model }}</h3></div><strong>{{ item.score }}<small>分</small></strong></div>
             <p>{{ item.reason }}</p>
             <div class="tags expanded-only"><span>置信度 {{ item.confidence }}</span><span>{{ item.model_votes }} 个模型有效投票</span><span>数据可信度 {{ item.components.data_trust }}</span></div>
-            <div class="recommendation-prices expanded-only"><div class="recommendation-lowest"><small>当前公开最低价</small>{% if item.price_detail %}<a href="{{ item.price_detail.purchase_url }}" target="_blank" rel="noopener noreferrer" title="{{ '已核验商品页' if item.price_detail.link_verified else '平台搜索页，商品链接尚未核验' }}"><b>¥{{ '{:,.0f}'.format(item.current_price) }}</b><span>{{ item.price_detail.platform_name }} · {{ '商品直达' if item.price_detail.link_verified else '去搜索' }} ↗</span></a>{% else %}<b>¥{{ '{:,.0f}'.format(item.current_price) }}</b><span>发售价参考</span>{% endif %}</div>
+            <div class="recommendation-prices expanded-only"><div class="recommendation-lowest"><small>{{ '当前公开最低价' if item.price_detail else '官方发售价参考' }}</small>{% if item.price_detail %}<a href="{{ item.price_detail.purchase_url }}" target="_blank" rel="noopener noreferrer" title="{{ '已核验商品页' if item.price_detail.link_verified else '平台搜索页，商品链接尚未核验' }}"><b>¥{{ '{:,.0f}'.format(item.current_price) }}</b><span>{{ item.price_detail.platform_name }} · {{ '商品直达' if item.price_detail.link_verified else '去搜索' }} ↗</span></a>{% else %}<b>¥{{ '{:,.0f}'.format(item.current_price) }}</b>{% endif %}{% if item.launch_price %}<small>官方发售价 ¥{{ '{:,.0f}'.format(item.launch_price) }}</small>{% endif %}</div>
               <div class="recommendation-platforms">
                 {% for quote in item.platform_prices %}
                 <div class="recommendation-platform {{ 'best' if quote.is_lowest else '' }} {{ 'stale' if quote.is_stale and quote.price else '' }}">
                   <span>{{ quote.platform_name }}<em>{{ quote.freshness_label if quote.link_verified else '搜索页' }}</em></span>
                   {% if quote.price %}<a class="recommendation-platform-price" href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer" title="已核验商品页">¥{{ '{:,.0f}'.format(quote.price) }} ↗</a>{% else %}<a class="recommendation-platform-search" href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer">去平台搜索 ↗</a>{% endif %}
-                  <div>
-                    {% if quote.gov_price %}<a href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer">{{ '实显国补' if quote.gov_price_type == 'displayed' else '估算国补' }} ¥{{ '{:,.0f}'.format(quote.gov_price) }}</a>{% endif %}
-                    {% if quote.billion_subsidy_price %}<a href="{{ quote.purchase_url }}" target="_blank" rel="noopener noreferrer">百亿补贴 ¥{{ '{:,.0f}'.format(quote.billion_subsidy_price) }}</a>{% endif %}
-                  </div>
-                  {% if quote.promotion_labels %}<small class="recommendation-promotions">{{ quote.promotion_labels|join(' · ') }}</small>{% endif %}
                 </div>
                 {% endfor %}
               </div>

@@ -99,8 +99,6 @@ def process_queue(
             row["product_title"] = row.get("product_title", "") or result.get("title", "")
             row["regular_price"] = parsed.get("regular_price") or ""
             row["public_sale_price"] = parsed.get("public_sale_price") or ""
-            row["gov_price"] = parsed.get("displayed_gov_price") or ""
-            row["billion_subsidy_price"] = parsed.get("billion_subsidy_price") or ""
             row["evidence_text_path"] = result.get("text_path", "")
             row["screenshot_path"] = result.get("screenshot_path", "")
             row["captured_at"] = result.get("captured_at", "")

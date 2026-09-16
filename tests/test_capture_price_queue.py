@@ -14,8 +14,8 @@ def test_process_queue_backfills_capture_without_auto_approval(tmp_path, monkeyp
     queue = tmp_path / "queue.csv"
     fields = [
         "brand", "model_name", "ram_gb", "storage_gb", "platform", "product_url",
-        "product_title", "regular_price", "public_sale_price", "gov_price",
-        "billion_subsidy_price", "evidence_text_path", "screenshot_path", "review_status",
+        "product_title", "regular_price", "public_sale_price",
+        "evidence_text_path", "screenshot_path", "review_status",
     ]
     with queue.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
@@ -33,7 +33,6 @@ def test_process_queue_backfills_capture_without_auto_approval(tmp_path, monkeyp
             "screenshot_path": "data/raw/ecommerce/screenshots/a.png",
             "parsed": {
                 "regular_price": 4299.0, "public_sale_price": 3999.0,
-                "displayed_gov_price": 3599.0, "billion_subsidy_price": None,
                 "confidence": "high",
             },
         }
@@ -44,7 +43,7 @@ def test_process_queue_backfills_capture_without_auto_approval(tmp_path, monkeyp
     with queue.open("r", encoding="utf-8-sig", newline="") as handle:
         row = next(csv.DictReader(handle))
     assert row["review_status"] == "needs_review"
-    assert row["gov_price"] == "3599.0"
+    assert row["public_sale_price"] == "3999.0"
     assert row["capture_status"] == "success"
 
 
@@ -52,8 +51,8 @@ def test_process_queue_can_target_one_variant(tmp_path, monkeypatch) -> None:
     queue = tmp_path / "queue.csv"
     fields = [
         "brand", "model_name", "ram_gb", "storage_gb", "platform", "product_url",
-        "product_title", "regular_price", "public_sale_price", "gov_price",
-        "billion_subsidy_price", "evidence_text_path", "screenshot_path", "review_status",
+        "product_title", "regular_price", "public_sale_price",
+        "evidence_text_path", "screenshot_path", "review_status",
     ]
     with queue.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
@@ -72,9 +71,7 @@ def test_process_queue_can_target_one_variant(tmp_path, monkeypatch) -> None:
         return {
             "title": "", "captured_at": "20260916T000000Z", "status": "blocked",
             "blocked_reason": "访问频繁", "text_path": "", "screenshot_path": "",
-            "parsed": {"regular_price": None, "public_sale_price": None,
-                       "displayed_gov_price": None, "billion_subsidy_price": None,
-                       "confidence": "low"},
+            "parsed": {"regular_price": None, "public_sale_price": None, "confidence": "low"},
         }
 
     monkeypatch.setattr(MODULE, "capture", fake_capture)

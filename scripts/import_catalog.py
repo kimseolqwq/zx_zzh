@@ -122,12 +122,11 @@ def import_file(path: Path, dry_run: bool = False) -> dict[str, int]:
                         )
                         db.add(listing); db.flush(); counters["listings"] += 1
 
-                price_values = [money(row, key) for key in ("regular_price", "public_sale_price", "gov_price", "billion_subsidy_price")]
+                price_values = [money(row, key) for key in ("regular_price", "public_sale_price")]
                 if listing and any(value is not None for value in price_values):
                     db.add(PriceSnapshot(
                         listing_id=listing.id, regular_price=price_values[0], public_sale_price=price_values[1],
-                        displayed_gov_price=price_values[2], billion_subsidy_price=price_values[3],
-                        promotion_labels=text(row, "promotion_labels") or "CSV导入",
+                        promotion_labels="CSV导入",
                         in_stock=(text(row, "in_stock") or "true").lower() in {"1", "true", "yes"},
                         crawl_status="imported",
                     ))

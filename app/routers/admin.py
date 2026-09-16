@@ -79,18 +79,9 @@ def _validate_listing_input(*, brand_name: str, platform: str, store_name: str, 
 def _validate_price_relationships(
     regular: Decimal | None,
     public: Decimal | None,
-    displayed_gov: Decimal | None,
-    estimated_gov: Decimal | None,
-    billion: Decimal | None,
 ) -> None:
-    reference = public or regular
     if regular is not None and public is not None and public > regular:
         raise HTTPException(422, "公开活动价不能高于常规价")
-    if reference is None:
-        return
-    for label, value in (("实显国补价", displayed_gov), ("估算国补价", estimated_gov), ("百亿补贴价", billion)):
-        if value is not None and value > reference:
-            raise HTTPException(422, f"{label}不能高于公开参考价")
 
 
 @router.get("/login", response_class=HTMLResponse)
@@ -356,8 +347,6 @@ def create_listing(
 @router.post("/listings/{listing_id}/price")
 def add_price(
     request: Request, listing_id: int, regular_price: str = Form(""), public_sale_price: str = Form(""),
-    gov_price: str = Form(""), estimated_gov_price: str = Form(""), subsidy_price: str = Form(""),
-    promotion_labels: str = Form(""), promotion_stackable: str = Form("unknown"),
     in_stock: bool = Form(False), csrf_token: str = Form(...), db: Session = Depends(get_db),
 ):
     user = require_admin(request, db); verify_csrf(request, csrf_token)
@@ -378,20 +367,12 @@ def add_price(
 
     regular = price(regular_price)
     public = price(public_sale_price)
-    displayed_gov = price(gov_price)
-    estimated_gov = price(estimated_gov_price)
-    billion = price(subsidy_price)
-    if not any((regular, public, displayed_gov, estimated_gov, billion)):
+    if not any((regular, public)):
         raise HTTPException(422, "至少填写一个价格")
-    _validate_price_relationships(regular, public, displayed_gov, estimated_gov, billion)
-    if promotion_stackable not in {"yes", "no", "unknown"}:
-        promotion_stackable = "unknown"
+    _validate_price_relationships(regular, public)
     snapshot = PriceSnapshot(
         listing_id=listing_id, regular_price=regular, public_sale_price=public,
-        displayed_gov_price=displayed_gov, estimated_gov_price=estimated_gov,
-        billion_subsidy_price=billion,
-        promotion_labels=promotion_labels.strip() or "管理员录入",
-        promotion_stackable=promotion_stackable,
+        promotion_labels="管理员录入",
         crawl_status="manual", in_stock=in_stock,
     )
     listing.last_checked_at = datetime.now(timezone.utc)

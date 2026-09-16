@@ -19,7 +19,7 @@ def _compact(value: str) -> str:
 
 def approve(
     path: Path, *, platform: str, model_name: str, ram_gb: str, storage_gb: str,
-    reviewer: str, promotion_labels: str,
+    reviewer: str,
 ) -> dict[str, str]:
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
@@ -62,11 +62,10 @@ def approve(
         storage_labels.add(f"{ram_gb}gb+1tb")
     if ram_gb and not any(_compact(label) in compact_evidence for label in storage_labels):
         raise ValueError("证据正文不包含目标内存版本")
-    prices = [_money(row, key) for key in ("regular_price", "public_sale_price", "gov_price", "billion_subsidy_price")]
+    prices = [_money(row, key) for key in ("regular_price", "public_sale_price")]
     if not any(price is not None for price in prices):
         raise ValueError("没有可审核价格")
     row["reviewer"] = reviewer.strip()
-    row["promotion_labels"] = promotion_labels.strip() or row.get("promotion_labels", "")
     row["review_status"] = "approved"
     temporary = path.with_suffix(f"{path.suffix}.tmp")
     with temporary.open("w", encoding="utf-8-sig", newline="") as handle:
@@ -88,11 +87,10 @@ def main() -> None:
     parser.add_argument("--ram", required=True)
     parser.add_argument("--storage", required=True)
     parser.add_argument("--reviewer", required=True)
-    parser.add_argument("--promotion-labels", default="人工复核公开价格")
     args = parser.parse_args()
     print(approve(
         args.file, platform=args.platform, model_name=args.model, ram_gb=args.ram,
-        storage_gb=args.storage, reviewer=args.reviewer, promotion_labels=args.promotion_labels,
+        storage_gb=args.storage, reviewer=args.reviewer,
     ))
 
 

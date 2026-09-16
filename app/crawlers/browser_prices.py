@@ -60,10 +60,7 @@ async def capture_public_price_page(url: str, item_id: str, *, headless: bool = 
         await page.screenshot(path=screenshot, full_page=True)
         text_path.write_text(text, encoding="utf-8")
         parsed = parse_price_text(text)
-        has_price = any((
-            parsed.regular_price, parsed.public_sale_price,
-            parsed.displayed_gov_price, parsed.billion_subsidy_price,
-        ))
+        has_price = any((parsed.regular_price, parsed.public_sale_price))
         blocked = detect_blocked_page(text, title, final_url, has_price=has_price)
         await context.close()
     return {
