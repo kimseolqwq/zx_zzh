@@ -40,6 +40,22 @@ ollama pull gemma3:1b
 3. 启动系统：`powershell -ExecutionPolicy Bypass -File .\run.ps1`
 4. 浏览器访问：`http://127.0.0.1:8000`
 
+### 让同一网络中的队友访问
+
+网站已监听 `0.0.0.0:8000`，但 Windows 公用网络默认阻止入站连接。首次共享时运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\setup_lan_access.ps1
+```
+
+在 UAC 弹窗中选择“是”。脚本只允许本地子网访问 TCP 8000，不开放其他端口，并打印形如 `http://10.x.x.x:8000` 的当前地址。队友必须与本机处于同一 Wi-Fi/局域网；不能使用 `127.0.0.1`，因为该地址在队友电脑上代表队友自己的电脑。校园网若启用了客户端隔离，即使 IP 同网段也不能互访，此时应改用手机热点，或把网站部署到云端。
+
+共享前运行下面的交互式命令，把数据库中的现有管理员密码改为非默认强密码；输入内容不会显示、不会写入 Git。不要在公用网络使用示例密码 `Admin@123456`。
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\reset_admin_password.py
+```
+
 `run.ps1` 会在启动 Web 服务前并行预热三个轻量模型。预热耗时属于一次性启动准备，不计入用户推荐响应时间；模型、融合权重和输出上限均未减少。
 
 默认管理员账号仅用于本地首次演示：

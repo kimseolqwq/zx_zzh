@@ -1,6 +1,7 @@
 $ErrorActionPreference = "Stop"
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $pythonPath = Join-Path $projectRoot ".venv\Scripts\python.exe"
+$lanRuleName = "择机手机推荐系统 (TCP 8000)"
 
 if (-not (Test-Path -LiteralPath $pythonPath)) {
     throw "Python virtual environment not found. Run scripts\setup.ps1 first."
@@ -21,6 +22,9 @@ try {
         Write-Host "The website is already running locally: http://127.0.0.1:8000"
         if ($lanAddress) {
             Write-Host "LAN address: http://${lanAddress}:8000"
+            if (-not (Get-NetFirewallRule -DisplayName $lanRuleName -ErrorAction SilentlyContinue)) {
+                Write-Warning "LAN firewall rule is missing. Run scripts\setup_lan_access.ps1 once as administrator."
+            }
         }
         exit 0
     }
@@ -41,6 +45,9 @@ $lanAddress = Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias "WLAN" -Error
 Write-Host "Starting website locally at http://127.0.0.1:8000"
 if ($lanAddress) {
     Write-Host "Other devices on the same LAN can try: http://${lanAddress}:8000"
+    if (-not (Get-NetFirewallRule -DisplayName $lanRuleName -ErrorAction SilentlyContinue)) {
+        Write-Warning "LAN firewall rule is missing. Run scripts\setup_lan_access.ps1 once as administrator."
+    }
 }
 Write-Host "Keep this window open. Press Ctrl+C to stop the website."
 & $pythonPath -m uvicorn app.main:app --host 0.0.0.0 --port 8000
