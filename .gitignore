@@ -20,4 +20,5 @@ outputs/*.zip
 outputs/phone-recommendation-system-v1.0/
 outputs/data-export-v1.7/*.db
 *.inspect.ndjson
+outputs/**/preview/
 *.log
