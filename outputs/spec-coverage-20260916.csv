@@ -1,0 +1,17 @@
+﻿field,label,filled,total,coverage_percent
+release_date,发布日期,156,203,76.8
+cpu,处理器,172,203,84.7
+screen_size,屏幕尺寸,182,203,89.7
+screen_type,屏幕类型,176,203,86.7
+resolution,分辨率,173,203,85.2
+refresh_rate,刷新率,171,203,84.2
+main_camera_mp,主摄像素,181,203,89.2
+camera_summary,相机摘要,181,203,89.2
+battery_mah,电池容量,193,203,95.1
+charging_w,有线充电,178,203,87.7
+wireless_charging_w,无线充电,88,203,43.3
+weight_g,重量,182,203,89.7
+thickness_mm,厚度,177,203,87.2
+waterproof,防水等级,153,203,75.4
+operating_system,操作系统,182,203,89.7
+image_url,产品图,164,203,80.8

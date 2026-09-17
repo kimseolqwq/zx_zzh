@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-15T18:32:24.300835+00:00",
+  "generated_at": "2026-09-17T13:47:22.389231+00:00",
   "limit_seconds": 10.0,
   "warmup": [
     {
       "model": "qwen3:1.7b",
       "success": true,
-      "latency_ms": 443.5
+      "latency_ms": 450.8
     },
     {
       "model": "qwen2.5:1.5b",
       "success": true,
-      "latency_ms": 423.7
+      "latency_ms": 431.4
     },
     {
       "model": "gemma3:1b",
       "success": true,
-      "latency_ms": 467.9
+      "latency_ms": 472.9
     }
   ],
   "all_within_limit": true,
@@ -24,12 +24,12 @@
   "cases": [
     {
       "usage": "摄影创作",
-      "latency_seconds": 3.606,
+      "latency_seconds": 3.062,
       "result_count": 3,
       "top3": [
-        "vivo vivo X200 Pro mini 12GB+512",
-        "vivo vivo X200 12GB+512",
-        "vivo iQOO Neo10 Pro 16GB+1TB"
+        "OPPO OPPO Find X9s Pro 12GB+256",
+        "OPPO OPPO Find X8 16GB+1TB",
+        "OPPO OPPO Reno16 Pro 16GB+512"
       ],
       "valid_model_votes": [
         3,
@@ -40,12 +40,12 @@
     },
     {
       "usage": "重度游戏",
-      "latency_seconds": 1.498,
+      "latency_seconds": 3.762,
       "result_count": 3,
       "top3": [
-        "vivo iQOO 15 16GB+256",
-        "vivo iQOO Z10 Turbo 16GB+256",
-        "vivo iQOO Neo10 Pro+ 16GB+256"
+        "OPPO OPPO Find X9s Pro 12GB+256",
+        "realme 真我GT8 Pro 16GB+1TB",
+        "OPPO OPPO Reno16 Pro 16GB+512"
       ],
       "valid_model_votes": [
         3,
@@ -56,12 +56,12 @@
     },
     {
       "usage": "轻薄续航",
-      "latency_seconds": 1.299,
+      "latency_seconds": 3.46,
       "result_count": 3,
       "top3": [
-        "vivo vivo Y500 8GB+256",
-        "vivo iQOO Z10 Turbo 12GB+256",
-        "vivo vivo S20 8GB+256"
+        "OPPO OPPO Find X9s Pro 12GB+256",
+        "OPPO OPPO Reno16 Pro 16GB+512",
+        "realme 真我GT8 Pro 16GB+1TB"
       ],
       "valid_model_votes": [
         3,
@@ -72,12 +72,12 @@
     },
     {
       "usage": "综合体验",
-      "latency_seconds": 2.621,
+      "latency_seconds": 3.698,
       "result_count": 3,
       "top3": [
-        "vivo iQOO 15 16GB+256",
-        "vivo iQOO Z10 Turbo 16GB+512",
-        "vivo vivo S30 Pro mini 16GB+512"
+        "OPPO OPPO Find X9s Pro 12GB+256",
+        "OPPO OPPO Reno16 Pro 16GB+512",
+        "realme 真我GT8 Pro 16GB+1TB"
       ],
       "valid_model_votes": [
         3,

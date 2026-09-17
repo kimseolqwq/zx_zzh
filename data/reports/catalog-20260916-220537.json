@@ -1,0 +1,966 @@
+{
+  "generated_at": "2026-09-16T14:09:12.907747+00:00",
+  "summary": {
+    "collected": 89,
+    "failed": 24,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 89,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 17,
+    "with_variants": 71,
+    "with_official_image": 61,
+    "average_spec_completeness": 74.2
+  },
+  "items": [
+    {
+      "brand": "Apple",
+      "model_name": "iPhone 18 Pro",
+      "url": "https://www.apple.com.cn/iphone-18-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.apple.com.cn/20260916T140537Z-55e0825440.txt"
+    },
+    {
+      "brand": "Apple",
+      "model_name": "iPhone Duo",
+      "url": "https://www.apple.com.cn/iphone-duo/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.apple.com.cn/20260916T140539Z-9cbfe5752a.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Mate 70 Pro+",
+      "url": "https://consumer.huawei.com/cn/phones/mate70-pro-plus/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140539Z-ffcb350b1d.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Mate 70 RS 非凡大师",
+      "url": "https://consumer.huawei.com/cn/phones/mate70-rs-ultimate-design/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140541Z-0bd5b8fccc.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Mate X6",
+      "url": "https://consumer.huawei.com/cn/phones/mate-x6/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140543Z-f644ebb16f.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Mate XT 非凡大师",
+      "url": "https://consumer.huawei.com/cn/phones/mate-xt-ultimate-design/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140547Z-62577f6c79.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 80",
+      "url": "https://consumer.huawei.com/cn/phones/pura80/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140549Z-1490abf586.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 80 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/pura80-pro/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140551Z-d5a235cd9e.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 80 Pro+",
+      "url": "https://consumer.huawei.com/cn/phones/pura80-pro-plus/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140553Z-0099042a75.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura X",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140557Z-487776c8c9.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI nova 14",
+      "url": "https://consumer.huawei.com/cn/phones/nova14/",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 33.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140559Z-0f216f0c80.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI nova 14 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/nova14-pro/",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 50.0,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140602Z-84b8414fec.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI nova 14 Ultra",
+      "url": "https://consumer.huawei.com/cn/phones/nova14-ultra/",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 50.0,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T140606Z-ade2bde1a9.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 15",
+      "url": "https://www.mi.com/prod/xiaomi-15/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140622Z-ace74591e4.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 15 Pro",
+      "url": "https://www.mi.com/prod/xiaomi-15-pro/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140624Z-aba6c09f19.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 15 Ultra",
+      "url": "https://www.mi.com/prod/xiaomi-15-ultra/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140626Z-8f037dffbb.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 15S Pro",
+      "url": "https://www.mi.com/prod/xiaomi-15s-pro/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.mi.com/20260916T140628Z-c84085ecb5.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI K90",
+      "url": "https://www.mi.com/prod/redmi-k90/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140635Z-3a810db4c3.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI K90 Pro Max",
+      "url": "https://www.mi.com/prod/redmi-k90-pro-max/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140637Z-631e5fce9c.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Turbo 4",
+      "url": "https://www.mi.com/prod/redmi-turbo-4/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140639Z-ce4e1e79f8.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Turbo 4 Pro",
+      "url": "https://www.mi.com/prod/redmi-turbo-4-pro/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140642Z-34d409e608.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Turbo 5",
+      "url": "https://www.mi.com/prod/redmi-turbo-5/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140644Z-da6b88218c.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Turbo 5 Max",
+      "url": "https://www.mi.com/prod/redmi-turbo-5-max/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140645Z-d5354628e9.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Note 14",
+      "url": "https://www.mi.com/prod/redmi-note-14/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140647Z-9fc7a59502.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Note 14 Pro",
+      "url": "https://www.mi.com/prod/redmi-note-14-pro/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140649Z-73711db94c.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Note 15",
+      "url": "https://www.mi.com/prod/redmi-note-15/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140653Z-aa27862cd4.txt"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Note 15 Pro",
+      "url": "https://www.mi.com/prod/redmi-note-15-pro/specs",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 16.7,
+      "evidence_path": "data/raw/www.mi.com/20260916T140655Z-b7c3a12092.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find N5",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n5/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140657Z-23fe3c5572.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find N6",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n6/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140659Z-17f0eac93e.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find X8",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8/specs/",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140701Z-38aba2b996.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find X8 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140702Z-29e54c83e4.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find X8 Pro 卫星通信版",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8-pro-satellite/specs/",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140704Z-8e94027de1.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find X8s",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8s/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140706Z-e6b37408df.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find X8s+",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8s-plus/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140708Z-1aae8f3f91.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find X8 Ultra",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8-ultra/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140709Z-f867107f7b.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Find X9 Pro 卫星通信版",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x9-pro-satellite/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140711Z-b6a501ee1d.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Reno13",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno13/specs/",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140713Z-74bfb1c1b0.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Reno13 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno13-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140715Z-7967248899.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Reno14",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno14/specs/",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140716Z-e5fa5b896f.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Reno14 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno14-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140718Z-1b23aa2d13.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Reno15",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno15/specs/",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140720Z-94dff656ae.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Reno15 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno15-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140721Z-7e377876c2.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO Reno15c",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno15c/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140723Z-4ad2fe5827.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO K12 Plus",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k12-plus/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140725Z-34768550d0.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO K12s",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k12s/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140727Z-5cafe5efbe.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO K13 Turbo",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k13-turbo/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140728Z-4819be66ad.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO K13 Turbo Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k13-turbo-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140730Z-82a484d53d.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO K15 Pro+",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k15-pro-plus/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140732Z-f8f0544e63.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A5",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140734Z-8d05fd8d91.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A5 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140735Z-afff2d80cf.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A5 活力版",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5-energy-edition/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140737Z-d2c844ef8d.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A5m",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5m/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140739Z-f3afa6729d.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A5x",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5x/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140741Z-e9d33da702.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A6",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140742Z-ff1ff74dec.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A6 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6-pro/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140744Z-a79549984a.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A6k",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6k/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140746Z-f30e3117ac.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A6m",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6m/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140748Z-926a65fc09.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A6t",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6t/specs/",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140750Z-3f776df816.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A6x",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6x/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140751Z-90643c869e.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A7 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a7-pro/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140753Z-182d5b00f0.txt"
+    },
+    {
+      "brand": "OPPO",
+      "model_name": "OPPO A7 Pro Max",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a7-pro-max/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.oppo.com/20260916T140755Z-3cf3c25bcb.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo X200",
+      "url": "https://www.vivo.com.cn/vivo/param/x200",
+      "release_date": "2024-10-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140756Z-682fc60b89.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo X200 Pro mini",
+      "url": "https://www.vivo.com.cn/vivo/param/x200promini",
+      "release_date": "2024-10-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140758Z-501e8bfeab.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo X200 Ultra",
+      "url": "https://www.vivo.com.cn/vivo/param/x200ultra",
+      "release_date": "2025-04-01",
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140759Z-12942ee903.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo S20",
+      "url": "https://www.vivo.com.cn/vivo/param/s20",
+      "release_date": "2024-11-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140801Z-f4931c3f0c.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo S20 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/s20pro",
+      "release_date": "2024-11-01",
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140803Z-750229f8df.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo S30",
+      "url": "https://www.vivo.com.cn/vivo/param/s30",
+      "release_date": "2025-05-01",
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140805Z-77074be35d.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo S30 Pro mini",
+      "url": "https://www.vivo.com.cn/vivo/param/s30promini",
+      "release_date": "2025-05-01",
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140807Z-a341a0b5a5.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo Y300",
+      "url": "https://www.vivo.com.cn/vivo/param/y300",
+      "release_date": "2024-12-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140809Z-d5399c6c50.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo Y300 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/y300pro",
+      "release_date": "2024-09-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140810Z-e66a294f5f.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo Y300i",
+      "url": "https://www.vivo.com.cn/vivo/param/y300i",
+      "release_date": "2025-03-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140814Z-9b9cf89cc6.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO 13",
+      "url": "https://www.vivo.com.cn/vivo/param/iqoo13",
+      "release_date": "2024-10-01",
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140816Z-54c3bcf276.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO Neo10",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooneo10",
+      "release_date": "2024-11-01",
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140817Z-11d7f441c7.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO Neo10 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooneo10pro",
+      "release_date": "2024-11-01",
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140819Z-df75c78d07.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO Neo10 Pro+",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooneo10proplus",
+      "release_date": "2025-05-01",
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140821Z-2a6c5e7bf1.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO Z10 Turbo",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooz10turbo",
+      "release_date": "2025-04-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140825Z-96ff6055f5.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO Z10 Turbo Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooz10turbopro",
+      "release_date": "2025-04-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140826Z-38e9c32dbf.txt"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO Z10x",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooz10x",
+      "release_date": "2025-04-01",
+      "variant_count": 4,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.vivo.com.cn/20260916T140828Z-52dac7d34b.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我15T",
+      "url": "https://www.realme.com/cn/realme-15-t/specs",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.realme.com/20260916T140830Z-8e1cb3b8e5.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我15",
+      "url": "https://www.realme.com/cn/more-products/realme-15/specs",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.realme.com/20260916T140832Z-49185a74e6.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我V70s",
+      "url": "https://www.realme.com/cn/more-products/realme-v-70s/specs",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.realme.com/20260916T140835Z-3d5c69ecda.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我Neo7",
+      "url": "https://www.realme.com/cn/realme-neo-7/specs",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.realme.com/20260916T140836Z-b2489d350c.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT Neo6",
+      "url": "https://www.realme.com/cn/realme-gt-neo-6/specs",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.realme.com/20260916T140841Z-d3766443cd.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S25 Edge",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s25-edge/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T140845Z-4447ac25c9.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Fold7",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold7/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T140851Z-d0bfdef177.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Flip7",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-flip7/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T140852Z-ad0f88a274.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Fold8 Ultra",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold8-ultra/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T140854Z-ab95181303.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung W25 Flip",
+      "url": "https://www.samsung.com.cn/smartphones/samsung-w25-flip/specs/",
+      "release_date": null,
+      "variant_count": 0,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T140909Z-2f11aabfec.txt"
+    },
+    {
+      "brand": "魅族",
+      "model_name": "魅族 21 PRO",
+      "url": "https://detail.meizu.com/item/meizu21pro.html",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/detail.meizu.com/20260916T140912Z-b07008ae2f.txt"
+    }
+  ],
+  "failures": [
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI nova 13",
+      "url": "https://consumer.huawei.com/cn/phones/nova13/",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI nova 13 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/nova13-pro/",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI nova Flip",
+      "url": "https://consumer.huawei.com/cn/phones/nova-flip/specs/",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 16",
+      "url": "https://www.mi.com/prod/xiaomi-16/specs",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 16 Pro",
+      "url": "https://www.mi.com/prod/xiaomi-16-pro/specs",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "小米",
+      "model_name": "Xiaomi 16 Ultra",
+      "url": "https://www.mi.com/prod/xiaomi-16-ultra/specs",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Note 14 Pro+",
+      "url": "https://www.mi.com/prod/redmi-note-14-pro-plus/specs",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "小米",
+      "model_name": "REDMI Note 15 Pro+",
+      "url": "https://www.mi.com/prod/redmi-note-15-pro-plus/specs",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "vivo Y300+",
+      "url": "https://www.vivo.com.cn/vivo/param/y300plus",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "vivo",
+      "model_name": "iQOO Z10",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooz10",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "一加",
+      "model_name": "一加 Ace 5 竞速版",
+      "url": "https://www.oneplus.com/cn/ace-5-racing/specs",
+      "error": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-5-racing/specs"
+    },
+    {
+      "brand": "一加",
+      "model_name": "一加 Ace 5 至尊版",
+      "url": "https://www.oneplus.com/cn/ace-5-ultra/specs",
+      "error": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-5-ultra/specs"
+    },
+    {
+      "brand": "一加",
+      "model_name": "一加 Ace 6T",
+      "url": "https://www.oneplus.com/cn/ace-6t/specs",
+      "error": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-6t/specs"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我Neo7 SE",
+      "url": "https://www.realme.com/cn/realme-neo-7-se/specs",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S24 FE",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s/galaxy-s24-fe/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-s/galaxy-s24-fe/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S25+",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s25-plus/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-s25-plus/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S25 FE",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s25-fe/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-s25-fe/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26 Edge",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26-edge/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-s26-edge/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy A16 5G",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a16-5g/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a16-5g/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy A26 5G",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a26-5g/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a26-5g/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy A36 5G",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a36-5g/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a36-5g/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy A57 5G",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a57-5g/specs/",
+      "error": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a57-5g/specs/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung W25",
+      "url": "https://www.samsung.com.cn/smartphones/samsung-w25/specs/",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung W26",
+      "url": "https://www.samsung.com.cn/smartphones/samsung-w26/specs/",
+      "error": "页面内容与机型名称不匹配，拒绝入库"
+    }
+  ]
+}

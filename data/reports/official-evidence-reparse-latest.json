@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T18:29:54.922438+00:00",
+  "generated_at": "2026-09-16T14:40:19.534410+00:00",
   "source_reports": [
     "data/reports/catalog-20260902-230144.json",
     "data/reports/catalog-20260902-230200.json",
@@ -20,7 +20,10 @@
     "data/reports/catalog-20260916-021529.json",
     "data/reports/catalog-20260916-021809.json",
     "data/reports/catalog-20260916-021828.json",
-    "data/reports/catalog-20260916-021840.json"
+    "data/reports/catalog-20260916-021840.json",
+    "data/reports/catalog-20260916-165142.json",
+    "data/reports/catalog-20260916-220345.json",
+    "data/reports/catalog-20260916-220537.json"
   ],
   "network_requests": 0,
   "phones_reparsed": 145,
@@ -30,5 +33,5 @@
   "phones_updated": 145,
   "variants_added": 0,
   "failures": [],
-  "backup": "data/backups/before-evidence-reparse-20260916-022954.db"
+  "backup": "data/backups/before-evidence-reparse-20260916-224019.db"
 }

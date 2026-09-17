@@ -1,0 +1,317 @@
+{
+  "generated_at": "2026-09-16T14:58:07.198365+00:00",
+  "dry_run": false,
+  "backup": "C:\\Users\\19158\\Documents\\Codex\\2026-09-01\\gemini-ui\\data\\backups\\before-local-crawl-20260916-225806.db",
+  "sources": [
+    "xiaomi_data\\xiaomi_phones.json",
+    "vivo_data\\vivo_phones_full.json",
+    "oppo_data\\oppo_phones_temp.json",
+    "rongyao_data\\honor_phones.json",
+    "huawei_phones_full.json"
+  ],
+  "results": [
+    {
+      "brand": "小米",
+      "matched": 17,
+      "updated": 8,
+      "fields_filled": {
+        "cpu": 8,
+        "screen_size": 0,
+        "screen_type": 0,
+        "refresh_rate": 0,
+        "main_camera_mp": 0,
+        "battery_mah": 0,
+        "charging_w": 0,
+        "wireless_charging_w": 0,
+        "weight_g": 0,
+        "thickness_mm": 0,
+        "resolution": 0,
+        "waterproof": 0,
+        "operating_system": 0
+      },
+      "variants_added": 0,
+      "matches": [
+        {
+          "model": "Xiaomi 17 Pro Max",
+          "source_model": "Xiaomi 17 Pro Max",
+          "match_type": "exact_model",
+          "fields": [
+            "cpu",
+            "main_camera_mp",
+            "resolution",
+            "screen_size",
+            "thickness_mm",
+            "weight_g"
+          ],
+          "values": {
+            "cpu": "第五代骁龙8至尊版移动平台",
+            "main_camera_mp": 50.0,
+            "resolution": "2608 x 1200",
+            "screen_size": 6.9,
+            "thickness_mm": 8.0,
+            "weight_g": 219.0
+          },
+          "variants_added": 0,
+          "variants": []
+        },
+        {
+          "model": "Xiaomi 15",
+          "source_model": "Xiaomi 15 定制版",
+          "match_type": "official_path",
+          "fields": [
+            "cpu",
+            "resolution",
+            "screen_type",
+            "thickness_mm",
+            "weight_g"
+          ],
+          "values": {
+            "cpu": "骁龙8至尊版移动平台",
+            "resolution": "2670x 1200",
+            "screen_type": "OLED",
+            "thickness_mm": 8.08,
+            "weight_g": 191.0
+          },
+          "variants_added": 0,
+          "variants": []
+        },
+        {
+          "model": "Xiaomi 15 Pro",
+          "source_model": "Xiaomi 15 Pro",
+          "match_type": "exact_model",
+          "fields": [
+            "cpu",
+            "main_camera_mp",
+            "resolution",
+            "screen_type"
+          ],
+          "values": {
+            "cpu": "骁龙8至尊版移动平台",
+            "main_camera_mp": 50.0,
+            "resolution": "3200 x 1440",
+            "screen_type": "AMOLED"
+          },
+          "variants_added": 0,
+          "variants": []
+        },
+        {
+          "model": "Xiaomi 15 Ultra",
+          "source_model": "Xiaomi 15 Ultra",
+          "match_type": "exact_model",
+          "fields": [
+            "cpu",
+            "main_camera_mp",
+            "resolution",
+            "screen_type"
+          ],
+          "values": {
+            "cpu": "骁龙8至尊版移动平台",
+            "main_camera_mp": 50.0,
+            "resolution": "3200 x 1440",
+            "screen_type": "AMOLED"
+          },
+          "variants_added": 0,
+          "variants": []
+        },
+        {
+          "model": "REDMI Turbo 4",
+          "source_model": "REDMI Turbo 4",
+          "match_type": "exact_model",
+          "fields": [
+            "cpu",
+            "refresh_rate",
+            "resolution",
+            "screen_size",
+            "thickness_mm",
+            "weight_g"
+          ],
+          "values": {
+            "cpu": "天玑 8400-Ultra",
+            "refresh_rate": 120.0,
+            "resolution": "2712 x 1220",
+            "screen_size": 6.67,
+            "thickness_mm": 8.06,
+            "weight_g": 203.5
+          },
+          "variants_added": 0,
+          "variants": []
+        },
+        {
+          "model": "REDMI Turbo 4 Pro",
+          "source_model": "REDMI Turbo 4 Pro",
+          "match_type": "exact_model",
+          "fields": [
+            "cpu",
+            "refresh_rate",
+            "resolution",
+            "screen_size",
+            "thickness_mm",
+            "weight_g"
+          ],
+          "values": {
+            "cpu": "第四代骁龙 8s",
+            "refresh_rate": 120.0,
+            "resolution": "2772 x 1280",
+            "screen_size": 6.83,
+            "thickness_mm": 7.98,
+            "weight_g": 219.0
+          },
+          "variants_added": 0,
+          "variants": []
+        },
+        {
+          "model": "REDMI Note 14 Pro",
+          "source_model": "Redmi Note 14 Pro",
+          "match_type": "exact_model",
+          "fields": [
+            "cpu",
+            "refresh_rate",
+            "resolution",
+            "screen_size",
+            "thickness_mm",
+            "weight_g"
+          ],
+          "values": {
+            "cpu": "天玑 7300-Ultra",
+            "refresh_rate": 120.0,
+            "resolution": "2712 x 1220",
+            "screen_size": 6.67,
+            "thickness_mm": 8.24,
+            "weight_g": 190.0
+          },
+          "variants_added": 0,
+          "variants": []
+        },
+        {
+          "model": "REDMI Note 15",
+          "source_model": "REDMI Note 15",
+          "match_type": "exact_model",
+          "fields": [
+            "cpu",
+            "resolution",
+            "screen_size",
+            "thickness_mm",
+            "weight_g"
+          ],
+          "values": {
+            "cpu": "第三代骁龙®6",
+            "resolution": "2392×1080",
+            "screen_size": 6.77,
+            "thickness_mm": 7.35,
+            "weight_g": 178.0
+          },
+          "variants_added": 0,
+          "variants": []
+        }
+      ]
+    },
+    {
+      "brand": "vivo",
+      "matched": 18,
+      "updated": 0,
+      "fields_filled": {
+        "cpu": 0,
+        "screen_size": 0,
+        "screen_type": 0,
+        "refresh_rate": 0,
+        "main_camera_mp": 0,
+        "battery_mah": 0,
+        "charging_w": 0,
+        "wireless_charging_w": 0,
+        "weight_g": 0,
+        "thickness_mm": 0,
+        "resolution": 0,
+        "waterproof": 0,
+        "operating_system": 0
+      },
+      "variants_added": 0,
+      "matches": []
+    },
+    {
+      "brand": "OPPO",
+      "matched": 41,
+      "updated": 0,
+      "fields_filled": {
+        "cpu": 0,
+        "screen_size": 0,
+        "screen_type": 0,
+        "refresh_rate": 0,
+        "main_camera_mp": 0,
+        "battery_mah": 0,
+        "charging_w": 0,
+        "wireless_charging_w": 0,
+        "weight_g": 0,
+        "thickness_mm": 0,
+        "resolution": 0,
+        "waterproof": 0,
+        "operating_system": 0
+      },
+      "variants_added": 0,
+      "matches": []
+    },
+    {
+      "brand": "荣耀",
+      "matched": 44,
+      "updated": 0,
+      "fields_filled": {
+        "cpu": 0,
+        "screen_size": 0,
+        "screen_type": 0,
+        "refresh_rate": 0,
+        "main_camera_mp": 0,
+        "battery_mah": 0,
+        "charging_w": 0,
+        "wireless_charging_w": 0,
+        "weight_g": 0,
+        "thickness_mm": 0,
+        "resolution": 0,
+        "waterproof": 0,
+        "operating_system": 0
+      },
+      "variants_added": 0,
+      "matches": []
+    },
+    {
+      "brand": "华为",
+      "matched": 17,
+      "updated": 0,
+      "fields_filled": {
+        "cpu": 0,
+        "screen_size": 0,
+        "screen_type": 0,
+        "refresh_rate": 0,
+        "main_camera_mp": 0,
+        "battery_mah": 0,
+        "charging_w": 0,
+        "wireless_charging_w": 0,
+        "weight_g": 0,
+        "thickness_mm": 0,
+        "resolution": 0,
+        "waterproof": 0,
+        "operating_system": 0
+      },
+      "variants_added": 0,
+      "matches": []
+    }
+  ],
+  "totals": {
+    "matched": 137,
+    "updated": 8,
+    "variants_added": 0,
+    "fields_filled": {
+      "cpu": 8,
+      "screen_size": 0,
+      "screen_type": 0,
+      "refresh_rate": 0,
+      "main_camera_mp": 0,
+      "battery_mah": 0,
+      "charging_w": 0,
+      "wireless_charging_w": 0,
+      "weight_g": 0,
+      "thickness_mm": 0,
+      "resolution": 0,
+      "waterproof": 0,
+      "operating_system": 0
+    }
+  }
+}

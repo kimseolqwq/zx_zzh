@@ -1,0 +1,2473 @@
+{
+  "generated_at": "2026-09-16T15:10:40.942783+00:00",
+  "records": [
+    {
+      "phone_id": 1,
+      "brand": "华为",
+      "model": "HUAWEI Mate 70",
+      "url": "https://consumer.huawei.com/cn/phones/mate70/specs/",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150530Z-4a9aa0e628.txt",
+      "sha256": "4a9aa0e628662fc77b983538c1a39ba01a7710af3ef70c66f909d6445f3f29e2",
+      "cached_sha256": "2c62baca9d9d1144bb4fb7592e241cdc0c3880b655050cf6e9feb619ef8788e1",
+      "fetched_at": "2026-09-16T15:05:30.164075+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 2,
+      "brand": "小米",
+      "model": "Xiaomi 17",
+      "url": "https://www.mi.com/prod/xiaomi-17/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150531Z-1438133227.txt",
+      "sha256": "143813322789fac52c3c58ce7c341176e988fc94360aa54d37b7a41f36bf77b8",
+      "cached_sha256": "6645e9c744c1ce1cf7946468e9248df8198559551819bd7e52ae1c131d0a5272",
+      "fetched_at": "2026-09-16T15:05:31.785972+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 3,
+      "brand": "Apple",
+      "model": "iPhone 17",
+      "url": "https://www.apple.com.cn/iphone-17/specs/",
+      "fields": {
+        "five_g": true,
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.apple.com.cn/20260916T150532Z-31e553d2ba.txt",
+      "sha256": "31e553d2ba1dae91762034ac741a55a3148fbfbb770c29909ab73843e8ef6819",
+      "cached_sha256": "6f1f0d0d25cd535137dc3a39bef0df434ffd12ac4c07cc29d09eadb9f5fdf1fc",
+      "fetched_at": "2026-09-16T15:05:32.511532+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 4,
+      "brand": "vivo",
+      "model": "vivo X200 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/x200pro",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150533Z-c23384c7c0.txt",
+      "sha256": "c23384c7c07e25ef4f601716c21a1d4db4827d207a564bd5ded7642a831de1fc",
+      "cached_sha256": "d6d8888240b0b60bdf72e300e0bc7e6c715be90160b12d7b1d85a740e8cd61df",
+      "fetched_at": "2026-09-16T15:05:33.786249+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 5,
+      "brand": "Apple",
+      "model": "iPhone 17 Pro",
+      "url": "https://www.apple.com.cn/iphone-17-pro/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 6,
+      "brand": "Apple",
+      "model": "iPhone 17 Pro Max",
+      "url": "https://www.apple.com.cn/iphone-17-pro/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 7,
+      "brand": "Apple",
+      "model": "iPhone Air",
+      "url": "https://www.apple.com.cn/iphone-air/specs/",
+      "fields": {
+        "five_g": true,
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.apple.com.cn/20260916T150538Z-0018cd60f3.txt",
+      "sha256": "0018cd60f34daa60ebd7b7b595ef8a553f343d52a448a7b527cb11e168c380cc",
+      "cached_sha256": "030c37f671ff056870d0317527734279502e839dadced2e3cc6629c645695ba9",
+      "fetched_at": "2026-09-16T15:05:38.491505+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 8,
+      "brand": "Apple",
+      "model": "iPhone 17e",
+      "url": "https://www.apple.com.cn/iphone-17e/specs/",
+      "fields": {
+        "five_g": true,
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.apple.com.cn/20260916T150540Z-cfa308ac98.txt",
+      "sha256": "cfa308ac980619d7b23f5d7dbd22646c9eb74a0efd4b66327d3ddbfabfa63b77",
+      "cached_sha256": "ce35574bde2236e16e5200d8bfe22bdd4e6f658367b52f21a8238d678482cf60",
+      "fetched_at": "2026-09-16T15:05:40.465389+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 9,
+      "brand": "Apple",
+      "model": "iPhone 16",
+      "url": "https://www.apple.com.cn/iphone-16/specs/",
+      "fields": {
+        "five_g": true,
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.apple.com.cn/20260916T150543Z-b57f974dfa.txt",
+      "sha256": "b57f974dfacd298f14e2beae75a6267db0d94b815d400f8f1b6fe9d935680345",
+      "cached_sha256": "10c81b0bf1af4598f9bef0729bb588ea69fda7052591345fcaff55b4eee9b6c8",
+      "fetched_at": "2026-09-16T15:05:43.400471+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 10,
+      "brand": "华为",
+      "model": "HUAWEI Pura 90 Pro Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150545Z-7969826cb1.txt",
+      "sha256": "7969826cb148869a44f1f29ac7d38aba6523d3a61bd287a6c5a510e4545ecec6",
+      "cached_sha256": "3f5494819767c89b0c7524ed5a9e16eb3be3bf927651009d91728429a816135d",
+      "fetched_at": "2026-09-16T15:05:45.746016+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 11,
+      "brand": "华为",
+      "model": "HUAWEI Pura X Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x-max/specs/",
+      "fields": {
+        "nfc": true,
+        "screen_shape": "foldable",
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150547Z-86e4bef398.txt",
+      "sha256": "86e4bef39876ab7c76ec6d14a45a061e2fb7646a584988a20b7debbf498d796c",
+      "cached_sha256": "a8e60477fe35cdea9cc74cb1e8bd3da7d690df2dac6f60540d8083668671d07e",
+      "fetched_at": "2026-09-16T15:05:47.428662+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 12,
+      "brand": "华为",
+      "model": "HUAWEI nova 16 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/nova16-pro/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150549Z-0205b5dbda.txt",
+      "sha256": "0205b5dbda740f5ccf6274611769532db8ffe393567e6d288645b4f966aa41aa",
+      "cached_sha256": "d1fb8e5477257716de60a733f14f436253bd0382c130648ce161e1a4f57bcd0e",
+      "fetched_at": "2026-09-16T15:05:49.246398+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 13,
+      "brand": "华为",
+      "model": "HUAWEI Mate 70 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/mate70-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150550Z-5f0ad0beba.txt",
+      "sha256": "5f0ad0beba727a76feb4f8239eebf70f6a19279a5184c1217cdcfbc6338bfcb2",
+      "cached_sha256": "5ca4f65c117d6e7af85a5cf932d7abece460b4e0328372557ae740bcae06aeb7",
+      "fetched_at": "2026-09-16T15:05:50.882449+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 14,
+      "brand": "华为",
+      "model": "HUAWEI Pura 80 Ultra",
+      "url": "https://consumer.huawei.com/cn/phones/pura80-ultra/specs/",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150553Z-0b28978708.txt",
+      "sha256": "0b289787086cd7c7ab9688bde5a7882a1e4b54ef117c91a9aa6a5a4200115d4a",
+      "cached_sha256": "61a6484522a152424423c35f8f91fa9b0c79bcec627fcce62b00799b8c82ceb8",
+      "fetched_at": "2026-09-16T15:05:53.752649+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 15,
+      "brand": "小米",
+      "model": "Xiaomi 17 Pro",
+      "url": "https://www.mi.com/prod/xiaomi-17-pro/specs",
+      "fields": {
+        "screen_shape": "flat",
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150555Z-cea5394d72.txt",
+      "sha256": "cea5394d721da849b2e19c9f8c460aae8f6f779aabade4b3254b23c4b5796dcc",
+      "cached_sha256": "cb592acbcff9b5d4e0ee842d514a3f0b523272aa2931edbb4cbc48beaed9a43d",
+      "fetched_at": "2026-09-16T15:05:55.273503+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 16,
+      "brand": "小米",
+      "model": "Xiaomi 17 Pro Max",
+      "url": "https://www.mi.com/prod/xiaomi-17-pro-max/specs",
+      "fields": {
+        "screen_shape": "flat",
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150557Z-d342eaca3e.txt",
+      "sha256": "d342eaca3e22a684739378be0c40ed5c38bb730604e4368a66fade12d1162e06",
+      "cached_sha256": "ecf3ab51a9a3f0a4d59e5f7d1b91b1018eb3438346d1d87db52ba387857c8e80",
+      "fetched_at": "2026-09-16T15:05:57.194159+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 17,
+      "brand": "小米",
+      "model": "REDMI K80",
+      "url": "https://www.mi.com/prod/redmi-k80/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150559Z-74d79bc96d.txt",
+      "sha256": "74d79bc96de47272260e1dbdd75f279ec1d66b2ac527f87909176e763744df00",
+      "cached_sha256": "76de2d34660d2f0fa1749ad5205eadf2eaa036bca407ce944e08efab90d0429d",
+      "fetched_at": "2026-09-16T15:05:59.217654+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 18,
+      "brand": "小米",
+      "model": "REDMI K80 Pro",
+      "url": "https://www.mi.com/prod/redmi-k80-pro/specs",
+      "fields": {
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150601Z-500fdaa321.txt",
+      "sha256": "500fdaa3219c572e3a8ee83fa1dcb2a97a5339da6943251d65e58ddf70e9a932",
+      "cached_sha256": "50ffcfec432ab084b6f39b985851e3b882b59d33662b22ac7212ea2f090d0626",
+      "fetched_at": "2026-09-16T15:06:01.161908+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 19,
+      "brand": "小米",
+      "model": "REDMI K80 至尊版",
+      "url": "https://www.mi.com/prod/redmi-k80-ultra/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150603Z-0792891794.txt",
+      "sha256": "079289179475930fa3c4e4178c3cf39259f259c7684985c0d1a6cc6e81d92234",
+      "cached_sha256": "36d3f8a5c83f83ba5b73c701546203d6ba890fa1ba386f414fe5c33e3fe6cf42",
+      "fetched_at": "2026-09-16T15:06:03.118814+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 20,
+      "brand": "OPPO",
+      "model": "OPPO Find X9 Ultra",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x9-ultra/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150605Z-983ee36480.txt",
+      "sha256": "983ee364807b1a206a990a794992965e653289a0450fd602d7c9e6d603097e61",
+      "cached_sha256": "670a9c5b264a837d63ba8104ee295e2005add681edd506ac8efc01dac6d44bfb",
+      "fetched_at": "2026-09-16T15:06:05.492681+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 21,
+      "brand": "OPPO",
+      "model": "OPPO Find X9s Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x9s-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150607Z-08b2f76ffa.txt",
+      "sha256": "08b2f76ffa4ead8098540fd169ffb8d55e5b13d0596261b86e9b4ec21674518b",
+      "cached_sha256": "26564e3c58c47accc4ec550066407112336fd5053a886c28ff9fe00743c5f807",
+      "fetched_at": "2026-09-16T15:06:07.138617+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 22,
+      "brand": "OPPO",
+      "model": "OPPO Find X9 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x9-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150608Z-41b168d86f.txt",
+      "sha256": "41b168d86f02d127ea66e9708c42028a7f6ec714c9eb1435396cb0509ce781d8",
+      "cached_sha256": "7aa5cc6d1449ef4b259dc2297bd57fb88b33702762f879b4702f675db84727e9",
+      "fetched_at": "2026-09-16T15:06:08.841269+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 23,
+      "brand": "OPPO",
+      "model": "OPPO Find X9",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x9/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150610Z-8aac39a17b.txt",
+      "sha256": "8aac39a17b39818a3a8bceb9ab51b6c3fe832cc67d2f0892619230b921d16ece",
+      "cached_sha256": "70c956584c2e3274fa74a483844bfa2b6340a2ea0e60b7d0ed66db29bfd9b88e",
+      "fetched_at": "2026-09-16T15:06:10.532252+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 24,
+      "brand": "OPPO",
+      "model": "OPPO Reno16 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno16-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150612Z-7b357e78c0.txt",
+      "sha256": "7b357e78c0b2b3f787797110bb8039667fcf3b955aacab970a68296234e1201e",
+      "cached_sha256": "bb18d8ec66f99cb46e60b2315a205fbc6d61f581d878b921f22ef0ba39019894",
+      "fetched_at": "2026-09-16T15:06:12.229220+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 25,
+      "brand": "OPPO",
+      "model": "OPPO Reno16",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno16/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150614Z-cc84f58949.txt",
+      "sha256": "cc84f58949446fb48d0705c9306a7d1d0cb67af47e506a2c3d0ffd7541198ea7",
+      "cached_sha256": "3921c4fca65ed682b4a5445c065acd8a4f1def91faef0326b78c73bf8f0f0899",
+      "fetched_at": "2026-09-16T15:06:14.212071+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 26,
+      "brand": "OPPO",
+      "model": "OPPO K15 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k15-pro/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150615Z-e0544b1e50.txt",
+      "sha256": "e0544b1e506a9df2a1345e421b2cd788f21b1d8db012304ae96de17b907c8374",
+      "cached_sha256": "e3c1268193f8fd59ec276dfd0a51a5c035f70dc68ed65733b0998670c485c040",
+      "fetched_at": "2026-09-16T15:06:15.913084+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 27,
+      "brand": "OPPO",
+      "model": "OPPO A6s Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6s-pro/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150617Z-0abc62e811.txt",
+      "sha256": "0abc62e81105b36168f46e581ec8e0e35c1a633f381faeaef391a91ae4fc6404",
+      "cached_sha256": "ecf5426257665998e2b49b8701da5b9e5c89ac320dca6141e532476fabe711c0",
+      "fetched_at": "2026-09-16T15:06:17.590962+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 28,
+      "brand": "vivo",
+      "model": "vivo X300 Ultra",
+      "url": "https://www.vivo.com.cn/vivo/param/x300ultra",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150618Z-5b3f4623f3.txt",
+      "sha256": "5b3f4623f3dd1da70a5c6c0f3f058e7ebc0e2a70b736428517c476e9b9d58ed1",
+      "cached_sha256": "40e6a0f1c9af8ad16d546196d05b997cd67586bf8b083220f4ecb55960727cf6",
+      "fetched_at": "2026-09-16T15:06:18.701282+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 29,
+      "brand": "vivo",
+      "model": "vivo X300 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/x300pro",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150620Z-374816186f.txt",
+      "sha256": "374816186fa6b24471f70f5fd2aed16c839abcf1c27a01f85429bda046480c69",
+      "cached_sha256": "d152ff5cc171733abe3f75c8fd0edefab99ec67bfed04c5603fc79db389c44df",
+      "fetched_at": "2026-09-16T15:06:20.491157+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 30,
+      "brand": "vivo",
+      "model": "vivo X300",
+      "url": "https://www.vivo.com.cn/vivo/param/x300",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 31,
+      "brand": "vivo",
+      "model": "vivo S50 Pro mini",
+      "url": "https://www.vivo.com.cn/vivo/param/s50promini",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150624Z-6de6b1a23a.txt",
+      "sha256": "6de6b1a23a791e4d8b3ce9d5bb5be0130c9ccbbe0ac8d884926d00277394f055",
+      "cached_sha256": "e045a8ee21734899208d1cf48a7111f584feea2d6bb4c969e1ec8fa982c7aa06",
+      "fetched_at": "2026-09-16T15:06:24.005115+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 32,
+      "brand": "vivo",
+      "model": "vivo S50",
+      "url": "https://www.vivo.com.cn/vivo/param/s50",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 33,
+      "brand": "vivo",
+      "model": "vivo Y500",
+      "url": "https://www.vivo.com.cn/vivo/param/y500",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 34,
+      "brand": "vivo",
+      "model": "iQOO 15 Ultra",
+      "url": "https://www.vivo.com.cn/vivo/param/iqoo15ultra",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150629Z-824ae5320d.txt",
+      "sha256": "824ae5320dca7d20e187220c8c528a637f12a5923030ba50470e55d4ecf4e5d1",
+      "cached_sha256": "5a0991274c00a3ee882693a4e740a17d67091c79f53ac3a043aee870b2ad5f6d",
+      "fetched_at": "2026-09-16T15:06:29.353306+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 35,
+      "brand": "vivo",
+      "model": "iQOO 15",
+      "url": "https://www.vivo.com.cn/vivo/param/iqoo15",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150631Z-593d830f83.txt",
+      "sha256": "593d830f835b770163cb342ca793d5d771ea3e2da1ac6e35ead2ed980b713df3",
+      "cached_sha256": "2108034f23ba3e166d9a9c2a99e928a40bc50568b880baf519d34e44cab09603",
+      "fetched_at": "2026-09-16T15:06:31.163856+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 36,
+      "brand": "realme",
+      "model": "真我GT8 Pro",
+      "url": "https://www.realme.com/cn/realme-gt-8-pro/specs",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.realme.com/20260916T150632Z-c324a4c084.txt",
+      "sha256": "c324a4c0846f744c149dfd1be8aaf65e911d18d884c95d569ac14817947dfc54",
+      "cached_sha256": "5b4a01348523b2040210d37bb8b09abf89a2a6ffa609fcc96b6f1109abef1d58",
+      "fetched_at": "2026-09-16T15:06:32.356805+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 37,
+      "brand": "realme",
+      "model": "真我GT8",
+      "url": "https://www.realme.com/cn/realme-gt-8/specs",
+      "fields": {},
+      "evidence": "data/raw/www.realme.com/20260916T150634Z-4998e9edf4.txt",
+      "sha256": "4998e9edf4115ac5a7777c8d1461c34d9f0a5d6362cebcc6b044b7b9d0c57b29",
+      "cached_sha256": "4b6283f889d743d27e065cda50076bee53424546bf5d5b6071ac741afc8e982b",
+      "fetched_at": "2026-09-16T15:06:34.408679+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 38,
+      "brand": "realme",
+      "model": "真我GT7",
+      "url": "https://www.realme.com/cn/realme-gt-7",
+      "fields": {
+        "screen_shape": "flat"
+      },
+      "evidence": "data/raw/www.realme.com/20260916T150636Z-57e46a324f.txt",
+      "sha256": "57e46a324f36d4b034e5888e2bdb08fa8a6b8598a2ff11a3dc744754ee4b7c4a",
+      "cached_sha256": "fdde5747fdafe07afccabf2e68da09c517250dfa16c5d3e2c6fbc2368509838f",
+      "fetched_at": "2026-09-16T15:06:36.275844+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 39,
+      "brand": "realme",
+      "model": "真我GT7 Pro",
+      "url": "https://www.realme.com/cn/realme-gt-7-pro",
+      "fields": {
+        "screen_shape": "foldable"
+      },
+      "evidence": "data/raw/www.realme.com/20260916T150639Z-cebf0c2995.txt",
+      "sha256": "cebf0c29955b259e0a792320ee349c7ec28d42eca045b77620790fe15a6f69c9",
+      "cached_sha256": "3ad431ea8ae424e7e65c136691ed8ae4f13852bb591771ebbbebbe413c0e0a0d",
+      "fetched_at": "2026-09-16T15:06:39.152542+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 40,
+      "brand": "realme",
+      "model": "真我Neo8",
+      "url": "https://www.realme.com/cn/realme-neo-8/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 41,
+      "brand": "realme",
+      "model": "真我Neo7 Turbo",
+      "url": "https://www.realme.com/cn/realme-neo-7-turbo",
+      "fields": {
+        "screen_shape": "flat"
+      },
+      "evidence": "data/raw/www.realme.com/20260916T150644Z-d715df48d3.txt",
+      "sha256": "d715df48d3f2799201e224e0830440502fe8f276fd90e197a19b75bf25593865",
+      "cached_sha256": "9b600462f469d31ff03d86f2d8c31eb15926f91965d9f54d47b080c90d87ab31",
+      "fetched_at": "2026-09-16T15:06:44.059644+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 42,
+      "brand": "realme",
+      "model": "真我15 Pro",
+      "url": "https://www.realme.com/cn/realme-15-pro/specs",
+      "fields": {
+        "nfc": true
+      },
+      "evidence": "data/raw/www.realme.com/20260916T150646Z-3045a15dce.txt",
+      "sha256": "3045a15dce82fcf6608c44902d64c2922214cb38668bcc877e1a0c9ee6f2de1a",
+      "cached_sha256": "a92c10b6fb3a292f6dfa930c89e4a5e9a9053b552517c72bd253369d7ff5c7bc",
+      "fetched_at": "2026-09-16T15:06:46.378780+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 43,
+      "brand": "realme",
+      "model": "真我V70",
+      "url": "https://www.realme.com/cn/more-products/realme-v-70/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 44,
+      "brand": "三星",
+      "model": "Samsung Galaxy S26 Ultra",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26-ultra/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.samsung.com.cn/20260916T150648Z-470d37a668.txt",
+      "sha256": "470d37a668963893117262e82fa6ee133f582a4f69608a474b1e5b736677c2e7",
+      "cached_sha256": "8aa0f1d05ebb73dbbc24d1f5ff1e6013f0fa8d498e9ea4a2c15dcdcbd1afbc5f",
+      "fetched_at": "2026-09-16T15:06:48.796160+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 45,
+      "brand": "三星",
+      "model": "Samsung Galaxy S26",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.samsung.com.cn/20260916T150650Z-d412247e94.txt",
+      "sha256": "d412247e942208169e7233df2034f45f2a28b1498408c091b89983a87b9a2be9",
+      "cached_sha256": "4aceb4618b17b8f962514612629d9b01a09b0704a7bbd0b924a671932160fb21",
+      "fetched_at": "2026-09-16T15:06:50.611764+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 46,
+      "brand": "三星",
+      "model": "Samsung Galaxy Z Fold8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold8/specs/",
+      "fields": {
+        "screen_shape": "foldable"
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T150652Z-98002810c9.txt",
+      "sha256": "98002810c971924cba288a4a80fbb9f83c27ef8c0508feec8a104e5c43c6ad6a",
+      "cached_sha256": "676d9dacf783ab50ce986df15907fb4232c5c6678bd3dc8ca87d564eb18928e6",
+      "fetched_at": "2026-09-16T15:06:52.173431+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 47,
+      "brand": "三星",
+      "model": "Samsung Galaxy Z Flip8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-flip8/specs/",
+      "fields": {
+        "screen_shape": "foldable"
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T150653Z-07a5b382d7.txt",
+      "sha256": "07a5b382d72dfd9095c19a74b8d40179817ce4861b62fc9dbb1f6a98e4e13721",
+      "cached_sha256": "f9206e89cd8e4268782c62f3f40b7c918544cd7d1780dc22fc529703c796ab4b",
+      "fetched_at": "2026-09-16T15:06:53.961923+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 48,
+      "brand": "三星",
+      "model": "Samsung Galaxy S25 Ultra",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s25-ultra/",
+      "fields": {
+        "screen_shape": "foldable",
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T150655Z-9629cab734.txt",
+      "sha256": "9629cab73465339a579ee489ea66a2fdd92f3afa9177cda6c677bc365d0eaf3b",
+      "cached_sha256": "964c48e75e8e241c1e361191345c818596d74e6b52d389f526aeb1de72606ea1",
+      "fetched_at": "2026-09-16T15:06:55.817343+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 49,
+      "brand": "三星",
+      "model": "Samsung Galaxy S25",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s25/",
+      "fields": {
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T150658Z-577f8e7423.txt",
+      "sha256": "577f8e742365e3d020d54cbd34e96dbfe0c05ebb4f91f43355497e74c21d743f",
+      "cached_sha256": "311686275d0f6b1dbedbdbbd7f637d5edeba435486cac1f4ec1ccf2d15b23c92",
+      "fetched_at": "2026-09-16T15:06:58.075908+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 50,
+      "brand": "魅族",
+      "model": "魅族 22",
+      "url": "https://detail.meizu.com/item/meizu22.html",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 51,
+      "brand": "魅族",
+      "model": "魅族 Note 16 Pro",
+      "url": "https://detail.meizu.com/item/meizunote16pro.html",
+      "fields": {},
+      "evidence": "data/raw/detail.meizu.com/20260916T150710Z-40043c0c46.txt",
+      "sha256": "40043c0c46c55f443018248bb330fc1c0a2c8dea9fe26eb616805977a1f2f6f1",
+      "cached_sha256": "e7b330e4bd4fd9040063f96ef5c051e55e94ba2b0330e115c72445ecb6b7253a",
+      "fetched_at": "2026-09-16T15:07:10.549546+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 52,
+      "brand": "魅族",
+      "model": "魅族 Note 16",
+      "url": "https://detail.meizu.com/item/meizunote16.html",
+      "fields": {},
+      "evidence": "data/raw/detail.meizu.com/20260916T150712Z-03b74662cd.txt",
+      "sha256": "03b74662cd1fe9adf0494a4e3cca1abf4036b8076cd36f43fd8e9a3f663e2ef5",
+      "cached_sha256": "45acae51796e01a76bf2d1db579155bbbcced51eb83d424a77c7d055b6df5697",
+      "fetched_at": "2026-09-16T15:07:12.433904+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 53,
+      "brand": "魅族",
+      "model": "魅族 Lucky 08",
+      "url": "https://detail.meizu.com/item/Lucky08.html",
+      "fields": {},
+      "evidence": "data/raw/detail.meizu.com/20260916T150715Z-dacf92e535.txt",
+      "sha256": "dacf92e5359121e4609a254e1c9289d59a78a563f5b2897b8a2e816dc196cc67",
+      "cached_sha256": "9288c870521d594ccdc51426089a90a1d86264f6d8e5fc0034c1703f656015e2",
+      "fetched_at": "2026-09-16T15:07:15.014337+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 54,
+      "brand": "魅族",
+      "model": "魅族 21 Note",
+      "url": "https://detail.meizu.com/item/meizu21note.html",
+      "fields": {},
+      "evidence": "data/raw/detail.meizu.com/20260916T150717Z-eb17733229.txt",
+      "sha256": "eb177332295f3174534a3fb155b64c5daaa2ceffc955f587b6263ccac011c298",
+      "cached_sha256": "60d1a25328cbcedb08063b8f3ab34e9ad1a530978fbe91c7cbed7a2eaa381546",
+      "fetched_at": "2026-09-16T15:07:17.067683+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 55,
+      "brand": "荣耀",
+      "model": "荣耀600 Pro",
+      "url": "https://www.honor.com/cn/phones/honor-600-pro/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-600-pro/"
+    },
+    {
+      "phone_id": 56,
+      "brand": "荣耀",
+      "model": "荣耀Magic8 Pro",
+      "url": "https://www.honor.com/cn/phones/honor-magic8-pro/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-magic8-pro/"
+    },
+    {
+      "phone_id": 57,
+      "brand": "一加",
+      "model": "一加 13",
+      "url": "https://www.oneplus.com/cn/13/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.oneplus.com/cn/13/specs"
+    },
+    {
+      "phone_id": 58,
+      "brand": "一加",
+      "model": "一加 Ace 6",
+      "url": "https://www.oneplus.com/cn/ace-6/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-6/specs"
+    },
+    {
+      "phone_id": 59,
+      "brand": "一加",
+      "model": "一加 Ace 5",
+      "url": "https://www.oneplus.com/cn/ace-5/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-5/specs"
+    },
+    {
+      "phone_id": 60,
+      "brand": "Apple",
+      "model": "iPhone 18 Pro",
+      "url": "https://www.apple.com.cn/iphone-18-pro/specs/",
+      "fields": {
+        "five_g": true,
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.apple.com.cn/20260916T150725Z-55e0825440.txt",
+      "sha256": "55e0825440aee5e26d2420458f885ed74ad87021796cc8bc6677e6051aa064ae",
+      "cached_sha256": "26123ec752cc5c6efaa587e28fae1afc4e12e628e41ae6857e7cbad2f690c304",
+      "fetched_at": "2026-09-16T15:07:25.510999+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 61,
+      "brand": "Apple",
+      "model": "iPhone Duo",
+      "url": "https://www.apple.com.cn/iphone-duo/specs/",
+      "fields": {
+        "five_g": true,
+        "screen_shape": "foldable",
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.apple.com.cn/20260916T150727Z-9cbfe5752a.txt",
+      "sha256": "9cbfe5752a222e656a6e5eb0fff59231339010a59f5a0495fdf0a04f6a6e1163",
+      "cached_sha256": "ede13b907907832a84b633c54cbba611072731d00303088ddbea28bf1b37f2ab",
+      "fetched_at": "2026-09-16T15:07:27.764470+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 62,
+      "brand": "华为",
+      "model": "HUAWEI Mate 70 Pro+",
+      "url": "https://consumer.huawei.com/cn/phones/mate70-pro-plus/specs/",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150728Z-ffcb350b1d.txt",
+      "sha256": "ffcb350b1d98835321a897d5e9705778ef2b271ca5715bad1f99517f5f15f467",
+      "cached_sha256": "a147b1cb3956c29129a0fc2e58bc52f08989a3c52bd416c36593c765f62bd964",
+      "fetched_at": "2026-09-16T15:07:28.614471+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 63,
+      "brand": "华为",
+      "model": "HUAWEI Mate 70 RS 非凡大师",
+      "url": "https://consumer.huawei.com/cn/phones/mate70-rs-ultimate-design/specs/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150732Z-0bd5b8fccc.txt",
+      "sha256": "0bd5b8fccc18fb650e741c2dabfed0229caa685f6337b8c7d5337ac895e96117",
+      "cached_sha256": "77f5d0ec27d583096314666e803d4f02ff72dd2a8f89d96449b44d449b1d564d",
+      "fetched_at": "2026-09-16T15:07:32.665905+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 64,
+      "brand": "华为",
+      "model": "HUAWEI Mate X6",
+      "url": "https://consumer.huawei.com/cn/phones/mate-x6/specs/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150734Z-f644ebb16f.txt",
+      "sha256": "f644ebb16fe268e9024bb55f02d1f05473b13a1807bef70f6e3d1ea846617e28",
+      "cached_sha256": "9e37ed26b317ce6ad40569639d4d878559d45f28e91b8a6780ffc9a72b7893be",
+      "fetched_at": "2026-09-16T15:07:34.420217+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 65,
+      "brand": "华为",
+      "model": "HUAWEI Mate XT 非凡大师",
+      "url": "https://consumer.huawei.com/cn/phones/mate-xt-ultimate-design/specs/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150736Z-5321794690.txt",
+      "sha256": "532179469060eb9cbdfa78303ee24f26e5a7d26600b130f02d48e3f40622cd93",
+      "cached_sha256": "2c2f8165daf4ac24b487feae5ae9bb10cfc303ea511b40a3c0ea2b68ec75f8e3",
+      "fetched_at": "2026-09-16T15:07:36.144552+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 66,
+      "brand": "华为",
+      "model": "HUAWEI Pura 80",
+      "url": "https://consumer.huawei.com/cn/phones/pura80/specs/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150737Z-1490abf586.txt",
+      "sha256": "1490abf586c4ca9e57999879a00f8236d3de2b124532a765b0fe1933fac1573c",
+      "cached_sha256": "a556f678970182c59f730bcadddc7b821fca9fc460e5d20557308c792a4b0b8e",
+      "fetched_at": "2026-09-16T15:07:37.909130+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 67,
+      "brand": "华为",
+      "model": "HUAWEI Pura 80 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/pura80-pro/specs/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150739Z-d5a235cd9e.txt",
+      "sha256": "d5a235cd9e5596b477b321609919724990a445fe2cedf1c649ff29b0cd8a90d0",
+      "cached_sha256": "522d2afc5ddaf1371421988c41ad5be772410709258ce93ee121f0aeaaf7fe38",
+      "fetched_at": "2026-09-16T15:07:39.640202+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 68,
+      "brand": "华为",
+      "model": "HUAWEI Pura 80 Pro+",
+      "url": "https://consumer.huawei.com/cn/phones/pura80-pro-plus/specs/",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150741Z-0099042a75.txt",
+      "sha256": "0099042a759a5424f232b06d70f6cdb83e7c93d92a5c2db1ee9d3c3383b17a42",
+      "cached_sha256": "94a8f8ef0ca9276b214174d94c48c159436ed438567e202ea0d1c83a2a308022",
+      "fetched_at": "2026-09-16T15:07:41.430876+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 69,
+      "brand": "华为",
+      "model": "HUAWEI Pura X",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x/specs/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150743Z-0712286d5e.txt",
+      "sha256": "0712286d5e35ce1bba40b2bd1ec3ee86c5b6d2daf906236eba500beba98448cb",
+      "cached_sha256": "6fe03710843edf964c3eb0545e30496c926fb627b197b05257e3f73968a5668e",
+      "fetched_at": "2026-09-16T15:07:43.115580+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 70,
+      "brand": "华为",
+      "model": "HUAWEI nova 14",
+      "url": "https://consumer.huawei.com/cn/phones/nova14/",
+      "fields": {
+        "screen_shape": "flat"
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T150749Z-0f216f0c80.txt",
+      "sha256": "0f216f0c809b81a7ebbe63f47406b733996185b535a2979e6e23321603407d99",
+      "cached_sha256": "1fbc56f482781f00d4c5f3e37b96affdd1871f0407cf97813a563b78be93ccc2",
+      "fetched_at": "2026-09-16T15:07:49.834886+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 71,
+      "brand": "华为",
+      "model": "HUAWEI nova 14 Pro",
+      "url": "https://consumer.huawei.com/cn/phones/nova14-pro/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150751Z-84b8414fec.txt",
+      "sha256": "84b8414fece68acb483c088fa4d5c990e5ebe6cdc7f7f6d7167d0b39c6c7e415",
+      "cached_sha256": "4e47d95315bd53942877defa9d68f040eb37ec13760e5b24ef357466b76e8e9a",
+      "fetched_at": "2026-09-16T15:07:51.627248+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 72,
+      "brand": "华为",
+      "model": "HUAWEI nova 14 Ultra",
+      "url": "https://consumer.huawei.com/cn/phones/nova14-ultra/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T150753Z-8ea60f38fd.txt",
+      "sha256": "8ea60f38fd435d37ed9bbbe0267d26acc6e7f912bf04c708937fbf716434e26d",
+      "cached_sha256": "9cae1a16867b6e036c12dad1e3081180f1df7f74d48bd91bccf4a70831c6de24",
+      "fetched_at": "2026-09-16T15:07:53.486291+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 73,
+      "brand": "小米",
+      "model": "Xiaomi 15",
+      "url": "https://www.mi.com/prod/xiaomi-15/specs",
+      "fields": {
+        "telephoto": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150755Z-ace74591e4.txt",
+      "sha256": "ace74591e4677921fe642783971587b597c079981acfeafeb841eac00518b18d",
+      "cached_sha256": "03e71c2ff6442244eead5a0e9c12616699eeeb6c525522748dcd68b19016d869",
+      "fetched_at": "2026-09-16T15:07:55.116584+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 74,
+      "brand": "小米",
+      "model": "Xiaomi 15 Pro",
+      "url": "https://www.mi.com/prod/xiaomi-15-pro/specs",
+      "fields": {
+        "telephoto": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150757Z-aba6c09f19.txt",
+      "sha256": "aba6c09f198fc12b6f21e7975660d55aecf3f8c1ec2ec6dfc36fe0d8ccf03a5a",
+      "cached_sha256": "31b56953885f3c2874125c03b4dc21dc9b5b5105b545d15373842a2e7c6fccaf",
+      "fetched_at": "2026-09-16T15:07:57.060005+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 75,
+      "brand": "小米",
+      "model": "Xiaomi 15 Ultra",
+      "url": "https://www.mi.com/prod/xiaomi-15-ultra/specs",
+      "fields": {
+        "telephoto": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150759Z-8f037dffbb.txt",
+      "sha256": "8f037dffbb908b6a0b480e7cb2cf1d95301f943c68da3467128c3f800ec1be09",
+      "cached_sha256": "50c12b0bb3cc1402afefe3c95ca766cf41afce12e951d24a9349a85af61f8a41",
+      "fetched_at": "2026-09-16T15:07:59.008268+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 76,
+      "brand": "小米",
+      "model": "Xiaomi 15S Pro",
+      "url": "https://www.mi.com/prod/xiaomi-15s-pro/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150801Z-c84085ecb5.txt",
+      "sha256": "c84085ecb582ce0c46356049cfe2eb10447165218c04fa9ab885382de9ac8eaf",
+      "cached_sha256": "d07af2a81f2ad0f6ffe7adbcf5033b70f2ee9032cb81622d25c285352cef1552",
+      "fetched_at": "2026-09-16T15:08:01.095367+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 77,
+      "brand": "小米",
+      "model": "REDMI K90",
+      "url": "https://www.mi.com/prod/redmi-k90/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150803Z-3a810db4c3.txt",
+      "sha256": "3a810db4c3b6d63659eda80cee6b4a20670da74f08d88877f9143f7c8b908b8b",
+      "cached_sha256": "a4930b5db933359e7add840f8feb3ea44eae7aa674f7a874f25cf3b386c5cf3f",
+      "fetched_at": "2026-09-16T15:08:03.079203+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 78,
+      "brand": "小米",
+      "model": "REDMI K90 Pro Max",
+      "url": "https://www.mi.com/prod/redmi-k90-pro-max/specs",
+      "fields": {
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150805Z-eaf84b6cd3.txt",
+      "sha256": "eaf84b6cd347e75343076c78dd98efa640914ef5e52152d4cc94048b8781ec80",
+      "cached_sha256": "a4ec6328b8fb637dbd2c6df3735b3e0d6e6217121f28662ade523fd80f18db54",
+      "fetched_at": "2026-09-16T15:08:05.050673+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 79,
+      "brand": "小米",
+      "model": "REDMI Turbo 4",
+      "url": "https://www.mi.com/prod/redmi-turbo-4/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150808Z-3b7fb15ffa.txt",
+      "sha256": "3b7fb15ffa931f8e633fd2777d1d2448854f6bac743be6137532ca1a655f7883",
+      "cached_sha256": "fc6a7ecb3431c4905bccf650c84fb3baa19a246f1a497d295589b69ade140b7f",
+      "fetched_at": "2026-09-16T15:08:08.190636+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 80,
+      "brand": "小米",
+      "model": "REDMI Turbo 4 Pro",
+      "url": "https://www.mi.com/prod/redmi-turbo-4-pro/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150810Z-34d409e608.txt",
+      "sha256": "34d409e6082dd9f11ae7673dc25ee8f2fab67f7df32a99dbef73db6389a9fca3",
+      "cached_sha256": "391750cc80a2e78b72f398fe489db421c9a704c5b5ee6f0aee190faf1aece4ca",
+      "fetched_at": "2026-09-16T15:08:10.117119+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 81,
+      "brand": "小米",
+      "model": "REDMI Turbo 5",
+      "url": "https://www.mi.com/prod/redmi-turbo-5/specs",
+      "fields": {
+        "screen_shape": "flat"
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150812Z-4c32f1311f.txt",
+      "sha256": "4c32f1311f026aa06e5ec1d48721fbeecaf3c41134d1a21b298e628b603c6c52",
+      "cached_sha256": "56187eb5f056dac4e012dec0e1053aac97dc9758fa4c5d554c261d35dd18429d",
+      "fetched_at": "2026-09-16T15:08:12.251259+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 82,
+      "brand": "小米",
+      "model": "REDMI Turbo 5 Max",
+      "url": "https://www.mi.com/prod/redmi-turbo-5-max/specs",
+      "fields": {
+        "screen_shape": "flat"
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150814Z-d5354628e9.txt",
+      "sha256": "d5354628e944fd6f0cf5823b90c9cb4b3f73fb6bc59e47329ac23de079c7858b",
+      "cached_sha256": "ffda51f592a061449941da9b1d29a3058b9f3f89d58cdeff0ba4c6eeb1b34c7d",
+      "fetched_at": "2026-09-16T15:08:14.296998+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 83,
+      "brand": "小米",
+      "model": "REDMI Note 14",
+      "url": "https://www.mi.com/prod/redmi-note-14/specs",
+      "fields": {
+        "screen_shape": "flat"
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150816Z-9fc7a59502.txt",
+      "sha256": "9fc7a595028e85bfb5bed7160d292557c6fe59e0de39597aa50a588ddb7585ee",
+      "cached_sha256": "3d9e99a05ccb3e5ddd24a89744cce23e1bed0cb9a3734e78b47bb886678f7ca7",
+      "fetched_at": "2026-09-16T15:08:16.184026+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 84,
+      "brand": "小米",
+      "model": "REDMI Note 14 Pro",
+      "url": "https://www.mi.com/prod/redmi-note-14-pro/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150818Z-73711db94c.txt",
+      "sha256": "73711db94cfa595ae33ac1e8c49c47df9f3fe18bcbeecba2269589b8be8cb101",
+      "cached_sha256": "76fb35a5ef1257f24a039317f4a356f4b06c1f2eb292893ffc779b741854fe92",
+      "fetched_at": "2026-09-16T15:08:18.133219+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 85,
+      "brand": "小米",
+      "model": "REDMI Note 15",
+      "url": "https://www.mi.com/prod/redmi-note-15/specs",
+      "fields": {},
+      "evidence": "data/raw/www.mi.com/20260916T150819Z-aa27862cd4.txt",
+      "sha256": "aa27862cd46028e409a93e657f87fa0dea54e917c7303229166302ac764bb4bd",
+      "cached_sha256": "c54f254d41c80c16b4f3a877bfbbecce3ddae8cd398bfbddb7fd83eeeb97db05",
+      "fetched_at": "2026-09-16T15:08:19.996465+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 86,
+      "brand": "小米",
+      "model": "REDMI Note 15 Pro",
+      "url": "https://www.mi.com/prod/redmi-note-15-pro/specs",
+      "fields": {
+        "telephoto": true
+      },
+      "evidence": "data/raw/www.mi.com/20260916T150822Z-b7c3a12092.txt",
+      "sha256": "b7c3a12092c9e045894572956835e10dacd7aef89c7d3b889d50d377f60a3c0d",
+      "cached_sha256": "01fb0f6a26ac58f11a86411de852e2ec0ab80b9037a519295f5c96c22d82363f",
+      "fetched_at": "2026-09-16T15:08:22.014614+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 87,
+      "brand": "OPPO",
+      "model": "OPPO Find N5",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n5/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150822Z-23fe3c5572.txt",
+      "sha256": "23fe3c55720bfd310b0e7030037507afa387ce906707109782160da6073fc08e",
+      "cached_sha256": "88b3d45ad1fc4e04f550e5d4b0fcad8577f9f5803f347ac6588e09cf4d288792",
+      "fetched_at": "2026-09-16T15:08:22.757328+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 88,
+      "brand": "OPPO",
+      "model": "OPPO Find N6",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-n/find-n6/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "screen_shape": "foldable",
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150824Z-17f0eac93e.txt",
+      "sha256": "17f0eac93e8a4ed1b0941ab02ca8d100629cd6c7221138ee11f804cfa9e2bbf0",
+      "cached_sha256": "5be8149b0278adcfd427fa02da4f77efba602ac9cb36b5900721af01929ea0d3",
+      "fetched_at": "2026-09-16T15:08:24.344352+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 89,
+      "brand": "OPPO",
+      "model": "OPPO Find X8",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150826Z-38aba2b996.txt",
+      "sha256": "38aba2b996f4f1fdd379d6eefe34847a70027deab071e8defc6f062a349e1cd7",
+      "cached_sha256": "df531954c81f88b6b0e18b2c3d9b5f619d1b9491591fea2f960ebd87a0824918",
+      "fetched_at": "2026-09-16T15:08:26.131626+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 90,
+      "brand": "OPPO",
+      "model": "OPPO Find X8 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150827Z-29e54c83e4.txt",
+      "sha256": "29e54c83e48c3e1e63556bfc84c23d5eb27f9b4fcb3a9fc35e454a55c8a94bbe",
+      "cached_sha256": "d30484f5544e32d414ee2b2518e975ecc610d8080dde0f41cef8e7f66f5fa852",
+      "fetched_at": "2026-09-16T15:08:27.805580+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 91,
+      "brand": "OPPO",
+      "model": "OPPO Find X8 Pro 卫星通信版",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8-pro-satellite/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150829Z-8e94027de1.txt",
+      "sha256": "8e94027de1d47999030456122d8375321c414626b980ae7ce0951b37b9613d40",
+      "cached_sha256": "b30e8648c22b98851c34f1d22e2b6baafa9a439d545d3eb0cc7c67bf6d3eff10",
+      "fetched_at": "2026-09-16T15:08:29.471007+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 92,
+      "brand": "OPPO",
+      "model": "OPPO Find X8s",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8s/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "screen_shape": "flat",
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150832Z-e6b37408df.txt",
+      "sha256": "e6b37408dfe95f9135645139eaf2547d52f9b360ed38c6ff514c4698727c46d9",
+      "cached_sha256": "489e06c30c5522c59a05f96a328682f74fe06e6dfcacbf6355309d9626d3c206",
+      "fetched_at": "2026-09-16T15:08:32.383765+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 93,
+      "brand": "OPPO",
+      "model": "OPPO Find X8s+",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8s-plus/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)"
+    },
+    {
+      "phone_id": 94,
+      "brand": "OPPO",
+      "model": "OPPO Find X8 Ultra",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x8-ultra/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150839Z-f867107f7b.txt",
+      "sha256": "f867107f7b4fc7ac5b0009789f8089d745379e725e3f6ffa7bd5e4a4123fd694",
+      "cached_sha256": "de7e6936eca9a5c764d636b027378a04f0f41b6401eed13de06af342835fa548",
+      "fetched_at": "2026-09-16T15:08:39.182646+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 95,
+      "brand": "OPPO",
+      "model": "OPPO Find X9 Pro 卫星通信版",
+      "url": "https://www.oppo.com/cn/smartphones/series-find-x/find-x9-pro-satellite/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150841Z-b6a501ee1d.txt",
+      "sha256": "b6a501ee1d58653db3e0fca1b8940eddc883798f3e817f47422b333d3e64b454",
+      "cached_sha256": "5753145814f0d457edf2ed2960daafb6b5990a5621fcc676ad1c17afade850ac",
+      "fetched_at": "2026-09-16T15:08:41.316569+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 96,
+      "brand": "OPPO",
+      "model": "OPPO Reno13",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno13/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "screen_shape": "flat",
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150842Z-74bfb1c1b0.txt",
+      "sha256": "74bfb1c1b00130e5358e7933270a8b1678cb18a6a3da105ee7278f2d8e8afeb7",
+      "cached_sha256": "691f6918fad6a13ef95f8df836f8ea0684bb803d18a4db9f003cea8a1b3afbf9",
+      "fetched_at": "2026-09-16T15:08:42.978706+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 97,
+      "brand": "OPPO",
+      "model": "OPPO Reno13 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno13-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "screen_shape": "flat",
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150844Z-7967248899.txt",
+      "sha256": "7967248899e910edcd6b512ae5f1879a3d342b26798350fb1e7f86c533181b01",
+      "cached_sha256": "b041fb5c0ce0ef6bfa24687bf0093ef1a00e5a824bddf98a95504f22b1bfbcc3",
+      "fetched_at": "2026-09-16T15:08:44.648470+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 98,
+      "brand": "OPPO",
+      "model": "OPPO Reno14",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno14/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150848Z-e5fa5b896f.txt",
+      "sha256": "e5fa5b896ffecc62a3d0dc57815f7f10fbb84a77695f6634f34f94b9c221f450",
+      "cached_sha256": "22742347c723e719cb8e750d80732476c114171c51438af2f647990a3b7bd605",
+      "fetched_at": "2026-09-16T15:08:48.275594+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 99,
+      "brand": "OPPO",
+      "model": "OPPO Reno14 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno14-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150850Z-1b23aa2d13.txt",
+      "sha256": "1b23aa2d133836f2816d5cf1435d6fe55b98c6952e91c1dc9688985b1fdec35b",
+      "cached_sha256": "ce3362bdeb017d9105162595bff3ffdee123a789df71abcb31c95e4fe4d40db9",
+      "fetched_at": "2026-09-16T15:08:50.585650+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 100,
+      "brand": "OPPO",
+      "model": "OPPO Reno15",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno15/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150852Z-94dff656ae.txt",
+      "sha256": "94dff656aee438afa658aa070e950d93f25d0d2fe115d5c98a9dfa3ea32ea410",
+      "cached_sha256": "da39633bc6ea84c32711eea3fbe4d63b47d1e3b8f9d3face17c9531d43e78423",
+      "fetched_at": "2026-09-16T15:08:52.317611+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 101,
+      "brand": "OPPO",
+      "model": "OPPO Reno15 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno15-pro/specs/",
+      "fields": {
+        "nfc": true,
+        "five_g": true,
+        "telephoto": true,
+        "wireless_charging_supported": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150853Z-7e377876c2.txt",
+      "sha256": "7e377876c28486ba532a0b1bfcd2de70082788188524879baa154483bc5b201f",
+      "cached_sha256": "9ec526e20995cdf1eb1bbf13a1eda9216a1cf0a70b96defff5ab68567b0d9699",
+      "fetched_at": "2026-09-16T15:08:53.966100+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 102,
+      "brand": "OPPO",
+      "model": "OPPO Reno15c",
+      "url": "https://www.oppo.com/cn/smartphones/series-reno/reno15c/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150855Z-4ad2fe5827.txt",
+      "sha256": "4ad2fe5827a8c18613fdd1618c7c0c6c5558565406517446fa73275f36740b55",
+      "cached_sha256": "aa14e7f4e2662723a5d655bdecbcd33b27fd82f6d00f3b647e6f655397cbbdab",
+      "fetched_at": "2026-09-16T15:08:55.824351+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 103,
+      "brand": "OPPO",
+      "model": "OPPO K12 Plus",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k12-plus/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150858Z-34768550d0.txt",
+      "sha256": "34768550d0e12b2060d1fc51c4dbdb5b0380b71ea92a3faf3d1a1c3063a5ad88",
+      "cached_sha256": "c73592685c8ef1cbb0bbcb44d493b16ad750cb653c5e8c27537ae832ce2e46ea",
+      "fetched_at": "2026-09-16T15:08:58.524523+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 104,
+      "brand": "OPPO",
+      "model": "OPPO K12s",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k12s/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 105,
+      "brand": "OPPO",
+      "model": "OPPO K13 Turbo",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k13-turbo/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150901Z-4819be66ad.txt",
+      "sha256": "4819be66adde22d9f9ef92999648bd4414c646ee2c264c819b374c57e411d8be",
+      "cached_sha256": "2507071981052738085cf0ae4913d7f7a58a45288dd3b3e78cd4c7ed30ae6e1e",
+      "fetched_at": "2026-09-16T15:09:01.855469+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 106,
+      "brand": "OPPO",
+      "model": "OPPO K13 Turbo Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k13-turbo-pro/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150903Z-82a484d53d.txt",
+      "sha256": "82a484d53d06dbbe2939ea8df9b64cde8a4c61c68cdd7336849ffa8435ecb3de",
+      "cached_sha256": "ced32d40a19ecff28898d87067c4ac2f4b9acb3b58a573eb5873fcb2323f9b79",
+      "fetched_at": "2026-09-16T15:09:03.517341+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 107,
+      "brand": "OPPO",
+      "model": "OPPO K15 Pro+",
+      "url": "https://www.oppo.com/cn/smartphones/series-k/k15-pro-plus/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150905Z-f8f0544e63.txt",
+      "sha256": "f8f0544e63b928e033ab169f55ff2ad42a647f2cb4ffdb1d81ba2828c99e8758",
+      "cached_sha256": "6ccd9eda0200a558df309a4ab5496eeb1596431db65c45fdb5d1249c61aa3fc6",
+      "fetched_at": "2026-09-16T15:09:05.138298+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 108,
+      "brand": "OPPO",
+      "model": "OPPO A5",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 109,
+      "brand": "OPPO",
+      "model": "OPPO A5 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5-pro/specs/",
+      "fields": {
+        "nfc": true
+      },
+      "evidence": "data/raw/www.oppo.com/20260916T150908Z-afff2d80cf.txt",
+      "sha256": "afff2d80cf3f55a8ec1977319c7da429a06d5a2214269bdbbeb35f5326fc2cf3",
+      "cached_sha256": "aac9640a645d97312519593a9f3ef4eb75a2be05c311cc072bd37a87bc9042d9",
+      "fetched_at": "2026-09-16T15:09:08.773579+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 110,
+      "brand": "OPPO",
+      "model": "OPPO A5 活力版",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5-energy-edition/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150910Z-d2c844ef8d.txt",
+      "sha256": "d2c844ef8d69b4ef7f14e81fdf2bc6cac65ff0ab2124711addf3fbe8cd76df3a",
+      "cached_sha256": "eb183ec89fd165e881345ed832d577b05be59b29962596ce266dd8662c5872df",
+      "fetched_at": "2026-09-16T15:09:10.749600+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 111,
+      "brand": "OPPO",
+      "model": "OPPO A5m",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5m/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 112,
+      "brand": "OPPO",
+      "model": "OPPO A5x",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a5x/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 113,
+      "brand": "OPPO",
+      "model": "OPPO A6",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 114,
+      "brand": "OPPO",
+      "model": "OPPO A6 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6-pro/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150918Z-a79549984a.txt",
+      "sha256": "a79549984a33230ac5c8448e2bfb5c65e56e3184bbe2a32237bd53bbf4208b36",
+      "cached_sha256": "70c676df3026dbcd266578c155cd362e8eb28295b97d5d7772630a71f6c6242b",
+      "fetched_at": "2026-09-16T15:09:18.070587+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 115,
+      "brand": "OPPO",
+      "model": "OPPO A6k",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6k/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 116,
+      "brand": "OPPO",
+      "model": "OPPO A6m",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6m/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 117,
+      "brand": "OPPO",
+      "model": "OPPO A6t",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6t/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 118,
+      "brand": "OPPO",
+      "model": "OPPO A6x",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a6x/specs/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 119,
+      "brand": "OPPO",
+      "model": "OPPO A7 Pro",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a7-pro/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150926Z-182d5b00f0.txt",
+      "sha256": "182d5b00f07af509ceadb1e309ca56b4ffde9ef1a23535341a2a13afd5737745",
+      "cached_sha256": "c74ff9622c2ca6bc0b99cd165d55646aa5ef2d3a425a13f9e44790e567aa9d3b",
+      "fetched_at": "2026-09-16T15:09:26.417538+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 120,
+      "brand": "OPPO",
+      "model": "OPPO A7 Pro Max",
+      "url": "https://www.oppo.com/cn/smartphones/series-a/a7-pro-max/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.oppo.com/20260916T150929Z-3cf3c25bcb.txt",
+      "sha256": "3cf3c25bcb55fdcb86204c658dd48e2a3be175a29620402c2b52999a84d74e50",
+      "cached_sha256": "17df3e8290d893739c3113eca4bbb4c8f8553bfb770559ab8da675bebfdf5b72",
+      "fetched_at": "2026-09-16T15:09:29.074443+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 121,
+      "brand": "vivo",
+      "model": "vivo X200",
+      "url": "https://www.vivo.com.cn/vivo/param/x200",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 122,
+      "brand": "vivo",
+      "model": "vivo X200 Pro mini",
+      "url": "https://www.vivo.com.cn/vivo/param/x200promini",
+      "fields": {
+        "nfc": true,
+        "screen_shape": "flat",
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150932Z-501e8bfeab.txt",
+      "sha256": "501e8bfeab13edae102a3ff6e637a88b6ab638c5f69ae8917b95db10a9a63cae",
+      "cached_sha256": "2053db190bad963a00730035c87d607af476317aacccb8288afe7431d594e1d5",
+      "fetched_at": "2026-09-16T15:09:32.057640+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 123,
+      "brand": "vivo",
+      "model": "vivo X200 Ultra",
+      "url": "https://www.vivo.com.cn/vivo/param/x200ultra",
+      "fields": {
+        "nfc": true,
+        "telephoto": true,
+        "wireless_charging_supported": true
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150933Z-12942ee903.txt",
+      "sha256": "12942ee903a4ef8a48f62cd31eb9200c8b4916597ff2d2434f7f07737e781c03",
+      "cached_sha256": "db81c7db8bc4753912928ccce78b1bc6c5743659bea05152ed8bf41302a16180",
+      "fetched_at": "2026-09-16T15:09:33.858932+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 124,
+      "brand": "vivo",
+      "model": "vivo S20",
+      "url": "https://www.vivo.com.cn/vivo/param/s20",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 125,
+      "brand": "vivo",
+      "model": "vivo S20 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/s20pro",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150937Z-750229f8df.txt",
+      "sha256": "750229f8df39aeffcdc2ea5b48a2742190fe475c794d60154d0783a801eadbf9",
+      "cached_sha256": "4c0af30c185f080af58556bfc693492f1f1dcc1495aa2f8a63cc6e8d1c418b61",
+      "fetched_at": "2026-09-16T15:09:37.612357+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 126,
+      "brand": "vivo",
+      "model": "vivo S30",
+      "url": "https://www.vivo.com.cn/vivo/param/s30",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 127,
+      "brand": "vivo",
+      "model": "vivo S30 Pro mini",
+      "url": "https://www.vivo.com.cn/vivo/param/s30promini",
+      "fields": {
+        "screen_shape": "flat"
+      },
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150941Z-a341a0b5a5.txt",
+      "sha256": "a341a0b5a521c08127cd688eb605c0bb7aa150c117fa5176500a1bda04ec1f8b",
+      "cached_sha256": "972669e54c83264e767da6fd54942b7ac8ee7db87dcc6b3ec1fe34a27cf8138a",
+      "fetched_at": "2026-09-16T15:09:41.223859+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 128,
+      "brand": "vivo",
+      "model": "vivo Y300",
+      "url": "https://www.vivo.com.cn/vivo/param/y300",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 129,
+      "brand": "vivo",
+      "model": "vivo Y300 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/y300pro",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150944Z-e66a294f5f.txt",
+      "sha256": "e66a294f5f313068074e3b354c5c15a01b9b98097b9fccd1f5f17d85b9296fcf",
+      "cached_sha256": "7e3943ed36ef11d20f8203b4bc2884a1df3ff1353e0a4434ef036542b1019ca0",
+      "fetched_at": "2026-09-16T15:09:44.746915+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 130,
+      "brand": "vivo",
+      "model": "vivo Y300i",
+      "url": "https://www.vivo.com.cn/vivo/param/y300i",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150946Z-9b9cf89cc6.txt",
+      "sha256": "9b9cf89cc617593e6792b62ec3aff48cd4eb9236c61691683b61d800ab38d64f",
+      "cached_sha256": "5988092b54b5f809fa29eb179a4c2893812b7f00458efc58b62df9db5a3550d1",
+      "fetched_at": "2026-09-16T15:09:46.475673+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 131,
+      "brand": "vivo",
+      "model": "iQOO 13",
+      "url": "https://www.vivo.com.cn/vivo/param/iqoo13",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150948Z-54c3bcf276.txt",
+      "sha256": "54c3bcf2767627970237b7759cea83c2e1195ccbd6ab7db93664994f00deaa85",
+      "cached_sha256": "1a453ce5b688a393d4b0a70f0c222b826f8224484e476c3e71182a0be43599e8",
+      "fetched_at": "2026-09-16T15:09:48.271874+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 132,
+      "brand": "vivo",
+      "model": "iQOO Neo10",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooneo10",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150950Z-11d7f441c7.txt",
+      "sha256": "11d7f441c7ffc0683f35d6239878055ed6ba2a28741473a5b9b894ad0b1dbbe1",
+      "cached_sha256": "744b9043c226df3bb44ced25600ecad29c80a642d2094dfdf3ce0668db588ee5",
+      "fetched_at": "2026-09-16T15:09:50.039317+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 133,
+      "brand": "vivo",
+      "model": "iQOO Neo10 Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooneo10pro",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150951Z-df75c78d07.txt",
+      "sha256": "df75c78d072d60abbdbae7831d7c6b252accdee8c27dd173be579e431856b800",
+      "cached_sha256": "d72848f2d0bb9db9646f4d42e168319bb75aab12ca716a07d7ba091e0f77f6f6",
+      "fetched_at": "2026-09-16T15:09:51.803549+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 134,
+      "brand": "vivo",
+      "model": "iQOO Neo10 Pro+",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooneo10proplus",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150953Z-2a6c5e7bf1.txt",
+      "sha256": "2a6c5e7bf1117765668c8f9b8ea173dbb8fc3e862c88454800efee08ef3fabd2",
+      "cached_sha256": "af277e447a4fa03a56ea042a7ed0a8968bd4494f611b35ad9807180c21642735",
+      "fetched_at": "2026-09-16T15:09:53.770460+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 135,
+      "brand": "vivo",
+      "model": "iQOO Z10 Turbo",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooz10turbo",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150955Z-96ff6055f5.txt",
+      "sha256": "96ff6055f5f573a61840038d249cfd0b20006bb6563a1fb357af6c04f27307d6",
+      "cached_sha256": "9c2fe065080636ccc548d2eed1dd235360efb494150b67c7c51ac6684efb6c31",
+      "fetched_at": "2026-09-16T15:09:55.524950+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 136,
+      "brand": "vivo",
+      "model": "iQOO Z10 Turbo Pro",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooz10turbopro",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150957Z-38e9c32dbf.txt",
+      "sha256": "38e9c32dbfcd894007fd66faa2dbc82b14e677993a7b437542ae00e392da2c2b",
+      "cached_sha256": "eac6bca049065244a16022644b97fd0896c8b031b4d83a728852c1b37a4223c7",
+      "fetched_at": "2026-09-16T15:09:57.271847+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 137,
+      "brand": "vivo",
+      "model": "iQOO Z10x",
+      "url": "https://www.vivo.com.cn/vivo/param/iqooz10x",
+      "fields": {},
+      "evidence": "data/raw/www.vivo.com.cn/20260916T150959Z-52dac7d34b.txt",
+      "sha256": "52dac7d34bdc607443f229417bcf7b833dade043a03d9a065ac7c841ea2e0a9e",
+      "cached_sha256": "eff7fee7f7e0124915baedf11f7dd2d951a464f56b40cd34ab6c805944e7444c",
+      "fetched_at": "2026-09-16T15:09:59.006663+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 138,
+      "brand": "realme",
+      "model": "真我15T",
+      "url": "https://www.realme.com/cn/realme-15-t/specs",
+      "fields": {
+        "nfc": true
+      },
+      "evidence": "data/raw/www.realme.com/20260916T151000Z-8e1cb3b8e5.txt",
+      "sha256": "8e1cb3b8e5fdecd5b67523432ba5bb7fa69be0fda4cdd699f780a158d0139afc",
+      "cached_sha256": "000a691541f779891c014b5999fa4036b99b183b78619750351f949bf158317f",
+      "fetched_at": "2026-09-16T15:10:00.134990+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 139,
+      "brand": "realme",
+      "model": "真我15",
+      "url": "https://www.realme.com/cn/more-products/realme-15/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 140,
+      "brand": "realme",
+      "model": "真我V70s",
+      "url": "https://www.realme.com/cn/more-products/realme-v-70s/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 141,
+      "brand": "realme",
+      "model": "真我Neo7",
+      "url": "https://www.realme.com/cn/realme-neo-7/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 142,
+      "brand": "realme",
+      "model": "真我GT Neo6",
+      "url": "https://www.realme.com/cn/realme-gt-neo-6/specs",
+      "fields": {},
+      "evidence": "data/raw/www.realme.com/20260916T151007Z-d3766443cd.txt",
+      "sha256": "d3766443cdaabc0ff28137cd045015f2882c2f7bade62c5aa11d681d2b49426e",
+      "cached_sha256": "b7c615089af2c4e7e6e8d1f2d252e6f20e2da28c150d3364ed97dd5681dacf23",
+      "fetched_at": "2026-09-16T15:10:07.151586+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 143,
+      "brand": "三星",
+      "model": "Samsung Galaxy S25 Edge",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s25-edge/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.samsung.com.cn/20260916T151012Z-4447ac25c9.txt",
+      "sha256": "4447ac25c9b8f366fee149005a70a55c1c17fae64d4805fa581552b94517dc26",
+      "cached_sha256": "dda324c6b1007439bbd1e802218f8845f8ee99f7814b76c890e4029112551750",
+      "fetched_at": "2026-09-16T15:10:12.005122+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 144,
+      "brand": "三星",
+      "model": "Samsung Galaxy Z Fold7",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold7/specs/",
+      "fields": {
+        "screen_shape": "foldable"
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T151013Z-d0bfdef177.txt",
+      "sha256": "d0bfdef177d95b5ac164c45faaed5a70e3d4a14e1a2754e8b2378b350a8ae76e",
+      "cached_sha256": "4c0424ad0b55a5f60ec57d23e1631fd65a1e3579317951e35a3b88f34ca48366",
+      "fetched_at": "2026-09-16T15:10:13.827013+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 145,
+      "brand": "三星",
+      "model": "Samsung Galaxy Z Flip7",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-flip7/specs/",
+      "fields": {
+        "screen_shape": "foldable"
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T151015Z-ad0f88a274.txt",
+      "sha256": "ad0f88a27473b078fb3734255b9d3661000341704ad50805a5da060de8bf2e42",
+      "cached_sha256": "1eacd3cce0bddccd19d83f7f6b4657a572fd91b0bca5f0177ea5fa88b405576f",
+      "fetched_at": "2026-09-16T15:10:15.545867+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 146,
+      "brand": "三星",
+      "model": "Samsung Galaxy Z Fold8 Ultra",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold8-ultra/specs/",
+      "fields": {
+        "screen_shape": "foldable"
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T151017Z-ab95181303.txt",
+      "sha256": "ab95181303ab61aac6e06ec9f92f1ae11cc4b00f2ddb864391249c3ffec8e2b0",
+      "cached_sha256": "03fb857da3ae2cee534d76bfc9060568ae8d58ee6c0f68239a70e22998e35dd5",
+      "fetched_at": "2026-09-16T15:10:17.253873+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 147,
+      "brand": "三星",
+      "model": "Samsung W25 Flip",
+      "url": "https://www.samsung.com.cn/smartphones/samsung-w25-flip/specs/",
+      "fields": {},
+      "evidence": "data/raw/www.samsung.com.cn/20260916T151019Z-2f11aabfec.txt",
+      "sha256": "2f11aabfeca92e77d582feeed8f639e0e5ba6d06c7e8c0c56a01fe617109971a",
+      "cached_sha256": "c1c032a938e5c0b5939064fb79cbdec03819f187e08cb98fd0731e70c5945849",
+      "fetched_at": "2026-09-16T15:10:19.544237+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 148,
+      "brand": "魅族",
+      "model": "魅族 21 PRO",
+      "url": "https://detail.meizu.com/item/meizu21pro.html",
+      "fields": {},
+      "evidence": "data/raw/detail.meizu.com/20260916T151021Z-a2bfc4c2f9.txt",
+      "sha256": "a2bfc4c2f905545228a102780fef7fdb107b9a0a88a81959bdcc81484d773013",
+      "cached_sha256": "60ade583b2c24585538e3ce421a9ef8e1878c853c62c92642dbd5477f1b76218",
+      "fetched_at": "2026-09-16T15:10:21.332830+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 149,
+      "brand": "荣耀",
+      "model": "荣耀Robot Phone",
+      "url": "https://www.honor.com/cn/phones/honor-robot-phone/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-robot-phone/"
+    },
+    {
+      "phone_id": 150,
+      "brand": "荣耀",
+      "model": "荣耀600 超级版",
+      "url": "https://www.honor.com/cn/phones/honor-600/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-600/"
+    },
+    {
+      "phone_id": 151,
+      "brand": "荣耀",
+      "model": "荣耀600 元气版",
+      "url": "https://www.honor.com/cn/phones/honor-600-genki/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-600-genki/"
+    },
+    {
+      "phone_id": 152,
+      "brand": "荣耀",
+      "model": "荣耀Play11",
+      "url": "https://www.honor.com/cn/phones/honor-play11/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play11/"
+    },
+    {
+      "phone_id": 153,
+      "brand": "荣耀",
+      "model": "荣耀Magic V6",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v6/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-magic-v6/"
+    },
+    {
+      "phone_id": 154,
+      "brand": "荣耀",
+      "model": "荣耀Magic8 Pro Air",
+      "url": "https://www.honor.com/cn/phones/honor-magic8-pro-air/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-magic8-pro-air/"
+    },
+    {
+      "phone_id": 155,
+      "brand": "荣耀",
+      "model": "荣耀Magic8 RSR 保时捷设计",
+      "url": "https://www.honor.com/cn/phones/honor-magic8-rsr-porsche-design/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-magic8-rsr-porsche-design/"
+    },
+    {
+      "phone_id": 156,
+      "brand": "荣耀",
+      "model": "荣耀Magic V Flip2",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v-flip2/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-magic-v-flip2/"
+    },
+    {
+      "phone_id": 157,
+      "brand": "荣耀",
+      "model": "荣耀500 Pro MOLLY 20周年限定版",
+      "url": "https://www.honor.com/cn/phones/honor-500-pro-molly/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-500-pro-molly/"
+    },
+    {
+      "phone_id": 158,
+      "brand": "荣耀",
+      "model": "荣耀500 Pro",
+      "url": "https://www.honor.com/cn/phones/honor-500-pro/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-500-pro/"
+    },
+    {
+      "phone_id": 159,
+      "brand": "荣耀",
+      "model": "荣耀WIN Turbo",
+      "url": "https://www.honor.com/cn/phones/honor-win-turbo/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-win-turbo/"
+    },
+    {
+      "phone_id": 160,
+      "brand": "荣耀",
+      "model": "荣耀WIN RT",
+      "url": "https://www.honor.com/cn/phones/honor-win-rt/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-win-rt/"
+    },
+    {
+      "phone_id": 161,
+      "brand": "荣耀",
+      "model": "荣耀WIN",
+      "url": "https://www.honor.com/cn/phones/honor-win/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-win/"
+    },
+    {
+      "phone_id": 162,
+      "brand": "荣耀",
+      "model": "荣耀Power2",
+      "url": "https://www.honor.com/cn/phones/honor-power2/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-power2/"
+    },
+    {
+      "phone_id": 163,
+      "brand": "荣耀",
+      "model": "荣耀Power",
+      "url": "https://www.honor.com/cn/phones/honor-power/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-power/"
+    },
+    {
+      "phone_id": 164,
+      "brand": "荣耀",
+      "model": "荣耀X80 Pro Max",
+      "url": "https://www.honor.com/cn/phones/honor-x80-pro-max/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-x80-pro-max/"
+    },
+    {
+      "phone_id": 165,
+      "brand": "荣耀",
+      "model": "荣耀X70 Pro Max",
+      "url": "https://www.honor.com/cn/phones/honor-x70-pro-max/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-x70-pro-max/"
+    },
+    {
+      "phone_id": 166,
+      "brand": "荣耀",
+      "model": "荣耀X80i",
+      "url": "https://www.honor.com/cn/phones/honor-x80i/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-x80i/"
+    },
+    {
+      "phone_id": 167,
+      "brand": "荣耀",
+      "model": "荣耀X70 焕新版",
+      "url": "https://www.honor.com/cn/phones/honor-x70-new/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-x70-new/"
+    },
+    {
+      "phone_id": 168,
+      "brand": "荣耀",
+      "model": "荣耀X60 GT",
+      "url": "https://www.honor.com/cn/phones/honor-x60-gt/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-x60-gt/"
+    },
+    {
+      "phone_id": 169,
+      "brand": "荣耀",
+      "model": "荣耀Play11T",
+      "url": "https://www.honor.com/cn/phones/honor-play11t/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play11t/"
+    },
+    {
+      "phone_id": 170,
+      "brand": "荣耀",
+      "model": "荣耀Play11 Plus",
+      "url": "https://www.honor.com/cn/phones/honor-play11-plus/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play11-plus/"
+    },
+    {
+      "phone_id": 171,
+      "brand": "荣耀",
+      "model": "荣耀Play10",
+      "url": "https://www.honor.com/cn/phones/honor-play10/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play10/"
+    },
+    {
+      "phone_id": 172,
+      "brand": "荣耀",
+      "model": "荣耀Play11C",
+      "url": "https://www.honor.com/cn/phones/honor-play11c/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play11c/"
+    },
+    {
+      "phone_id": 173,
+      "brand": "荣耀",
+      "model": "荣耀畅玩80m",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-80m/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-80m/"
+    },
+    {
+      "phone_id": 174,
+      "brand": "荣耀",
+      "model": "荣耀畅玩80 Plus",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-80-plus/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-80-plus/"
+    },
+    {
+      "phone_id": 175,
+      "brand": "荣耀",
+      "model": "荣耀畅玩70C",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-70c/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-70c/"
+    },
+    {
+      "phone_id": 176,
+      "brand": "荣耀",
+      "model": "荣耀畅玩80",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-80/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-80/"
+    },
+    {
+      "phone_id": 177,
+      "brand": "荣耀",
+      "model": "荣耀畅玩80 Pro",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-80-pro/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-80-pro/"
+    },
+    {
+      "phone_id": 178,
+      "brand": "荣耀",
+      "model": "荣耀Magic8",
+      "url": "https://www.honor.com/cn/phones/honor-magic8/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-magic8/"
+    },
+    {
+      "phone_id": 179,
+      "brand": "荣耀",
+      "model": "荣耀Magic V5",
+      "url": "https://www.honor.com/cn/phones/honor-magic-v5/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-magic-v5/"
+    },
+    {
+      "phone_id": 180,
+      "brand": "荣耀",
+      "model": "荣耀400 Pro",
+      "url": "https://www.honor.com/cn/phones/honor-400-pro/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-400-pro/"
+    },
+    {
+      "phone_id": 181,
+      "brand": "荣耀",
+      "model": "荣耀400",
+      "url": "https://www.honor.com/cn/phones/honor-400/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-400/"
+    },
+    {
+      "phone_id": 182,
+      "brand": "荣耀",
+      "model": "荣耀Play10T",
+      "url": "https://www.honor.com/cn/phones/honor-play10t/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play10t/"
+    },
+    {
+      "phone_id": 183,
+      "brand": "荣耀",
+      "model": "荣耀畅玩70m Plus",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-70m-plus/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-70m-plus/"
+    },
+    {
+      "phone_id": 184,
+      "brand": "荣耀",
+      "model": "荣耀Play10C",
+      "url": "https://www.honor.com/cn/phones/honor-play10c/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play10c/"
+    },
+    {
+      "phone_id": 185,
+      "brand": "荣耀",
+      "model": "荣耀畅玩70 Plus",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-70-plus/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-70-plus/"
+    },
+    {
+      "phone_id": 186,
+      "brand": "荣耀",
+      "model": "荣耀X70i",
+      "url": "https://www.honor.com/cn/phones/honor-x70i/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-x70i/"
+    },
+    {
+      "phone_id": 187,
+      "brand": "荣耀",
+      "model": "荣耀X70",
+      "url": "https://www.honor.com/cn/phones/honor-x70/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-x70/"
+    },
+    {
+      "phone_id": 188,
+      "brand": "荣耀",
+      "model": "荣耀GT Pro",
+      "url": "https://www.honor.com/cn/phones/honor-gt-pro/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-gt-pro/"
+    },
+    {
+      "phone_id": 189,
+      "brand": "荣耀",
+      "model": "荣耀Play 10A",
+      "url": "https://www.honor.com/cn/phones/honor-play-10a/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-play-10a/"
+    },
+    {
+      "phone_id": 190,
+      "brand": "荣耀",
+      "model": "荣耀畅玩60A",
+      "url": "https://www.honor.com/cn/phones/honor-changwan-60a/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.honor.com/cn/phones/honor-changwan-60a/"
+    },
+    {
+      "phone_id": 191,
+      "brand": "华为",
+      "model": "HUAWEI Mate XT 2 非凡大师",
+      "url": "https://consumer.huawei.com/cn/phones/mate-xt-2-ultimate-design/",
+      "fields": {},
+      "evidence": "data/raw/consumer.huawei.com/20260916T151025Z-948375e9f4.txt",
+      "sha256": "948375e9f469e0f0f11b191c6e7fdb8b40c0432f8289e75b31f5efd800fc9836",
+      "cached_sha256": "52c337d695a5e4d831e992748d4b4dbacdd7e87408929f83f1f64657547783bf",
+      "fetched_at": "2026-09-16T15:10:25.520432+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 192,
+      "brand": "华为",
+      "model": "HUAWEI Pura X View",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x-view/",
+      "fields": {
+        "screen_shape": "foldable",
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/consumer.huawei.com/20260916T151027Z-a666a6b72c.txt",
+      "sha256": "a666a6b72c218964f623a5119d68953e32dd3901723ad9a0fa698c9c65f5043a",
+      "cached_sha256": "ae4565af6252c6ae81eee7dcbcde142c819cec834549fb1544356b7234bf7108",
+      "fetched_at": "2026-09-16T15:10:27.129009+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 193,
+      "brand": "一加",
+      "model": "一加 Ace 5 竞速版",
+      "url": "https://www.oneplus.com/cn/ace-5-racing/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-5-racing/specs"
+    },
+    {
+      "phone_id": 194,
+      "brand": "一加",
+      "model": "一加 Ace 5 至尊版",
+      "url": "https://www.oneplus.com/cn/ace-5-ultra/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-5-ultra/specs"
+    },
+    {
+      "phone_id": 195,
+      "brand": "一加",
+      "model": "一加 Ace 6T",
+      "url": "https://www.oneplus.com/cn/ace-6t/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "robots.txt 不允许采集：https://www.oneplus.com/cn/ace-6t/specs"
+    },
+    {
+      "phone_id": 196,
+      "brand": "小米",
+      "model": "Xiaomi 16",
+      "url": "https://www.mi.com/prod/xiaomi-16/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 197,
+      "brand": "小米",
+      "model": "Xiaomi 16 Pro",
+      "url": "https://www.mi.com/prod/xiaomi-16-pro/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 198,
+      "brand": "小米",
+      "model": "Xiaomi 16 Ultra",
+      "url": "https://www.mi.com/prod/xiaomi-16-ultra/specs",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 199,
+      "brand": "三星",
+      "model": "Samsung W26",
+      "url": "https://www.samsung.com.cn/smartphones/samsung-w26/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 200,
+      "brand": "三星",
+      "model": "Samsung Galaxy A57 5G",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-a57-5g/",
+      "fields": {},
+      "status": "skipped",
+      "reason": "Client error '404 Not Found' for url 'https://www.samsung.com.cn/smartphones/galaxy-a57-5g/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "phone_id": 201,
+      "brand": "vivo",
+      "model": "vivo Y300+",
+      "url": "https://www.vivo.com.cn/vivo/param/y300plus",
+      "fields": {},
+      "status": "skipped",
+      "reason": "跳转地址或页面标题与目标型号不匹配"
+    },
+    {
+      "phone_id": 202,
+      "brand": "三星",
+      "model": "Samsung Galaxy S26+",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26/",
+      "fields": {
+        "telephoto": true,
+        "waterproof_supported": true
+      },
+      "evidence": "data/raw/www.samsung.com.cn/20260916T151036Z-1c4c533742.txt",
+      "sha256": "1c4c53374252aef078ef0984eefcd91e482e6b3dd9ae5729b4eca5c41cd0f7e1",
+      "cached_sha256": "854ca124d2cabb6bbbbff690ae639efc436e29d415306eea0618375202b969e4",
+      "fetched_at": "2026-09-16T15:10:36.909043+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 203,
+      "brand": "三星",
+      "model": "Samsung Galaxy A56 5G",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a56-5g-awesome-pink-256gb-sm-a5660licchc/",
+      "fields": {},
+      "evidence": "data/raw/www.samsung.com.cn/20260916T151039Z-f8b6ba2695.txt",
+      "sha256": "f8b6ba2695a9dee7c8505975bef5ab02ea5852b49a606968e1567492a97f670d",
+      "cached_sha256": "0c645cd1bb16161a7b55feb878dfe2e41d59da665a337c9987d13917069c1362",
+      "fetched_at": "2026-09-16T15:10:39.579720+00:00",
+      "status": "matched"
+    }
+  ],
+  "summary": {
+    "attempted": 203,
+    "matched": 122,
+    "field_proposals": {
+      "nfc": 37,
+      "telephoto": 49,
+      "wireless_charging_supported": 33,
+      "waterproof_supported": 26,
+      "five_g": 26,
+      "screen_shape": 24
+    }
+  }
+}

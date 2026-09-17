@@ -1,0 +1,126 @@
+{
+  "generated_at": "2026-09-16T08:52:20.068068+00:00",
+  "summary": {
+    "collected": 11,
+    "failed": 1,
+    "brands_added": 0,
+    "phones_added": 0,
+    "phones_updated": 11,
+    "variants_added": 0
+  },
+  "quality": {
+    "with_release_date": 0,
+    "with_variants": 11,
+    "with_official_image": 2,
+    "average_spec_completeness": 65.1
+  },
+  "items": [
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura 90 Pro Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T085143Z-7969826cb1.txt"
+    },
+    {
+      "brand": "华为",
+      "model_name": "HUAWEI Pura X Max",
+      "url": "https://consumer.huawei.com/cn/phones/pura-x-max/specs/",
+      "release_date": null,
+      "variant_count": 4,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/consumer.huawei.com/20260916T085147Z-86e4bef398.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8 Pro",
+      "url": "https://www.realme.com/cn/realme-gt-8-pro/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.realme.com/20260916T085148Z-c324a4c084.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我GT8",
+      "url": "https://www.realme.com/cn/realme-gt-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.realme.com/20260916T085153Z-4998e9edf4.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我Neo8",
+      "url": "https://www.realme.com/cn/realme-neo-8/specs",
+      "release_date": null,
+      "variant_count": 5,
+      "spec_completeness": 100.0,
+      "evidence_path": "data/raw/www.realme.com/20260916T085156Z-b3179ba93d.txt"
+    },
+    {
+      "brand": "realme",
+      "model_name": "真我15 Pro",
+      "url": "https://www.realme.com/cn/realme-15-pro/specs",
+      "release_date": null,
+      "variant_count": 1,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.realme.com/20260916T085158Z-3045a15dce.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26 Ultra",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26-ultra/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T085159Z-e9f2d17f76.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26/specs/",
+      "release_date": null,
+      "variant_count": 3,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T085201Z-f760a91a49.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Flip8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-flip8/specs/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 0.0,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T085209Z-af1b4d09aa.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy S26+",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-s26/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 66.7,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T085211Z-245fbfe870.txt"
+    },
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy A56 5G",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-a/galaxy-a56-5g-awesome-pink-256gb-sm-a5660licchc/",
+      "release_date": null,
+      "variant_count": 2,
+      "spec_completeness": 83.3,
+      "evidence_path": "data/raw/www.samsung.com.cn/20260916T085219Z-01e5638232.txt"
+    }
+  ],
+  "failures": [
+    {
+      "brand": "三星",
+      "model_name": "Samsung Galaxy Z Fold8",
+      "url": "https://www.samsung.com.cn/smartphones/galaxy-z-fold8/specs/",
+      "error": "[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)"
+    }
+  ]
+}

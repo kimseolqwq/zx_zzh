@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-09-17T13:14:33.134350+00:00",
+  "report": "data/reports/supplemental-specs-20260917.json",
+  "backup": "data/backups/before-supplemental-specs-20260917-211433.db",
+  "filled": {
+    "release_date": 2
+  },
+  "evidence_sha256": {
+    "data/raw/product.pconline.com.cn/20260917T131418Z-c809958ebe.txt": "0126c70c6171cb7923e27dc128c012b7206c7d40c8929a1138c1dc751644817f",
+    "data/raw/news.qq.com/20260917T131419Z-9b499fbc95.txt": "8264f5391d70a033fcd37b985aa84ee544f2ff1057a37797d34fc8cba145adba"
+  },
+  "skipped": []
+}

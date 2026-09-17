@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-09-16T16:21:51.110185+00:00",
+  "source": "MobileDokan (third-party fallback)",
+  "records": [
+    {
+      "phone_id": 143,
+      "brand": "三星",
+      "model": "Samsung Galaxy S25 Edge",
+      "source": "https://www.mobiledokan.com/",
+      "fields": {
+        "release_date": "2025-05-29",
+        "cpu": "Qualcomm SM8750-3-AB Snapdragon 8 Elite",
+        "screen_type": "LTPO AMOLED 2X",
+        "screen_size": 6.7,
+        "resolution": "1440x3120",
+        "refresh_rate": 120.0,
+        "main_camera_mp": 200.0,
+        "weight_g": 163.0,
+        "thickness_mm": 5.8,
+        "waterproof": "IP68",
+        "battery_mah": 3900.0,
+        "charging_w": 25.0,
+        "operating_system": "Android, v15, One UI 7",
+        "image_url": "https://www.mobiledokan.com/media/samsung-galaxy-s25-edge-titanium-silver-official-image.webp",
+        "image_source_url": "https://www.mobiledokan.com/mobile/samsung-galaxy-s25-edge"
+      },
+      "source_labels": {
+        "release_date": "Release Date",
+        "cpu": "Chipset",
+        "screen_type": "Display Type",
+        "screen_size": "Screen Size",
+        "resolution": "Resolution",
+        "refresh_rate": "Refresh Rate",
+        "main_camera_mp": "Rear Camera Resolution",
+        "weight_g": "Weight",
+        "thickness_mm": "Thickness",
+        "waterproof": "IP Rating",
+        "battery_mah": "Battery Capacity",
+        "charging_w": "Quick Charging",
+        "operating_system": "Operating System",
+        "image_url": "Social product image",
+        "image_source_url": "Product page"
+      },
+      "url": "https://www.mobiledokan.com/mobile/samsung-galaxy-s25-edge",
+      "requested_url": "https://www.mobiledokan.com/mobile/samsung-galaxy-s25-edge/",
+      "evidence": "data/raw/www.mobiledokan.com/20260916T162129Z-1646934e4a.txt",
+      "cached_sha256": "75e2604fbd2b6b60da84633c67134e7e95557e424700e1c5bbab71941f56a5e5",
+      "fetched_at": "2026-09-16T16:21:29.943925+00:00",
+      "status": "matched"
+    },
+    {
+      "phone_id": 147,
+      "brand": "三星",
+      "model": "Samsung W25 Flip",
+      "source": "https://www.mobiledokan.com/",
+      "fields": {},
+      "source_labels": {},
+      "status": "skipped",
+      "reason": "未找到精确型号页"
+    },
+    {
+      "phone_id": 199,
+      "brand": "三星",
+      "model": "Samsung W26",
+      "source": "https://www.mobiledokan.com/",
+      "fields": {},
+      "source_labels": {},
+      "status": "skipped",
+      "reason": "未找到精确型号页"
+    },
+    {
+      "phone_id": 200,
+      "brand": "三星",
+      "model": "Samsung Galaxy A57 5G",
+      "source": "https://www.mobiledokan.com/",
+      "fields": {},
+      "source_labels": {},
+      "status": "skipped",
+      "reason": "页面标题或规格表与机型不匹配"
+    },
+    {
+      "phone_id": 203,
+      "brand": "三星",
+      "model": "Samsung Galaxy A56 5G",
+      "source": "https://www.mobiledokan.com/",
+      "fields": {},
+      "source_labels": {},
+      "status": "skipped",
+      "reason": "页面标题或规格表与机型不匹配"
+    }
+  ],
+  "summary": {
+    "attempted": 5,
+    "matched": 1,
+    "field_proposals": {
+      "release_date": 1,
+      "cpu": 1,
+      "screen_size": 1,
+      "screen_type": 1,
+      "resolution": 1,
+      "refresh_rate": 1,
+      "main_camera_mp": 1,
+      "battery_mah": 1,
+      "charging_w": 1,
+      "wireless_charging_w": 0,
+      "weight_g": 1,
+      "thickness_mm": 1,
+      "waterproof": 1,
+      "operating_system": 1,
+      "image_url": 1,
+      "image_source_url": 1
+    }
+  }
+}

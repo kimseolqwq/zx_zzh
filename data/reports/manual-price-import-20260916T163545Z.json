@@ -1,0 +1,20 @@
+{
+  "source": "D:\\用户\\Desktop\\人工采集价格结果.xlsx",
+  "evidence": "data/raw/ecommerce/manual/人工采集价格结果-ddeeab4d.xlsx",
+  "rows": 430,
+  "matched": 430,
+  "mismatches": [],
+  "launch_prices_filled": 330,
+  "snapshots_added": 1290,
+  "duplicates": 0,
+  "platform_counts": {
+    "jd": 430,
+    "tmall": 430,
+    "pdd": 430
+  },
+  "status_counts": {
+    "manual": 1219,
+    "manual_unavailable": 71,
+    "manual_not_found": 0
+  }
+}

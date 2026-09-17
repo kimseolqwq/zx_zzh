@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-09-17T13:10:00+00:00",
+  "purpose": "补充 MobileDokan/Smartprix 未命中的中国大陆机型参数，每项绑定公开来源原文片段。",
+  "records": [
+    {
+      "brand": "三星",
+      "model": "Samsung W26",
+      "source_url": "https://detail.zol.com.cn/2145/2144222/param.shtml",
+      "fields": {
+        "release_date": {"value": "2025-10-11", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "2025年10月11日"},
+        "cpu": {"value": "高通 骁龙 8 Elite for Galaxy", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "高通 骁龙 8 Elite for Galaxy"},
+        "screen_size": {"value": 8.0, "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "主：8英寸"},
+        "screen_type": {"value": "AMOLED", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "第二代动态AMOLED"},
+        "resolution": {"value": "2184x1968", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "2184x1968px"},
+        "refresh_rate": {"value": 120, "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "120Hz"},
+        "main_camera_mp": {"value": 200.0, "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "后置摄像头1：2亿像素"},
+        "battery_mah": {"value": 4400, "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "4400mAh"},
+        "charging_w": {"value": 25.0, "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "25w"},
+        "weight_g": {"value": 215.0, "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "215g"},
+        "thickness_mm": {"value": 8.9, "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "折叠尺寸：8.9mm"},
+        "waterproof": {"value": "IP48", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "IP48等级"},
+        "operating_system": {"value": "One UI 8", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "One UI 8"},
+        "image_url": {"value": "https://2f.zol-img.com.cn/product/273_100x75/115/cegQhC1MmD3VU.png", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.html", "snippet": "https://2f.zol-img.com.cn/product/273_100x75/115/cegQhC1MmD3VU.png"},
+        "image_source_url": {"value": "https://detail.zol.com.cn/2145/2144222/param.shtml", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.html", "snippet": "2144222"},
+        "camera_summary": {"value": "2亿像素广角主摄 + 1200万像素超广角 + 1000万像素长焦（ZOL 参数页）", "evidence": "data/raw/detail.zol.com.cn/20260917T130634Z-8fd0d13caf.txt", "snippet": "后置摄像头1：2亿像素"}
+      }
+    },
+    {
+      "brand": "荣耀",
+      "model": "荣耀Play10T",
+      "source_url": "https://product.pconline.com.cn/mobile/honor/2736199_detail.html",
+      "fields": {
+        "release_date": {"value": "2025-09-09", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippets": ["2025年", "9月9日"]},
+        "cpu": {"value": "高通骁龙6s Gen3", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "高通骁龙6s Gen3"},
+        "screen_size": {"value": 6.8, "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "6.8英寸"},
+        "screen_type": {"value": "LCD", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "LCD"},
+        "resolution": {"value": "2412x1080", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "2412×1080像素"},
+        "refresh_rate": {"value": 120, "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "120Hz"},
+        "main_camera_mp": {"value": 50.0, "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "5000万像素"},
+        "battery_mah": {"value": 7000, "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "7000mAh"},
+        "charging_w": {"value": 45.0, "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "45W有线快充"},
+        "weight_g": {"value": 207.0, "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "207g"},
+        "thickness_mm": {"value": 8.24, "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "8.24mm"},
+        "waterproof": {"value": "IP65", "evidence": "data/raw/www.ithome.com/20260917T130654Z-f869bc40b0.txt", "snippet": "支持 IP65 防尘防水"},
+        "operating_system": {"value": "Android 15, MagicOS 9.0", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "Magic OS 9.0"},
+        "image_url": {"value": "http://img4.pconline.com.cn/pconline/images/product/20250911/34158495.jpg?x-oss-process=image/resize,mfit,w_750", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.html", "snippet": "34158495.jpg"},
+        "image_source_url": {"value": "https://product.pconline.com.cn/mobile/honor/2736199_detail.html", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.html", "snippet": "2736199"},
+        "camera_summary": {"value": "5000万像素主摄，F1.8（太平洋产品报价页）", "evidence": "data/raw/product.pconline.com.cn/20260917T130657Z-088e26dff5.txt", "snippet": "5000万像素"}
+      }
+    },
+    {
+      "brand": "荣耀",
+      "model": "荣耀Play11C",
+      "source_url": "https://product.pconline.com.cn/mobile/honor/2890811_detail.html",
+      "fields": {
+        "release_date": {"value": "2026-04-28", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippets": ["2026年", "4月28日"]},
+        "cpu": {"value": "联发科天玑6300", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "联发科天玑6300"},
+        "screen_size": {"value": 6.75, "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "6.75英寸"},
+        "screen_type": {"value": "LCD", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "LCD"},
+        "resolution": {"value": "1600x720", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "1600×720像素"},
+        "refresh_rate": {"value": 90, "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "90Hz"},
+        "main_camera_mp": {"value": 13.0, "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "1300万像素"},
+        "battery_mah": {"value": 5300, "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "5300mAh"},
+        "charging_w": {"value": 15.0, "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "15W有线快充"},
+        "weight_g": {"value": 186.0, "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "约186g"},
+        "thickness_mm": {"value": 7.89, "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "7.89mm"},
+        "operating_system": {"value": "Android 15, MagicOS 9.0", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "MagicOS 9.0"},
+        "image_url": {"value": "http://img4.pconline.com.cn/pconline/images/product/20260508/50538792.jpg?x-oss-process=image/resize,mfit,w_750", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.html", "snippet": "50538792.jpg"},
+        "image_source_url": {"value": "https://product.pconline.com.cn/mobile/honor/2890811_detail.html", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.html", "snippet": "2890811"},
+        "camera_summary": {"value": "1300万像素后置单摄，F2.2（太平洋产品报价页）", "evidence": "data/raw/product.pconline.com.cn/20260917T130659Z-730a93d2a4.txt", "snippet": "1300万像素"}
+      }
+    },
+    {
+      "brand": "realme",
+      "model": "真我V70",
+      "source_url": "https://product.pconline.com.cn/mobile/realme/2583919_detail.html",
+      "fields": {
+        "release_date": {"value": "2025-03-22", "evidence": "data/raw/product.pconline.com.cn/20260917T131418Z-c809958ebe.txt", "snippets": ["2025年", "3月22日"]}
+      }
+    },
+    {
+      "brand": "OPPO",
+      "model": "OPPO A5m",
+      "source_url": "https://news.qq.com/rain/a/20250812A056XY00",
+      "fields": {
+        "release_date": {"value": "2025-08-12", "evidence": "data/raw/news.qq.com/20260917T131419Z-9b499fbc95.txt", "snippets": ["2025-08-12", "OPPO A5m"]}
+      }
+    }
+  ]
+}
