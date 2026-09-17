@@ -8,10 +8,11 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
 }
 
-document.querySelectorAll("[data-budget]").forEach(button => {
+document.querySelectorAll("[data-min][data-max]").forEach(button => {
   button.addEventListener("click", () => {
-    document.querySelector("#budget").value = button.dataset.budget;
-    document.querySelectorAll("[data-budget]").forEach(item => item.classList.toggle("selected", item === button));
+    document.querySelector("#min_budget").value = button.dataset.min;
+    document.querySelector("#budget").value = button.dataset.max;
+    document.querySelectorAll("[data-min][data-max]").forEach(item => item.classList.toggle("selected", item === button));
   });
 });
 

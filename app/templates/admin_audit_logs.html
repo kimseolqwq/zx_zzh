@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}操作日志 · 择机{% endblock %}
+{% block content %}
+<main class="shell admin-shell">
+  <section class="admin-head">
+    <div>
+      <p class="eyebrow">AUDIT TRAIL</p>
+      <h1>操作日志</h1>
+      <p>共 {{ total }} 条记录 · 当前第 {{ page }} / {{ total_pages }} 页 · 时间按 Asia/Shanghai 显示</p>
+    </div>
+    <div class="admin-head-actions">
+      <a class="ghost-button" href="/admin">返回数据管理</a>
+      <form method="post" action="/admin/logout">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button class="ghost-button">退出登录</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="admin-section audit-log-section">
+    <form class="audit-log-filter" method="get" action="/admin/audit-logs">
+      <label>管理员
+        <select name="admin_id">
+          <option value="">全部管理员</option>
+          {% for administrator in administrators %}
+          <option value="{{ administrator.id }}" {% if selected_admin_id == administrator.id %}selected{% endif %}>{{ administrator.username }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button class="primary-button" type="submit">筛选日志</button>
+      {% if selected_admin_id %}<a class="ghost-button" href="/admin/audit-logs">查看全部</a>{% endif %}
+    </form>
+
+    {% if logs %}
+    <div class="audit-log-table-wrap">
+      <table class="audit-log-table">
+        <thead>
+          <tr><th>时间</th><th>管理员</th><th>操作</th><th>对象</th><th>记录 ID</th><th>IP</th><th>变更内容</th></tr>
+        </thead>
+        <tbody>
+          {% for log in logs %}
+          <tr>
+            <td>{{ log.created_at }}</td>
+            <td><b>{{ log.username }}</b></td>
+            <td><span class="audit-action">{{ log.action }}</span></td>
+            <td>{{ log.table_name }}</td>
+            <td>{{ log.record_id or '—' }}</td>
+            <td>{{ log.ip_address or '—' }}</td>
+            <td>
+              {% if log.old_value or log.new_value %}
+              <details>
+                <summary>查看新旧值</summary>
+                {% if log.old_value %}<div><b>修改前</b><pre>{{ log.old_value }}</pre></div>{% endif %}
+                {% if log.new_value %}<div><b>修改后</b><pre>{{ log.new_value }}</pre></div>{% endif %}
+              </details>
+              {% else %}—{% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <nav class="audit-pagination" aria-label="日志分页">
+      {% if has_prev %}<a href="/admin/audit-logs?page={{ page - 1 }}{% if selected_admin_id %}&admin_id={{ selected_admin_id }}{% endif %}">← 上一页</a>{% else %}<span>← 上一页</span>{% endif %}
+      <b>第 {{ page }} / {{ total_pages }} 页</b>
+      {% if has_next %}<a href="/admin/audit-logs?page={{ page + 1 }}{% if selected_admin_id %}&admin_id={{ selected_admin_id }}{% endif %}">下一页 →</a>{% else %}<span>下一页 →</span>{% endif %}
+    </nav>
+    {% else %}
+    <div class="no-platform-price"><b>暂无匹配日志</b><span>该管理员还没有操作记录，或筛选条件需要调整。</span></div>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

@@ -44,11 +44,13 @@ button { cursor: pointer; }
 .step { font: 800 11px/1 monospace; color: var(--green); border: 1px solid #b9d6c9; border-radius: 7px; padding: 7px; }
 .demo-badge { color: var(--green); background: var(--mint); border-radius: 999px; padding: 6px 9px; font-size: 11px; font-weight: 700; }
 .field-label, fieldset legend, .two-fields label { display: block; color: #38463f; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-.budget-row { display: grid; grid-template-columns: 155px 1fr; gap: 10px; margin-bottom: 24px; }
+.budget-row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 24px; }
+.budget-range-inputs { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 6px; align-items: center; }
+.budget-sep { color: var(--muted); font-weight: 700; }
 .money-input { border: 1px solid var(--line); background: white; border-radius: 12px; display: flex; align-items: center; padding: 0 13px; }
 .money-input span { color: var(--green); font-weight: 800; }
 .money-input input { width: 100%; height: 44px; border: 0; outline: 0; padding: 0 8px; font-weight: 800; font-size: 18px; color: var(--ink); }
-.quick-options { display: flex; gap: 6px; }
+.quick-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .quick-options button { flex: 1; border: 1px solid var(--line); color: var(--muted); background: white; border-radius: 10px; font-size: 12px; }
 .quick-options button:hover, .quick-options .selected { border-color: var(--green); color: var(--green); background: #edf7f1; }
 fieldset { border: 0; margin: 0 0 21px; padding: 0; }

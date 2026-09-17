@@ -3,7 +3,11 @@ from decimal import Decimal
 import pytest
 from fastapi import HTTPException
 
-from app.routers.admin import _validate_listing_input, _validate_price_relationships
+from app.routers.admin import (
+    _optional_bool,
+    _validate_listing_input,
+    _validate_price_relationships,
+)
 
 
 def test_listing_input_accepts_exact_whitelisted_store() -> None:
@@ -35,3 +39,9 @@ def test_price_relationships_reject_public_price_above_regular() -> None:
 
 def test_price_relationships_accept_partial_snapshot() -> None:
     _validate_price_relationships(None, Decimal("3999"))
+
+
+def test_optional_boolean_keeps_unknown_state() -> None:
+    assert _optional_bool("") is None
+    assert _optional_bool("true") is True
+    assert _optional_bool("不支持") is False

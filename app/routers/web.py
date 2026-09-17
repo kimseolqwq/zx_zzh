@@ -12,7 +12,7 @@ from app.models import Brand, PhoneModel, PhoneVariant, PlatformListing, PriceSn
 from app.services.ollama import OllamaClient
 from app.services.evaluation import build_evaluation_metrics
 from app.services.recommendation import Requirements, recommend
-from app.services.pricing import latest_snapshot, snapshot_summary
+from app.services.pricing import latest_snapshot, platform_search_url, snapshot_summary
 
 
 router = APIRouter()
@@ -38,7 +38,7 @@ def _home_context(request: Request, db: Session, **extra) -> dict:
         "installed_models": installed,
         "configured_models": list(settings.ollama_models),
         "result": None,
-        "form": {"budget": 5000, "usage": "综合体验", "brand": "", "storage": 256, "details": ""},
+        "form": {"min_budget": 0, "budget": 5000, "usage": "综合体验", "brand": "", "storage": 256, "details": ""},
     }
     context.update(extra)
     return context
@@ -52,6 +52,7 @@ def home(request: Request, db: Session = Depends(get_db)):
 @router.post("/recommend", response_class=HTMLResponse)
 def recommendation_page(
     request: Request,
+    min_budget: float = Form(0, ge=0, le=30000),
     budget: float = Form(..., ge=500, le=30000),
     usage: str = Form("综合体验"),
     brand: str = Form(""),
@@ -59,39 +60,50 @@ def recommendation_page(
     details: str = Form("", max_length=500),
     db: Session = Depends(get_db),
 ):
+    if min_budget > budget:
+        raise HTTPException(422, "最低预算不能高于最高预算")
     requirements = Requirements(
         budget=budget,
         usage=usage,
         brand=brand or None,
         min_storage_gb=storage,
         details=details.strip(),
+        min_budget=min_budget,
     )
     result = recommend(db, requirements)
-    form = {"budget": budget, "usage": usage, "brand": brand, "storage": storage, "details": details}
+    form = {"min_budget": min_budget, "budget": budget, "usage": usage, "brand": brand, "storage": storage, "details": details}
     return templates.TemplateResponse(request, "index.html", _home_context(request, db, result=result, form=form))
 
 
 def _phone_library_item(phone: PhoneModel) -> dict:
-    prices: list[float] = []
+    verified_prices: list[float] = []
+    manual_prices: list[float] = []
     launch_prices: list[float] = []
+    manual_statuses = {"manual", "manual_unavailable", "manual_not_found"}
     for variant in phone.variants:
         if not variant.is_active:
             continue
         if variant.launch_price is not None:
             launch_prices.append(float(variant.launch_price))
         for listing in variant.listings:
-            if not listing.is_active or not listing.store_verified or not listing.prices:
+            if not listing.is_active or not listing.prices:
                 continue
             current = latest_snapshot(listing, require_in_stock=True, require_public_price=True)
             value = (current.public_sale_price or current.regular_price) if current else None
-            if value is not None:
-                prices.append(float(value))
+            if value is None:
+                continue
+            if listing.store_verified and current.crawl_status == "reviewed":
+                verified_prices.append(float(value))
+            elif current.crawl_status in manual_statuses:
+                manual_prices.append(float(value))
+    prices = verified_prices or manual_prices
+    price_kind = "已审核最低" if verified_prices else "手工参考" if manual_prices else None
     important = [phone.cpu, phone.screen_size, phone.refresh_rate, phone.main_camera_mp, phone.battery_mah, phone.weight_g]
     return {
         "record": phone,
         "variant_count": sum(variant.is_active for variant in phone.variants),
         "lowest_price": min(prices) if prices else min(launch_prices) if launch_prices else None,
-        "price_kind": "平台最低" if prices else "发售价" if launch_prices else None,
+        "price_kind": price_kind or ("发售价" if launch_prices else None),
         "data_completeness": round(sum(value is not None for value in important) / len(important) * 100),
     }
 
@@ -99,11 +111,17 @@ def _phone_library_item(phone: PhoneModel) -> dict:
 @router.get("/phones", response_class=HTMLResponse)
 def phone_library(
     request: Request,
-    brand: int | None = None,
+    brand: str | None = None,
     q: str = "",
     sort: str = "newest",
     db: Session = Depends(get_db),
 ):
+    selected_brand: int | None = None
+    if brand and brand.strip():
+        try:
+            selected_brand = int(brand)
+        except ValueError:
+            selected_brand = None
     statement = (
         select(PhoneModel)
         .options(
@@ -114,8 +132,8 @@ def phone_library(
         )
         .where(PhoneModel.is_active.is_(True))
     )
-    if brand:
-        statement = statement.where(PhoneModel.brand_id == brand)
+    if selected_brand:
+        statement = statement.where(PhoneModel.brand_id == selected_brand)
     query_text = q.strip()[:80]
     if query_text:
         statement = statement.join(PhoneModel.brand).where(
@@ -152,7 +170,7 @@ def phone_library(
             "groups": groups,
             "brands": brands,
             "brand_counts": counts,
-            "selected_brand": brand,
+            "selected_brand": selected_brand,
             "q": query_text,
             "sort": sort,
             "library_stats": {
@@ -183,20 +201,73 @@ def phone_detail(request: Request, phone_id: int, db: Session = Depends(get_db))
         (item for item in phone.variants if item.is_active),
         key=lambda item: (item.storage_gb, item.ram_gb or 0),
     ):
+        listing_by_platform: dict[str, PlatformListing] = {}
+        manual_statuses = {"manual", "manual_unavailable", "manual_not_found"}
+        for listing in variant.listings:
+            if not listing.is_active:
+                continue
+            if not (
+                listing.store_verified
+                or any(item_price.crawl_status in manual_statuses for item_price in listing.prices)
+            ):
+                continue
+            listing_by_platform.setdefault(listing.platform, listing)
+
+        search_urls = {
+            platform: platform_search_url(
+                platform,
+                phone.brand.name,
+                phone.model_name,
+                variant.variant_name,
+            )
+            for platform in ("jd", "tmall", "pdd")
+        }
         quotes = []
-        for listing in sorted(
-            (item for item in variant.listings if item.is_active and item.store_verified),
-            key=lambda item: item.platform,
-        ):
+        for platform, platform_name in (("jd", "京东"), ("tmall", "天猫"), ("pdd", "拼多多")):
+            search_url = search_urls[platform]
+            listing = listing_by_platform.get(platform)
+            if listing is None:
+                quotes.append({
+                    "listing": None,
+                    "platform": platform,
+                    "platform_name": platform_name,
+                    "store_name": "尚未建立平台商品",
+                    "product_url": None,
+                    "search_url": search_url,
+                    "purchase_url": search_url,
+                    "link_verified": False,
+                    "price": None,
+                    "in_stock": False,
+                    "crawl_status": None,
+                    "is_reviewed": False,
+                    "has_evidence": False,
+                    "freshness_label": "尚未核验",
+                    "is_stale": True,
+                    "checked_at": None,
+                })
+                continue
             summary = snapshot_summary(latest_snapshot(listing, require_public_price=True))
-            valid_url = listing.product_url if "example.com" not in listing.product_url else None
+            valid_url = (
+                listing.product_url
+                if listing.product_url and "example.com" not in listing.product_url
+                else None
+            )
             quotes.append({
                 "listing": listing,
-                "platform_name": {"jd": "京东", "tmall": "天猫", "pdd": "拼多多"}.get(listing.platform, listing.platform),
+                "platform": platform,
+                "platform_name": platform_name,
+                "store_name": listing.store_name,
                 "product_url": valid_url,
+                "search_url": search_url,
+                "purchase_url": valid_url or search_url,
+                "link_verified": bool(valid_url),
                 **summary,
             })
-        variant_rows.append({"variant": variant, "quotes": quotes})
+        variant_rows.append({
+            "variant": variant,
+            "quotes": quotes,
+            "search_urls": search_urls,
+        })
     return templates.TemplateResponse(
         request,
         "phone_detail.html",

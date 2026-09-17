@@ -8,7 +8,7 @@ from decimal import Decimal, InvalidOperation
 from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import func, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.config import BASE_DIR
@@ -34,11 +34,31 @@ from app.security import (
     verify_csrf,
     verify_password,
 )
-from app.services.pricing import latest_snapshot, snapshot_summary
+from app.services.pricing import (
+    DISPLAY_TIMEZONE,
+    as_aware_utc,
+    latest_snapshot,
+    snapshot_summary,
+)
 
 
 router = APIRouter(prefix="/admin")
 templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
+AUDIT_ACTION_LABELS = {
+    "login": "登录",
+    "logout": "退出",
+    "create": "新增",
+    "update": "修改",
+    "soft_delete": "停用",
+}
+AUDIT_TABLE_LABELS = {
+    "users": "管理员",
+    "phone_models": "手机型号",
+    "phone_variants": "内存版本",
+    "platform_listings": "平台商品",
+    "price_snapshots": "价格快照",
+    "brands": "品牌",
+}
 
 
 def _ip(request: Request) -> str:
@@ -82,6 +102,25 @@ def _validate_price_relationships(
 ) -> None:
     if regular is not None and public is not None and public > regular:
         raise HTTPException(422, "公开活动价不能高于常规价")
+
+
+def _optional_float(value: str) -> float | None:
+    return float(value) if value.strip() else None
+
+
+def _optional_int(value: str) -> int | None:
+    return int(value) if value.strip() else None
+
+
+def _optional_bool(value: str) -> bool | None:
+    text = value.strip().casefold()
+    if not text:
+        return None
+    if text in {"1", "true", "yes", "支持"}:
+        return True
+    if text in {"0", "false", "no", "不支持"}:
+        return False
+    raise HTTPException(422, "布尔参数格式无效")
 
 
 @router.get("/login", response_class=HTMLResponse)
@@ -142,25 +181,39 @@ def logout(request: Request, csrf_token: str = Form(...), db: Session = Depends(
 
 
 @router.get("", response_class=HTMLResponse)
-def dashboard(request: Request, db: Session = Depends(get_db)):
+def dashboard(request: Request, q: str = "", db: Session = Depends(get_db)):
     user = current_admin(request, db)
     if not user:
         return _redirect("/admin/login")
     brands = db.scalars(select(Brand).order_by(Brand.name)).all()
+    query_text = q.strip()[:80]
     phones = db.scalars(
         select(PhoneModel)
         .options(selectinload(PhoneModel.brand), selectinload(PhoneModel.variants))
+        .join(PhoneModel.brand)
+        .where(
+            or_(
+                PhoneModel.model_name.ilike(f"%{query_text}%"),
+                Brand.name.ilike(f"%{query_text}%"),
+            )
+        )
         .order_by(PhoneModel.updated_at.desc())
     ).unique().all()
+    phone_ids = [phone.id for phone in phones]
     variants = db.scalars(
-        select(PhoneVariant).options(selectinload(PhoneVariant.model).selectinload(PhoneModel.brand)).order_by(PhoneVariant.id.desc())
+        select(PhoneVariant)
+        .options(selectinload(PhoneVariant.model).selectinload(PhoneModel.brand))
+        .where(PhoneVariant.model_id.in_(phone_ids))
+        .order_by(PhoneVariant.id.desc())
     ).unique().all()
+    variant_ids = [variant.id for variant in variants]
     listings = db.scalars(
         select(PlatformListing)
         .options(
             selectinload(PlatformListing.variant).selectinload(PhoneVariant.model),
             selectinload(PlatformListing.prices),
         )
+        .where(PlatformListing.variant_id.in_(variant_ids))
         .order_by(PlatformListing.updated_at.desc())
     ).unique().all()
     listing_rows = [
@@ -195,8 +248,10 @@ def dashboard(request: Request, db: Session = Depends(get_db)):
         {
             "request": request,
             "user": user,
+            "using_default_password": verify_password(user.password_hash, "Admin@123456"),
             "csrf_token": ensure_csrf_token(request),
             "brands": brands,
+            "q": query_text,
             "phones": phones,
             "variants": variants,
             "listings": listings,
@@ -204,6 +259,79 @@ def dashboard(request: Request, db: Session = Depends(get_db)):
             "rec_stats": rec_stats,
             "model_metrics": model_metrics,
             "audit_logs": audit_logs,
+        },
+    )
+
+
+@router.get("/audit-logs", response_class=HTMLResponse)
+def audit_logs(
+    request: Request,
+    admin_id: str = "",
+    page: str = "1",
+    db: Session = Depends(get_db),
+):
+    user = current_admin(request, db)
+    if not user:
+        return _redirect("/admin/login")
+
+    selected_admin_id: int | None = None
+    if admin_id.strip():
+        try:
+            selected_admin_id = int(admin_id)
+        except ValueError:
+            selected_admin_id = None
+    try:
+        current_page = max(1, int(page))
+    except ValueError:
+        current_page = 1
+
+    per_page = 50
+    filters = []
+    if selected_admin_id is not None:
+        filters.append(AuditLog.user_id == selected_admin_id)
+    total = db.scalar(select(func.count()).select_from(AuditLog).where(*filters)) or 0
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    current_page = min(current_page, total_pages)
+    rows = db.execute(
+        select(AuditLog, User)
+        .outerjoin(User, AuditLog.user_id == User.id)
+        .where(*filters)
+        .order_by(AuditLog.created_at.desc(), AuditLog.id.desc())
+        .limit(per_page)
+        .offset((current_page - 1) * per_page)
+    ).all()
+    administrators = db.scalars(
+        select(User).where(User.role == "admin").order_by(User.username)
+    ).all()
+    log_rows = [
+        {
+            "id": log.id,
+            "created_at": as_aware_utc(log.created_at).astimezone(DISPLAY_TIMEZONE).strftime("%Y-%m-%d %H:%M:%S"),
+            "username": log_user.username if log_user else "已删除管理员",
+            "action": AUDIT_ACTION_LABELS.get(log.action, log.action),
+            "table_name": AUDIT_TABLE_LABELS.get(log.table_name, log.table_name),
+            "record_id": log.record_id,
+            "ip_address": log.ip_address,
+            "old_value": log.old_value,
+            "new_value": log.new_value,
+        }
+        for log, log_user in rows
+    ]
+    return templates.TemplateResponse(
+        request,
+        "admin_audit_logs.html",
+        {
+            "request": request,
+            "user": user,
+            "csrf_token": ensure_csrf_token(request),
+            "logs": log_rows,
+            "administrators": administrators,
+            "selected_admin_id": selected_admin_id,
+            "page": current_page,
+            "total": total,
+            "total_pages": total_pages,
+            "has_prev": current_page > 1,
+            "has_next": current_page < total_pages,
         },
     )
 
@@ -231,17 +359,31 @@ def toggle_brand(request: Request, brand_id: int, csrf_token: str = Form(...), d
 @router.post("/phones")
 def create_phone(
     request: Request, brand_id: int = Form(...), model_name: str = Form(...), release_date: str = Form(""),
-    cpu: str = Form(""), screen_size: str = Form(""), refresh_rate: str = Form(""), main_camera_mp: str = Form(""),
-    battery_mah: str = Form(""), weight_g: str = Form(""), official_url: str = Form(""), csrf_token: str = Form(...),
+    cpu: str = Form(""), screen_size: str = Form(""), screen_type: str = Form(""), resolution: str = Form(""),
+    refresh_rate: str = Form(""), main_camera_mp: str = Form(""), camera_summary: str = Form(""),
+    battery_mah: str = Form(""), charging_w: str = Form(""), wireless_charging_w: str = Form(""),
+    wireless_charging_supported: str = Form(""), weight_g: str = Form(""), thickness_mm: str = Form(""),
+    waterproof: str = Form(""), waterproof_supported: str = Form(""), nfc: str = Form(""),
+    five_g: str = Form(""), screen_shape: str = Form(""), telephoto: str = Form(""),
+    operating_system: str = Form(""), official_url: str = Form(""), csrf_token: str = Form(...),
     image_url: str = Form(""), image_source_url: str = Form(""),
     db: Session = Depends(get_db),
 ):
     user = require_admin(request, db); verify_csrf(request, csrf_token)
     phone = PhoneModel(
         brand_id=brand_id, model_name=model_name.strip(), release_date=date.fromisoformat(release_date) if release_date else None,
-        cpu=cpu.strip() or None, screen_size=float(screen_size) if screen_size else None,
-        refresh_rate=int(refresh_rate) if refresh_rate else None, main_camera_mp=float(main_camera_mp) if main_camera_mp else None,
-        battery_mah=int(battery_mah) if battery_mah else None, weight_g=float(weight_g) if weight_g else None,
+        cpu=cpu.strip() or None, screen_size=_optional_float(screen_size), screen_type=screen_type.strip() or None,
+        resolution=resolution.strip() or None, refresh_rate=_optional_int(refresh_rate),
+        main_camera_mp=_optional_float(main_camera_mp), camera_summary=camera_summary.strip() or None,
+        battery_mah=_optional_int(battery_mah), charging_w=_optional_float(charging_w),
+        wireless_charging_w=_optional_float(wireless_charging_w),
+        wireless_charging_supported=_optional_bool(wireless_charging_supported),
+        weight_g=_optional_float(weight_g), thickness_mm=_optional_float(thickness_mm),
+        waterproof=waterproof.strip() or None,
+        waterproof_supported=_optional_bool(waterproof_supported),
+        nfc=_optional_bool(nfc), five_g=_optional_bool(five_g),
+        screen_shape=screen_shape.strip() or None, telephoto=_optional_bool(telephoto),
+        operating_system=operating_system.strip() or None,
         image_url=image_url.strip() or None, image_source_url=image_source_url.strip() or None,
         official_url=official_url.strip() or None, source_url=official_url.strip() or None,
         source_checked_at=datetime.now(timezone.utc), sale_status="on_sale", data_quality="manual",
@@ -253,15 +395,40 @@ def create_phone(
 @router.post("/phones/{phone_id}/update")
 def update_phone(
     request: Request, phone_id: int, model_name: str = Form(...), sale_status: str = Form(...), cpu: str = Form(""),
-    battery_mah: str = Form(""), refresh_rate: str = Form(""), image_url: str = Form(""),
-    image_source_url: str = Form(""), csrf_token: str = Form(...), db: Session = Depends(get_db),
+    screen_size: str = Form(""), screen_type: str = Form(""), resolution: str = Form(""),
+    refresh_rate: str = Form(""), main_camera_mp: str = Form(""), camera_summary: str = Form(""),
+    battery_mah: str = Form(""), charging_w: str = Form(""), wireless_charging_w: str = Form(""),
+    wireless_charging_supported: str = Form(""), weight_g: str = Form(""), thickness_mm: str = Form(""),
+    waterproof: str = Form(""), waterproof_supported: str = Form(""), nfc: str = Form(""),
+    five_g: str = Form(""), screen_shape: str = Form(""), telephoto: str = Form(""),
+    operating_system: str = Form(""), image_url: str = Form(""), image_source_url: str = Form(""),
+    csrf_token: str = Form(...), db: Session = Depends(get_db),
 ):
     user = require_admin(request, db); verify_csrf(request, csrf_token)
     phone = db.get(PhoneModel, phone_id)
     if not phone: raise HTTPException(404, "手机不存在")
-    old = {"model_name": phone.model_name, "sale_status": phone.sale_status, "cpu": phone.cpu, "battery_mah": phone.battery_mah, "refresh_rate": phone.refresh_rate, "image_url": phone.image_url}
+    old = {
+        "model_name": phone.model_name, "sale_status": phone.sale_status, "cpu": phone.cpu,
+        "screen_size": phone.screen_size, "screen_type": phone.screen_type, "resolution": phone.resolution,
+        "refresh_rate": phone.refresh_rate, "main_camera_mp": phone.main_camera_mp,
+        "battery_mah": phone.battery_mah, "charging_w": phone.charging_w,
+        "wireless_charging_w": phone.wireless_charging_w, "weight_g": phone.weight_g,
+        "thickness_mm": phone.thickness_mm, "waterproof": phone.waterproof,
+        "operating_system": phone.operating_system, "image_url": phone.image_url,
+    }
     phone.model_name = model_name.strip(); phone.sale_status = sale_status; phone.cpu = cpu.strip() or None
-    phone.battery_mah = int(battery_mah) if battery_mah else None; phone.refresh_rate = int(refresh_rate) if refresh_rate else None
+    phone.screen_size = _optional_float(screen_size); phone.screen_type = screen_type.strip() or None
+    phone.resolution = resolution.strip() or None; phone.refresh_rate = _optional_int(refresh_rate)
+    phone.main_camera_mp = _optional_float(main_camera_mp); phone.camera_summary = camera_summary.strip() or None
+    phone.battery_mah = _optional_int(battery_mah); phone.charging_w = _optional_float(charging_w)
+    phone.wireless_charging_w = _optional_float(wireless_charging_w)
+    phone.wireless_charging_supported = _optional_bool(wireless_charging_supported)
+    phone.weight_g = _optional_float(weight_g); phone.thickness_mm = _optional_float(thickness_mm)
+    phone.waterproof = waterproof.strip() or None
+    phone.waterproof_supported = _optional_bool(waterproof_supported)
+    phone.nfc = _optional_bool(nfc); phone.five_g = _optional_bool(five_g)
+    phone.screen_shape = screen_shape.strip() or None; phone.telephoto = _optional_bool(telephoto)
+    phone.operating_system = operating_system.strip() or None
     phone.image_url = image_url.strip() or None; phone.image_source_url = image_source_url.strip() or None
     _audit(db, user, request, "update", "phone_models", phone.id, old, {"model_name": phone.model_name, "sale_status": phone.sale_status}); db.commit()
     return _redirect("/admin#phones")

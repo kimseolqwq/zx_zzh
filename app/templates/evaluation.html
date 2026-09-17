@@ -9,7 +9,7 @@
 
   <section class="evaluation-kpis" aria-label="数据集摘要">
     <article><span>品牌覆盖</span><b>{{ metrics.dataset.brands }}</b><small>当前品牌</small></article>
-    <article><span>在售机型</span><b>{{ metrics.dataset.phones }}</b><small>{{ metrics.dataset.official_source_rate }}% 有官网来源</small></article>
+    <article><span>在售机型</span><b>{{ metrics.dataset.phones }}</b><small>{{ metrics.dataset.source_traceable_rate }}% 有数据来源</small></article>
     <article><span>内存版本</span><b>{{ metrics.dataset.variants }}</b><small>{{ metrics.dataset.launch_price_rate }}% 有发售价</small></article>
     <article><span>核验价格</span><b>{{ metrics.dataset.reviewed_snapshots }}</b><small>{{ metrics.prices.evidence_rate }}% 有留证</small></article>
     <article><span>端到端 P50</span><b>{{ (metrics.runs.p50_latency_s|string + 's') if metrics.runs.p50_latency_s is not none else '—' }}</b><small>P95 {{ (metrics.runs.p95_latency_s|string + 's') if metrics.runs.p95_latency_s is not none else '—' }}</small></article>
@@ -23,18 +23,18 @@
         <div><span>{{ item.label }}</span><i><em style="width:{{ item.percent }}%"></em></i><b>{{ item.percent }}%</b><small>{{ item.count }}/{{ item.total }}</small></div>
         {% endfor %}
       </div>
-      <footer>官网来源覆盖 {{ metrics.dataset.official_sources }}/{{ metrics.dataset.phones }} · 有版本机型 {{ metrics.dataset.phones_with_variants }}/{{ metrics.dataset.phones }}</footer>
+      <footer>有数据来源 {{ metrics.dataset.source_traceable }}/{{ metrics.dataset.phones }} · 有版本机型 {{ metrics.dataset.phones_with_variants }}/{{ metrics.dataset.phones }}</footer>
     </article>
 
     <article class="evaluation-panel price-evaluation">
-      <header><div><span>PRICE PROVENANCE</span><h2>可信价格覆盖</h2></div><small>只统计已审核官方店或自营链接</small></header>
-      <div class="price-trust-kpis"><div><b>{{ metrics.prices.verified_listings }}</b><span>已核验商品</span></div><div><b>{{ metrics.prices.fresh }}</b><span>7天内价格</span></div><div><b>{{ metrics.prices.evidence }}</b><span>证据齐全</span></div></div>
+      <header><div><span>PRICE PROVENANCE</span><h2>价格可信覆盖</h2></div><small>已审核价格与手工参考价分开统计</small></header>
+      <div class="price-trust-kpis"><div><b>{{ metrics.prices.verified_listings }}</b><span>已审核商品</span></div><div><b>{{ metrics.prices.manual_listings }}</b><span>手工参考价</span></div><div><b>{{ metrics.prices.fresh }}</b><span>7天内价格</span></div><div><b>{{ metrics.prices.evidence }}</b><span>证据齐全</span></div></div>
       <div class="platform-evaluation">
         {% for item in metrics.prices.platforms %}
-        <div><span>{{ item.name }}</span><b>{{ item.priced }}</b><small>有价 / {{ item.listings }} 链接</small><em class="{{ 'ready' if item.fresh else '' }}">{{ item.fresh }} 条新鲜</em></div>
+        <div><span>{{ item.name }}</span><b>{{ item.priced }}</b><small>有价 · 审核 {{ item.verified }} / 手工 {{ item.manual }}</small><em class="{{ 'ready' if item.fresh else '' }}">{{ item.fresh }} 条新鲜</em></div>
         {% endfor %}
       </div>
-      <p>价格覆盖仍处于小规模高置信阶段。没有同时确认机型、内存版本、官方店和商品页价格的数据不会入库。</p>
+      <p>已审核价格要求同时确认机型、内存版本、官方店和商品页证据；未达到该标准的 Excel 手工价只作为参考价展示，不会计入已审核商品。</p>
     </article>
   </section>
 
@@ -44,9 +44,9 @@
       <div><b>01</b><h3>数据库硬筛选</h3><p>限定在售状态、预算、存储和品牌偏好，资格优惠不默认计入预算。</p></div><i>→</i>
       <div><b>02</b><h3>三模型独立评审</h3><p>Qwen3、Qwen2.5、Gemma 只读取候选数据，分别返回结构化评分。</p></div><i>→</i>
       <div><b>03</b><h3>一致性校准</h3><p>模型平均分会按标准差惩罚；意见越分散，共识分越低。</p></div><i>→</i>
-      <div><b>04</b><h3>五维加权融合</h3><p>需求35% + 共识25% + 数据20% + 性价比15% + 时效5%。</p></div>
+      <div><b>04</b><h3>五维加权融合</h3><p>{% for item in metrics.score_weights %}{{ item.label }}{{ item.weight }}%{% if not loop.last %} + {% endif %}{% endfor %}。</p></div>
     </div>
-    <div class="weight-strip"><span style="--weight:35">需求匹配 35%</span><span style="--weight:25">模型共识 25%</span><span style="--weight:20">数据可信 20%</span><span style="--weight:15">性价比 15%</span><span style="--weight:5">时效性 5%</span></div>
+    <div class="weight-strip">{% for item in metrics.score_weights %}<span style="--weight:{{ item.weight }}">{{ item.label }} {{ item.weight }}%</span>{% endfor %}</div>
   </section>
 
   <section class="evaluation-panel model-evaluation">
