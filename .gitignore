@@ -1,4 +1,10 @@
 .venv/
+_distutils_hack/
+bs4/
+Scripts/
+*.dist-info/
+typing_extensions.py
+distutils-precedence.pth
 __pycache__/
 *.py[cod]
 .pytest_cache/
