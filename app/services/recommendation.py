@@ -2,22 +2,28 @@ from __future__ import annotations
 
 import json
 import math
+import re
 import statistics
 import time
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any
-from urllib.parse import quote
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
 from app.config import settings
-from app.models import ModelRun, PhoneModel, PhoneVariant, PlatformListing, RecommendationRun
+from app.models import Brand, ModelRun, PhoneModel, PhoneVariant, PlatformListing, RecommendationRun
+from app.services.intent_parser import parse_intent
 from app.services.ollama import ModelOpinion, OllamaClient
-from app.services.pricing import freshness_metadata, latest_snapshot
+from app.services.pricing import (
+    as_aware_utc,
+    freshness_metadata,
+    latest_snapshot,
+    platform_search_urls,
+)
 
 
 @dataclass
@@ -27,6 +33,9 @@ class Requirements:
     brand: str | None
     min_storage_gb: int
     details: str
+    min_budget: float = 0.0
+    price_preference: str = "auto"
+    intent: dict[str, Any] = field(default_factory=dict)
 
 
 def _number(value: Decimal | float | int | None) -> float | None:
@@ -35,24 +44,24 @@ def _number(value: Decimal | float | int | None) -> float | None:
 
 PLATFORM_NAMES = {"jd": "京东", "tmall": "天猫", "pdd": "拼多多"}
 SCORE_WEIGHTS = {
-    "requirement_match": ("需求匹配", 0.35),
-    "model_consensus": ("模型共识", 0.25),
+    "requirement_match": ("需求匹配", 0.40),
+    "model_consensus": ("模型共识", 0.15),
     "data_trust": ("数据可信", 0.20),
-    "value": ("性价比", 0.15),
+    "value": ("预算利用", 0.20),
     "freshness": ("时效性", 0.05),
 }
 
 
 def _latest_prices(variant: PhoneVariant) -> tuple[float | None, dict[str, Any] | None, list[dict[str, Any]]]:
-    query = quote(f"{variant.model.brand.name} {variant.model.model_name} {variant.variant_name} 官方旗舰店")
-    search_urls = {
-        "jd": f"https://search.jd.com/Search?keyword={query}",
-        "tmall": f"https://list.tmall.com/search_product.htm?q={query}",
-        "pdd": f"https://mobile.yangkeduo.com/search_result.html?search_key={query}",
-    }
-    rows: list[tuple[datetime, float, dict[str, Any]]] = []
+    search_urls = platform_search_urls(
+        variant.model.brand.name,
+        variant.model.model_name,
+        variant.variant_name,
+    )
+    manual_statuses = {"manual", "manual_unavailable", "manual_not_found"}
+    rows: list[tuple[int, datetime, float, dict[str, Any]]] = []
     for listing in variant.listings:
-        if not listing.is_active or not listing.store_verified:
+        if not listing.is_active:
             continue
         latest = latest_snapshot(listing, require_in_stock=True, require_public_price=True)
         if latest is None:
@@ -60,8 +69,18 @@ def _latest_prices(variant: PhoneVariant) -> tuple[float | None, dict[str, Any] 
         price = latest.public_sale_price or latest.regular_price
         if price is None:
             continue
+        has_evidence = bool(latest.evidence_text_path or latest.screenshot_path)
+        if listing.store_verified and latest.crawl_status == "reviewed" and has_evidence:
+            trust_rank, trust_level, trust_label = 0, "verified", "已审核官方店"
+        elif latest.crawl_status in manual_statuses:
+            trust_rank, trust_level, trust_label = 1, "manual", "手工参考价"
+        elif listing.store_verified:
+            trust_rank, trust_level, trust_label = 2, "unreviewed", "待复核"
+        else:
+            continue
         rows.append(
             (
+                trust_rank,
                 latest.crawled_at,
                 float(price),
                 {
@@ -70,7 +89,10 @@ def _latest_prices(variant: PhoneVariant) -> tuple[float | None, dict[str, Any] 
                     "store_name": listing.store_name,
                     "crawl_status": latest.crawl_status,
                     "is_reviewed": latest.crawl_status == "reviewed",
-                    "has_evidence": bool(latest.evidence_text_path or latest.screenshot_path),
+                    "has_evidence": has_evidence,
+                    "trust_level": trust_level,
+                    "trust_label": trust_label,
+                    "store_verified": listing.store_verified,
                     **freshness_metadata(latest),
                     "url": listing.product_url,
                     "crawled_at": latest.crawled_at.isoformat(),
@@ -83,28 +105,39 @@ def _latest_prices(variant: PhoneVariant) -> tuple[float | None, dict[str, Any] 
             for key, name in PLATFORM_NAMES.items()
         ]
         return _number(variant.launch_price), None, empty
-    rows.sort(key=lambda item: item[1])
-    lowest_price, lowest_detail = rows[0][1], rows[0][2]
-    by_platform: dict[str, tuple[datetime, float, dict[str, Any]]] = {}
+    best_trust = min(row[0] for row in rows)
+    lowest_row = min(
+        (row for row in rows if row[0] == best_trust),
+        key=lambda item: (item[2], -as_aware_utc(item[1]).timestamp()),
+    )
+    lowest_price, lowest_detail = lowest_row[2], lowest_row[3]
+    by_platform: dict[str, tuple[int, datetime, float, dict[str, Any]]] = {}
     for row in rows:
-        previous = by_platform.get(row[2]["platform"])
-        if previous is None or row[1] < previous[1]:
-            by_platform[row[2]["platform"]] = row
+        platform = row[3]["platform"]
+        previous = by_platform.get(platform)
+        if previous is None or (
+            row[0],
+            -as_aware_utc(row[1]).timestamp(),
+        ) < (
+            previous[0],
+            -as_aware_utc(previous[1]).timestamp(),
+        ):
+            by_platform[platform] = row
     platform_prices: list[dict[str, Any]] = []
     for key, name in PLATFORM_NAMES.items():
         row = by_platform.get(key)
         if row is None:
             platform_prices.append({"platform": key, "platform_name": name, "price": None, "url": None, "purchase_url": search_urls[key], "link_verified": False, "is_lowest": False, "freshness_label": "尚未核验", "is_stale": True})
             continue
-        detail = row[2]
+        detail = row[3]
         url = detail["url"] if detail["url"] and "example.com" not in detail["url"] else None
         platform_prices.append({
             **detail,
-            "price": row[1],
+            "price": row[2],
             "url": url,
             "purchase_url": url or search_urls[key],
             "link_verified": bool(url),
-            "is_lowest": row[1] == lowest_price and detail["platform"] == lowest_detail["platform"],
+            "is_lowest": row[2] == lowest_price and detail["platform"] == lowest_detail["platform"],
         })
     if lowest_detail:
         actual_url = lowest_detail.get("url")
@@ -148,13 +181,144 @@ def _candidate_from_variant(variant: PhoneVariant) -> dict[str, Any]:
         "battery_mah": phone.battery_mah,
         "charging_w": phone.charging_w,
         "wireless_charging_w": phone.wireless_charging_w,
+        "wireless_charging_supported": phone.wireless_charging_supported,
         "weight_g": phone.weight_g,
         "waterproof": phone.waterproof,
+        "waterproof_supported": phone.waterproof_supported,
+        "nfc": phone.nfc,
+        "five_g": phone.five_g,
+        "screen_shape": phone.screen_shape,
+        "telephoto": phone.telephoto,
         "operating_system": phone.operating_system,
         "source_url": phone.source_url,
         "source_checked_at": phone.source_checked_at.isoformat() if phone.source_checked_at else None,
         "data_quality": phone.data_quality,
     }
+
+
+def _is_foldable(candidate: dict[str, Any]) -> bool:
+    text = f"{candidate.get('brand', '')} {candidate.get('model', '')}".casefold()
+    return any(token in text for token in (
+        "fold", "flip", "mate x", "find n", "magic v", "pura x", "razr",
+        "mix fold", "折叠",
+    ))
+
+
+def _price_preference(details: str) -> str:
+    text = (details or "").casefold()
+    if any(token in text for token in ("越贵越好", "越贵越", "尽量贵", "上顶配", "用满预算", "接近预算上限", "接近上限", "价格越高越好")):
+        return "high"
+    if any(token in text for token in ("越便宜越好", "越便宜越", "低价优先", "省钱", "预算内便宜", "价格越低越好", "性价比优先")):
+        return "low"
+    return "balanced"
+
+
+def _matches_special_requirements(candidate: dict[str, Any], details: str, intent: dict[str, Any] | None = None) -> bool:
+    intent = intent or {}
+    if candidate.get("brand") in intent.get("avoid_brands", []):
+        return False
+    preferred_brands = intent.get("preferred_brands") or []
+    if preferred_brands and candidate.get("brand") not in preferred_brands:
+        return False
+    form_factor = intent.get("form_factor")
+    if form_factor == "foldable" and not _is_foldable(candidate):
+        return False
+    if form_factor == "slab" and _is_foldable(candidate):
+        return False
+    must_have = set(intent.get("must_have") or [])
+    if "wireless_charging" in must_have and not (
+        candidate.get("wireless_charging_supported") is True
+        or bool(candidate.get("wireless_charging_w"))
+    ):
+        return False
+    if "waterproof" in must_have and not (
+        candidate.get("waterproof_supported") is True
+        or bool(candidate.get("waterproof"))
+    ):
+        return False
+    if "telephoto" in must_have:
+        camera_text = str(candidate.get("camera_summary") or "").casefold()
+        if not (
+            candidate.get("telephoto") is True
+            or any(token in camera_text for token in ("长焦", "潜望", "tele", "periscope"))
+        ):
+            return False
+    if "nfc" in must_have and candidate.get("nfc") is not True:
+        return False
+    if "five_g" in must_have and candidate.get("five_g") is not True:
+        return False
+    if "small_screen" in must_have:
+        screen = candidate.get("screen_size")
+        if screen is None or float(screen) > 6.4:
+            return False
+    if "lightweight" in must_have:
+        weight = candidate.get("weight_g")
+        if weight is None or float(weight) > 200:
+            return False
+    if "large_battery" in must_have:
+        battery = candidate.get("battery_mah")
+        if battery is None or float(battery) < 6000:
+            return False
+    if "high_refresh" in must_have:
+        refresh = candidate.get("refresh_rate")
+        if refresh is None or float(refresh) < 120:
+            return False
+    if "heavy" in set(intent.get("avoid") or []):
+        weight = candidate.get("weight_g")
+        if weight is not None and float(weight) > 210:
+            return False
+    if "curved_screen" in set(intent.get("avoid") or []):
+        shape = str(candidate.get("screen_shape") or "").casefold()
+        screen_type = str(candidate.get("screen_type") or "").casefold()
+        if shape == "curved" or "曲面" in screen_type or "curved" in screen_type:
+            return False
+    text = (details or "").casefold()
+    if not text:
+        return True
+    has_structured_intent = bool(intent)
+    foldable = _is_foldable(candidate)
+    avoids_foldable = any(token in text for token in ("不要折叠", "不需要折叠", "不要折叠屏", "直板机"))
+    wants_foldable = not avoids_foldable and any(token in text for token in ("折叠屏", "折叠手机", "foldable", " fold", "flip"))
+    if wants_foldable and not foldable:
+        return False
+    if avoids_foldable and foldable:
+        return False
+    if not has_structured_intent and (
+        "无线充" in text
+        and "不需要无线" not in text
+        and "不要无线" not in text
+        and not (
+            candidate.get("wireless_charging_supported") is True
+            or bool(candidate.get("wireless_charging_w"))
+        )
+    ):
+        return False
+    if not has_structured_intent and (
+        "防水" in text
+        and "不需要防水" not in text
+        and "不要防水" not in text
+        and not (
+            candidate.get("waterproof_supported") is True
+            or bool(candidate.get("waterproof"))
+        )
+    ):
+        return False
+    if not has_structured_intent and any(token in text for token in ("长焦", "潜望", "望远")):
+        camera_text = str(candidate.get("camera_summary") or "").casefold()
+        if not (
+            candidate.get("telephoto") is True
+            or any(token in camera_text for token in ("长焦", "潜望", "tele", "periscope"))
+        ):
+            return False
+    if any(token in text for token in ("小屏", "小尺寸")):
+        screen = candidate.get("screen_size")
+        if screen is None or float(screen) > 6.4:
+            return False
+    if any(token in text for token in ("轻薄", "轻一点", "重量轻")):
+        weight = candidate.get("weight_g")
+        if weight is None or float(weight) > 200:
+            return False
+    return True
 
 
 def load_candidates(db: Session, requirements: Requirements, limit: int | None = 12) -> list[dict[str, Any]]:
@@ -171,8 +335,14 @@ def load_candidates(db: Session, requirements: Requirements, limit: int | None =
     candidates = [_candidate_from_variant(item) for item in variants if item.model.is_active and item.model.sale_status in {"on_sale", "partial_sale"}]
     if requirements.brand:
         candidates = [item for item in candidates if requirements.brand.lower() in item["brand"].lower()]
+    candidates = [item for item in candidates if _matches_special_requirements(item, requirements.details, requirements.intent)]
     candidates.sort(key=lambda item: (item["current_price"] is None, item["current_price"] or math.inf))
-    affordable = [item for item in candidates if item["current_price"] is not None and item["current_price"] <= requirements.budget]
+    affordable = [
+        item for item in candidates
+        if item["current_price"] is not None
+        and item["current_price"] <= requirements.budget
+        and item["current_price"] >= requirements.min_budget
+    ]
     return affordable if limit is None else affordable[:limit]
 
 
@@ -207,12 +377,17 @@ def _evidence_lines(
         facts = [str(value) for value in (candidate.get("cpu"), f"{candidate['battery_mah']}mAh" if candidate.get("battery_mah") else None) if value]
         if facts: lines.append("综合体验依据：" + "、".join(facts) + "。")
     if model_values:
-        lines.append(f"{len(model_values)} 个模型有效评分，平均 {statistics.mean(model_values):.1f}，分歧标准差 {deviation:.1f}。")
+        lines.append(f"{len(model_values)} 个模型标准化评分，平均 {statistics.mean(model_values):.1f}，分歧标准差 {deviation:.1f}。")
     else:
         lines.append("本次没有可解析模型评分，已使用规则分降级计算。")
     detail = candidate.get("price_detail")
     if detail:
-        lines.append(f"最低价来自{detail['platform_name']}已核验商品页，{detail.get('freshness_label', '已记录采集时间')}。")
+        if detail.get("trust_level") == "manual":
+            lines.append(f"最低价来自{detail['platform_name']}手工采集价（店铺/SKU未核验），{detail.get('freshness_label', '已记录录入时间')}。")
+        elif detail.get("trust_level") == "verified":
+            lines.append(f"最低价来自{detail['platform_name']}已审核官方店，{detail.get('freshness_label', '已记录采集时间')}。")
+        else:
+            lines.append(f"最低价来自{detail['platform_name']}待复核页面，仅作参考。")
     else:
         lines.append("暂无已核验平台价，当前价格使用公开发售价参考。")
     return lines[:4]
@@ -242,22 +417,22 @@ def _usable_cpu(value: str | None) -> str | None:
 def _chipset_score(candidate: dict[str, Any]) -> float:
     cpu = (_usable_cpu(candidate.get("cpu")) or "").lower()
     model = candidate["model"].lower()
-    if any(key in cpu for key in ("第五代骁龙", "8至尊", "8 至尊", "a19 pro", "天玑9500", "麒麟9030")):
-        score = 97
-    elif any(key in cpu for key in ("第三代骁龙8", "a19", "a18", "天玑9400", "天玑9300", "麒麟9020")):
-        score = 91
-    elif any(key in cpu for key in ("骁龙8", "天玑8550", "天玑8400", "麒麟")):
-        score = 84
-    elif any(key in cpu for key in ("骁龙7", "天玑8", "天玑7")):
-        score = 73
-    elif any(key in cpu for key in ("天玑6300", "骁龙6")):
-        score = 58
+    if any(key in cpu for key in ("第五代骁龙8", "骁龙8至尊", "8至尊", "8 至尊", "a20", "a19 pro", "天玑9500", "麒麟9030")):
+        score = 98
+    elif any(key in cpu for key in ("第三代骁龙8", "第四代骁龙8", "a19", "a18", "天玑9400", "天玑9300", "麒麟9020")):
+        score = 92
+    elif any(key in cpu for key in ("骁龙8s", "骁龙8 gen", "天玑8500", "天玑8400", "麒麟9010", "unisoc t8", "exynos 2")):
+        score = 82
+    elif any(key in cpu for key in ("骁龙7", "天玑8", "天玑7", "麒麟8")):
+        score = 70
+    elif any(key in cpu for key in ("天玑6300", "骁龙6", "骁龙4", "unisoc t7")):
+        score = 56
     else:
-        score = 62
+        score = 60
     if any(key in model for key in ("iqoo", "gt", "ace", "k80")):
-        score = max(score, 86)
+        score = max(score, 84)
     if any(key in model for key in ("ultra", "pro max")):
-        score = max(score, 88)
+        score = max(score, 90)
     return score
 
 
@@ -265,49 +440,180 @@ def _series_camera_score(candidate: dict[str, Any]) -> float:
     model = candidate["model"].lower()
     if "ultra" in model or "pura" in model:
         return 95
-    if any(key in model for key in ("find x", "x200 pro", "x300 pro", "magic8 pro", "iphone 17 pro")):
+    if any(key in model for key in ("find x", "x200 pro", "x300 pro", "magic8 pro", "iphone 17 pro", "mate 70 pro", "mate 80 pro")):
         return 91
-    if any(key in model for key in ("mate", "iphone", "reno", "x200", "x300", "s26", "s25")):
+    if any(key in model for key in ("mate", "iphone", "x200", "x300", "s26", "s25", "find n")):
         return 84
+    if any(key in model for key in ("reno", "civi", "nova", "s50", "s60")):
+        return 76
     if "pro" in model:
         return 78
     return 65
 
 
-def _profile_scores(candidate: dict[str, Any]) -> dict[str, float]:
+def _camera_detail_score(candidate: dict[str, Any]) -> float:
+    text = " ".join(str(candidate.get(key) or "") for key in ("camera_summary", "model", "cpu")).lower()
+    score = 0.0
+    for token, weight in (
+        ("1英寸", 14), ("一英寸", 14), ("imx989", 12), ("lyt-900", 12),
+        ("ois", 7), ("光学防抖", 7), ("潜望", 9), ("长焦", 7),
+        ("徕卡", 5), ("蔡司", 5), ("哈苏", 5), ("大底", 6), ("传感器", 3),
+    ):
+        if token in text:
+            score += weight
+    mp = float(candidate.get("main_camera_mp") or 0)
+    if mp >= 200:
+        score += 12
+    elif mp >= 108:
+        score += 9
+    elif mp >= 50:
+        score += 6
+    return _clamp(score)
+
+
+def _display_score(candidate: dict[str, Any]) -> float:
+    refresh = _scale(candidate.get("refresh_rate"), 60, 165, missing=45)
+    screen_type = str(candidate.get("screen_type") or "").lower()
+    panel = 92 if "ltpo" in screen_type else 82 if "amoled" in screen_type or "oled" in screen_type else 58 if screen_type else 55
+    resolution = str(candidate.get("resolution") or "")
+    match = re.search(r"(\d{3,4})\s*[x×]\s*(\d{3,4})", resolution, re.IGNORECASE)
+    pixels = int(match.group(1)) * int(match.group(2)) if match else 0
+    pixel_score = 55 if not pixels else _clamp((pixels - 900_000) / (3_700_000 - 900_000) * 45 + 55)
+    return _clamp(0.45 * refresh + 0.35 * panel + 0.20 * pixel_score)
+
+
+def _feature_scores(candidate: dict[str, Any]) -> dict[str, float]:
     camera_mp = candidate.get("main_camera_mp")
     camera_sensor = 55 if camera_mp is None else _clamp(58 + math.sqrt(min(float(camera_mp), 200) / 50) * 22)
-    camera = 0.58 * _series_camera_score(candidate) + 0.30 * camera_sensor + 0.12 * _scale(candidate.get("storage_gb"), 128, 1024)
+    camera = (
+        0.48 * _series_camera_score(candidate)
+        + 0.24 * camera_sensor
+        + 0.20 * _camera_detail_score(candidate)
+        + 0.08 * _scale(candidate.get("storage_gb"), 128, 1024)
+    )
+    display = _display_score(candidate)
     gaming = (
         0.43 * _chipset_score(candidate)
-        + 0.22 * _scale(candidate.get("refresh_rate"), 60, 165)
+        + 0.25 * display
         + 0.16 * _scale(candidate.get("battery_mah"), 4000, 8000)
-        + 0.11 * _scale(candidate.get("charging_w"), 18, 120)
-        + 0.08 * _scale(candidate.get("ram_gb"), 6, 16)
+        + 0.10 * _scale(candidate.get("charging_w"), 18, 120)
+        + 0.06 * _scale(candidate.get("ram_gb"), 6, 18)
     )
     weight_score = 55 if candidate.get("weight_g") is None else _clamp(100 - max(0, float(candidate["weight_g"]) - 170) * 1.35)
     endurance = (
-        0.55 * _scale(candidate.get("battery_mah"), 4000, 8000)
-        + 0.30 * weight_score
-        + 0.15 * _scale(candidate.get("charging_w"), 18, 120)
+        0.52 * _scale(candidate.get("battery_mah"), 4000, 8000)
+        + 0.28 * weight_score
+        + 0.14 * _scale(candidate.get("charging_w"), 18, 120)
+        + 0.06 * _scale(candidate.get("wireless_charging_w"), 0, 50)
     )
-    balanced = 0.40 * gaming + 0.32 * camera + 0.28 * endurance
-    return {"摄影创作": _clamp(camera), "重度游戏": _clamp(gaming), "轻薄续航": _clamp(endurance), "综合体验": _clamp(balanced)}
+    thickness = candidate.get("thickness_mm")
+    thickness_score = 70 if thickness is None else _clamp(100 - max(0, float(thickness) - 7.5) * 18)
+    portability = 0.72 * weight_score + 0.18 * thickness_score + 0.10 * _scale(candidate.get("screen_size"), 5.5, 7.2)
+    return {
+        "camera": _clamp(camera),
+        "performance": _clamp(gaming),
+        "display": _clamp(display),
+        "battery": _clamp(endurance),
+        "portability": _clamp(portability),
+    }
+
+
+def _preference_weights(usage: str, details: str, intent: dict[str, Any] | None = None) -> dict[str, float]:
+    if intent and isinstance(intent.get("priority_weights"), dict):
+        supplied = {key: float(intent["priority_weights"].get(key, 0) or 0) for key in ("camera", "performance", "display", "battery", "portability")}
+        if sum(supplied.values()) > 0:
+            total = sum(supplied.values())
+            return {key: round(value / total, 4) for key, value in supplied.items()}
+    weights = {
+        "摄影创作": {"camera": 0.60, "performance": 0.13, "display": 0.11, "battery": 0.10, "portability": 0.06},
+        "重度游戏": {"camera": 0.04, "performance": 0.40, "display": 0.25, "battery": 0.23, "portability": 0.08},
+        "轻薄续航": {"camera": 0.05, "performance": 0.16, "display": 0.10, "battery": 0.35, "portability": 0.34},
+        "综合体验": {"camera": 0.24, "performance": 0.24, "display": 0.20, "battery": 0.20, "portability": 0.12},
+    }.get(usage, {"camera": 0.22, "performance": 0.22, "display": 0.18, "battery": 0.23, "portability": 0.15})
+    text = (details or "").casefold()
+    boosts = {
+        "camera": ("拍照", "摄影", "影像", "相机", "长焦", "潜望", "人像", "视频"),
+        "performance": ("性能", "游戏", "芯片", "处理器", "帧率", "电竞"),
+        "display": ("屏幕", "显示", "高刷", "刷新率", "护眼", "分辨率"),
+        "battery": ("续航", "电池", "充电", "快充"),
+        "portability": ("轻薄", "重量", "手感", "小屏", "便携"),
+    }
+    for key, tokens in boosts.items():
+        if any(token in text for token in tokens):
+            weights[key] = weights.get(key, 0) + 0.18
+    total = sum(weights.values()) or 1
+    return {key: value / total for key, value in weights.items()}
+
+
+def _preference_score(candidate: dict[str, Any], usage: str, details: str, intent: dict[str, Any] | None = None) -> float:
+    features = _feature_scores(candidate)
+    weights = _preference_weights(usage, details, intent)
+    score = sum(features[key] * weight for key, weight in weights.items())
+    soft = set((intent or {}).get("soft_requirements") or [])
+    if "small_screen" in soft and candidate.get("screen_size") is not None and float(candidate["screen_size"]) <= 6.4:
+        score += 3
+    if "lightweight" in soft and candidate.get("weight_g") is not None and float(candidate["weight_g"]) <= 200:
+        score += 3
+    if "large_battery" in soft and candidate.get("battery_mah") is not None and float(candidate["battery_mah"]) >= 6000:
+        score += 3
+    if "high_refresh" in soft and candidate.get("refresh_rate") is not None and float(candidate["refresh_rate"]) >= 120:
+        score += 3
+    if "wireless_charging" in soft and (
+        candidate.get("wireless_charging_supported") is True
+        or bool(candidate.get("wireless_charging_w"))
+    ):
+        score += 3
+    if "waterproof" in soft and (
+        candidate.get("waterproof_supported") is True
+        or bool(candidate.get("waterproof"))
+    ):
+        score += 3
+    if "telephoto" in soft and candidate.get("telephoto") is True:
+        score += 3
+    if "nfc" in soft and candidate.get("nfc") is True:
+        score += 2
+    if "five_g" in soft and candidate.get("five_g") is True:
+        score += 2
+    return _clamp(score)
+
+
+def _profile_scores(candidate: dict[str, Any]) -> dict[str, float]:
+    features = _feature_scores(candidate)
+    return {
+        "摄影创作": _preference_score(candidate, "摄影创作", ""),
+        "重度游戏": _preference_score(candidate, "重度游戏", ""),
+        "轻薄续航": _preference_score(candidate, "轻薄续航", ""),
+        "综合体验": _preference_score(candidate, "综合体验", ""),
+    }
 
 
 def _usage_score(candidate: dict[str, Any], usage: str) -> float:
-    return _profile_scores(candidate).get(usage, _profile_scores(candidate)["综合体验"])
+    return _preference_score(candidate, usage, "")
 
 
 def _base_components(candidate: dict[str, Any], requirements: Requirements, all_prices: list[float]) -> dict[str, float]:
     price = candidate.get("current_price") or requirements.budget * 1.5
-    budget_score = 100 if price <= requirements.budget else max(0, 100 - (price - requirements.budget) / requirements.budget * 160)
+    if requirements.min_budget <= price <= requirements.budget:
+        budget_score = 100
+    elif price > requirements.budget:
+        budget_score = max(0, 100 - (price - requirements.budget) / requirements.budget * 160)
+    else:
+        budget_score = max(0, 100 - (requirements.min_budget - price) / max(requirements.min_budget, 1) * 120)
     brand_score = 100 if not requirements.brand or requirements.brand.lower() in candidate["brand"].lower() else 55
-    usage_score = _usage_score(candidate, requirements.usage)
+    usage_score = _preference_score(candidate, requirements.usage, requirements.details, requirements.intent)
     # Storage is already a hard constraint. Meeting it should not be scored as
     # zero or allow a larger but otherwise weaker variant to dominate.
     storage_score = 100.0
-    requirement = 0.82 * usage_score + 0.10 * budget_score + 0.08 * storage_score
+    release_date = candidate.get("release_date")
+    release_score = 55.0
+    if release_date:
+        try:
+            released = release_date if hasattr(release_date, "year") else datetime.fromisoformat(str(release_date))
+            years = max(0.0, (datetime.now(timezone.utc).date() - released.date()).days / 365.25)
+            release_score = _clamp(100 - max(0, years - 0.5) * 25)
+        except (TypeError, ValueError):
+            release_score = 55.0
+    requirement = 0.79 * usage_score + 0.09 * budget_score + 0.05 * storage_score + 0.07 * release_score
     completeness_fields = ["cpu", "screen_size", "refresh_rate", "main_camera_mp", "battery_mah", "weight_g", "source_url"]
     completeness = sum(candidate.get(field) not in (None, "") for field in completeness_fields) / len(completeness_fields) * 100
     quality_bonus = {
@@ -317,16 +623,32 @@ def _base_components(candidate: dict[str, Any], requirements: Requirements, all_
         "legacy_demo": -8,
         "demo": -8,
     }.get(candidate.get("data_quality"), 0)
-    data_trust = max(0, min(100, completeness + quality_bonus))
-    if len(all_prices) > 1 and max(all_prices) > min(all_prices):
-        relative_price = 100 - (price - min(all_prices)) / (max(all_prices) - min(all_prices)) * 45
-        # Value is quality-for-price, not simply "cheapest wins".  The usage
-        # profile therefore has more influence than the raw relative price.
-        value = 0.70 * usage_score + 0.30 * relative_price
-    else:
-        value = 0.70 * usage_score + 24
-    freshness = 35.0
     detail = candidate.get("price_detail")
+    price_trust = 0
+    if detail:
+        if detail.get("crawl_status") == "reviewed" and detail.get("has_evidence"):
+            price_trust = 8
+        elif detail.get("crawl_status") in {"manual", "manual_unavailable", "manual_not_found"}:
+            price_trust = -10
+        else:
+            price_trust = -4
+    else:
+        price_trust = -15
+    data_trust = max(0, min(100, completeness + quality_bonus + price_trust))
+    floor = requirements.min_budget if requirements.min_budget > 0 else requirements.budget * 0.45
+    floor = min(floor, requirements.budget)
+    span = max(1.0, requirements.budget - floor)
+    utilization = _clamp((price - floor) / span, 0, 1)
+    # Prefer using the available budget, but this remains a soft preference:
+    # quality and data-trust components together carry much more weight.
+    preference = requirements.price_preference if requirements.price_preference != "auto" else _price_preference(requirements.details)
+    if preference == "high":
+        value = 25 + 75 * utilization
+    elif preference == "low":
+        value = 100 - 60 * utilization
+    else:
+        value = 40 + 60 * utilization
+    freshness = 35.0
     if detail and detail.get("crawled_at"):
         crawled = datetime.fromisoformat(detail["crawled_at"])
         if crawled.tzinfo is None:
@@ -352,6 +674,10 @@ def _build_prompt(requirements: Requirements, candidates: list[dict[str, Any]]) 
             "price": item["current_price"], "cpu": _usable_cpu(item.get("cpu")),
             "hz": item.get("refresh_rate"), "camera_mp": item.get("main_camera_mp"),
             "battery": item.get("battery_mah"), "charge_w": item.get("charging_w"),
+            "wireless_charge": item.get("wireless_charging_supported"),
+            "waterproof": item.get("waterproof_supported"),
+            "nfc": item.get("nfc"), "five_g": item.get("five_g"),
+            "screen_shape": item.get("screen_shape"), "telephoto": item.get("telephoto"),
             "weight_g": item.get("weight_g"), "storage_gb": item.get("storage_gb"),
         }
         for item in candidates
@@ -363,10 +689,10 @@ def _build_prompt(requirements: Requirements, candidates: list[dict[str, Any]]) 
         "综合体验": "均衡比较性能、相机、屏幕、续航和价格",
     }.get(requirements.usage, "均衡比较性能、相机、屏幕、续航和价格")
     user_prompt = f"""
-需求：预算{requirements.budget:g}元；用途{requirements.usage}；补充{requirements.details[:80] or '无'}
+需求：预算{requirements.min_budget:g}-{requirements.budget:g}元；用途{requirements.usage}；补充{requirements.details[:80] or '无'}
 评分重点：{criteria}
 候选手机：{json.dumps(compact_candidates, ensure_ascii=False)}
-对全部5个候选分别给0到100分，每个id必须且只能出现一次。严格输出一个以候选id为键的对象：{{"scores":{{"候选id":分数}}}}
+对全部{len(candidates)}个候选分别给0到100分，每个id必须且只能出现一次。严格输出一个以候选id为键的对象：{{"scores":{{"候选id":分数}}}}
 """.strip()
     return system_prompt, user_prompt
 
@@ -436,12 +762,47 @@ def _model_scores(opinions: list[ModelOpinion]) -> dict[int, list[tuple[float, d
     return result
 
 
-def _shortlist(candidates: list[dict[str, Any]], requirements: Requirements, limit: int = 5) -> list[dict[str, Any]]:
+def _standardized_model_scores(
+    opinions: list[ModelOpinion],
+    expected_ids: set[int],
+) -> dict[int, list[float]]:
+    """Center each model's scores before averaging to reduce model-scale bias."""
+    by_model: dict[str, dict[int, float]] = {}
+    all_scores: list[float] = []
+    for opinion in opinions:
+        scores = {
+            variant_id: values[0][0]
+            for variant_id, values in _model_scores([opinion]).items()
+            if variant_id in expected_ids and values
+        }
+        if scores:
+            by_model[opinion.model_name] = scores
+            all_scores.extend(scores.values())
+    if not all_scores:
+        return {}
+    global_mean = statistics.mean(all_scores)
+    adjusted: dict[int, list[float]] = {}
+    for scores in by_model.values():
+        model_mean = statistics.mean(scores.values())
+        for variant_id, score in scores.items():
+            adjusted.setdefault(variant_id, []).append(
+                _clamp(score - model_mean + global_mean)
+            )
+    return adjusted
+
+
+def _shortlist(candidates: list[dict[str, Any]], requirements: Requirements, limit: int = 6) -> list[dict[str, Any]]:
     prices = [item["current_price"] for item in candidates if item.get("current_price") is not None]
     ranked = []
+    preference = requirements.price_preference if requirements.price_preference != "auto" else _price_preference(requirements.details)
     for item in candidates:
         components = _base_components(item, requirements, prices)
-        preliminary = 0.72 * components["requirement_match"] + 0.16 * components["data_trust"] + 0.12 * components["value"]
+        if preference == "high":
+            preliminary = 0.62 * components["requirement_match"] + 0.15 * components["data_trust"] + 0.23 * components["value"]
+        elif preference == "low":
+            preliminary = 0.68 * components["requirement_match"] + 0.16 * components["data_trust"] + 0.16 * components["value"]
+        else:
+            preliminary = 0.72 * components["requirement_match"] + 0.16 * components["data_trust"] + 0.12 * components["value"]
         ranked.append((preliminary, item))
     ranked.sort(key=lambda row: row[0], reverse=True)
     selected: list[dict[str, Any]] = []
@@ -535,19 +896,41 @@ def _natural_explanation(candidate: dict[str, Any], requirements: Requirements, 
             facts.append(f"主摄为 {candidate['main_camera_mp']:g} MP")
     if not facts:
         facts.append(f"该版本提供 {candidate['storage_gb']}GB 存储并满足你的硬性条件")
-    price_source = "已核验平台公开价" if candidate.get("price_detail") else "公开发售价参考"
+    detail = candidate.get("price_detail")
+    trust_level = detail.get("trust_level") if detail else None
+    price_source = (
+        "手工采集平台价（店铺/SKU未核验）"
+        if trust_level == "manual"
+        else "已审核官方店公开价"
+        if trust_level == "verified"
+        else "待复核平台参考价"
+        if detail
+        else "公开发售价参考"
+    )
     margin = requirements.budget - float(candidate["current_price"])
-    model_text = f"{len(model_values)} 个有效模型评分均值 {statistics.mean(model_values):.1f}、分歧标准差 {deviation:.1f}" if model_values else "模型超时后已由规则评分安全降级"
-    caution = "购买前仍需在结算页确认实时价格和补贴资格" if candidate.get("price_detail") else "目前缺少已核验平台价，购买前请进入平台确认实时成交价"
-    return f"第{rank}名推荐 {name}：" + "，".join(facts[:3]) + f"。{price_source}为 ¥{candidate['current_price']:,.0f}，在预算内余 ¥{margin:,.0f}；{model_text}。{caution}。"
+    model_text = f"{len(model_values)} 个有效模型标准化均值 {statistics.mean(model_values):.1f}、分歧标准差 {deviation:.1f}" if model_values else "模型超时后已由规则评分安全降级"
+    caution = "购买前仍需在结算页确认实时价格和补贴资格" if detail else "目前缺少已核验平台价，购买前请进入平台确认实时成交价"
+    budget_text = f"预算区间 ¥{requirements.min_budget:,.0f}-¥{requirements.budget:,.0f}" if requirements.min_budget else f"预算不超过 ¥{requirements.budget:,.0f}"
+    return f"第{rank}名推荐 {name}：" + "，".join(facts[:3]) + f"。{price_source}为 ¥{candidate['current_price']:,.0f}，{budget_text}，距离上限余 ¥{margin:,.0f}；{model_text}。{caution}。"
 
 
 def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
     started = time.perf_counter()
+    client = OllamaClient()
+    known_brands = db.scalars(select(Brand.name).where(Brand.is_active.is_(True))).all()
+    requirements.intent = parse_intent(requirements.details, requirements.usage, list(known_brands), client)
+    if requirements.brand and requirements.brand not in requirements.intent["preferred_brands"]:
+        requirements.intent["preferred_brands"].append(requirements.brand)
+    if requirements.intent.get("min_budget") is not None:
+        requirements.min_budget = float(requirements.intent["min_budget"])
+    if requirements.intent.get("max_budget") is not None:
+        requirements.budget = float(requirements.intent["max_budget"])
+    if requirements.intent.get("price_preference") in {"high", "low"}:
+        requirements.price_preference = requirements.intent["price_preference"]
     candidates = load_candidates(db, requirements, limit=None)
-    candidates = _shortlist(candidates, requirements, limit=5)
+    candidates = _shortlist(candidates, requirements, limit=6)
     run = RecommendationRun(
-        user_query=requirements.details or f"预算{requirements.budget}元，{requirements.usage}",
+        user_query=requirements.details or f"预算{requirements.min_budget}-{requirements.budget}元，{requirements.usage}",
         parsed_requirements=json.dumps(asdict(requirements), ensure_ascii=False),
         candidate_count=len(candidates),
         success=False,
@@ -564,7 +947,6 @@ def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
         return {"run_id": run.id, "results": [], "message": run.error_message}
 
     system_prompt, user_prompt = _build_prompt(requirements, candidates)
-    client = OllamaClient()
     installed = set(client.installed_models())
     opinions = _parallel_model_opinions(client, installed, system_prompt, user_prompt)
     opinions = _repair_incomplete_opinions(
@@ -592,20 +974,26 @@ def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
         db.add(model_run)
 
     scores_by_id = _model_scores(opinions)
+    standardized_by_id = _standardized_model_scores(
+        opinions, {candidate["variant_id"] for candidate in candidates}
+    )
     prices = [item["current_price"] for item in candidates if item.get("current_price")]
     results: list[dict[str, Any]] = []
     for candidate in candidates:
         components = _base_components(candidate, requirements, prices)
         model_items = scores_by_id.get(candidate["variant_id"], [])
         model_values = [item[0] for item in model_items]
-        if model_values:
-            average = statistics.mean(model_values)
-            deviation = statistics.pstdev(model_values) if len(model_values) > 1 else 12
+        consensus_values = standardized_by_id.get(candidate["variant_id"], model_values)
+        if consensus_values:
+            average = statistics.mean(model_values) if model_values else statistics.mean(consensus_values)
+            consensus_average = statistics.mean(consensus_values)
+            deviation = statistics.pstdev(consensus_values) if len(consensus_values) > 1 else 12
             agreement = max(0.7, 1 - deviation / 100)
-            raw_consensus = average * agreement
+            raw_consensus = consensus_average * agreement
             consensus = _clamp(raw_consensus, components["requirement_match"] - 8, components["requirement_match"] + 8)
         else:
-            average, deviation, consensus = components["requirement_match"], 25.0, components["requirement_match"] * 0.7
+            average = consensus_average = components["requirement_match"]
+            deviation, consensus = 25.0, components["requirement_match"] * 0.7
         components["model_consensus"] = round(consensus, 2)
         score_breakdown = [
             {
@@ -626,6 +1014,7 @@ def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
                 "score": round(final_score, 1),
                 "components": components,
                 "model_average": round(average, 1),
+                "consensus_average": round(consensus_average, 1),
                 "model_deviation": round(deviation, 1),
                 "confidence": "高" if len(model_values) >= 3 and deviation <= 10 else "中" if model_values else "低",
                 "reason": "",
@@ -633,15 +1022,53 @@ def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
                 "cons": cons,
                 "model_votes": len(model_values),
                 "score_breakdown": score_breakdown,
-                "evidence_lines": _evidence_lines(candidate, requirements, model_values, deviation),
+                "evidence_lines": _evidence_lines(candidate, requirements, consensus_values, deviation),
             }
         )
-    results.sort(key=lambda item: item["score"], reverse=True)
-    results = results[:3]
+    # Budget proximity is only a tie-breaker among high-quality candidates.
+    # A phone that is noticeably weaker should not win merely because its
+    # price is closer to the user's upper budget.
+    quality_index = {
+        item["variant_id"]: (
+            0.40 * item["components"]["requirement_match"]
+            + 0.15 * item["components"]["model_consensus"]
+            + 0.20 * item["components"]["data_trust"]
+            + 0.05 * item["components"]["freshness"]
+        )
+        for item in results
+    }
+    best_quality = max(quality_index.values(), default=0)
+    for item in results:
+        gap = best_quality - quality_index[item["variant_id"]]
+        factor = 1.0 if gap <= 7 else 0.55 if gap <= 14 else 0.25
+        if factor < 1:
+            item["components"]["value"] = round(item["components"]["value"] * factor, 2)
+            for entry in item["score_breakdown"]:
+                if entry["key"] == "value":
+                    entry["contribution"] = round(item["components"]["value"] * entry["weight"] / 100, 2)
+            item["score"] = round(sum(entry["contribution"] for entry in item["score_breakdown"]), 1)
+    preference = requirements.price_preference if requirements.price_preference != "auto" else _price_preference(requirements.details)
+    if preference in {"high", "low"}:
+        eligible = [item for item in results if best_quality - quality_index[item["variant_id"]] <= 8]
+        eligible.sort(key=lambda item: item["current_price"], reverse=preference == "high")
+        selected = eligible[:3]
+        if len(selected) < 3:
+            selected_ids = {item["variant_id"] for item in selected}
+            fallback = sorted(
+                (item for item in results if item["variant_id"] not in selected_ids),
+                key=lambda item: item["score"],
+                reverse=True,
+            )
+            selected.extend(fallback[:3 - len(selected)])
+        results = selected
+    else:
+        results.sort(key=lambda item: item["score"], reverse=True)
+        results = results[:3]
     for index, item in enumerate(results, start=1):
         model_values = [score for score, _ in scores_by_id.get(item["variant_id"], [])]
-        deviation = statistics.pstdev(model_values) if len(model_values) > 1 else (12 if model_values else 25)
-        item["reason"] = _natural_explanation(item, requirements, index, model_values, deviation)
+        consensus_values = standardized_by_id.get(item["variant_id"], model_values)
+        deviation = statistics.pstdev(consensus_values) if len(consensus_values) > 1 else (12 if consensus_values else 25)
+        item["reason"] = _natural_explanation(item, requirements, index, consensus_values, deviation)
     run.total_latency_ms = (time.perf_counter() - started) * 1000
     run.final_result = json.dumps(results, ensure_ascii=False)
     run.success = True
@@ -663,5 +1090,9 @@ def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
             for item in opinions
         ],
         "total_latency_ms": round(run.total_latency_ms, 1),
-        "formula": "需求匹配35% + 模型共识25% + 数据可信度20% + 性价比15% + 时效性5%",
+        "formula": "需求匹配40% + 模型共识15% + 数据可信度20% + 预算利用20% + 时效性5%",
+        "score_weights": [
+            {"key": key, "label": label, "weight": int(weight * 100)}
+            for key, (label, weight) in SCORE_WEIGHTS.items()
+        ],
     }

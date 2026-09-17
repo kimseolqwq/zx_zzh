@@ -17,7 +17,8 @@ from app.models import (
     PriceSnapshot,
     RecommendationRun,
 )
-from app.services.pricing import latest_snapshot, snapshot_summary
+from app.services.pricing import as_aware_utc, latest_snapshot, snapshot_summary
+from app.services.recommendation import SCORE_WEIGHTS
 
 
 PLACEHOLDER_VALUES = {"", "—", "未知", "待补充", "CPU型号", "移动平台", "官方参数正在补充"}
@@ -51,7 +52,7 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
     listings = db.scalars(
         select(PlatformListing)
         .options(selectinload(PlatformListing.prices))
-        .where(PlatformListing.is_active.is_(True), PlatformListing.store_verified.is_(True))
+        .where(PlatformListing.is_active.is_(True))
     ).unique().all()
 
     fields = [
@@ -61,7 +62,7 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
         ("camera", "主摄像素", lambda phone: phone.main_camera_mp),
         ("battery", "电池容量", lambda phone: phone.battery_mah),
         ("weight", "机身重量", lambda phone: phone.weight_g),
-        ("image", "官网产品图", lambda phone: phone.image_url),
+        ("image", "产品图", lambda phone: phone.image_url),
     ]
     field_coverage = []
     for key, label, getter in fields:
@@ -69,12 +70,31 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
         field_coverage.append({"key": key, "label": label, "count": count, "total": len(phones), "percent": _percent(count, len(phones))})
 
     platform_counts: dict[str, dict[str, int]] = {
-        key: {"listings": 0, "priced": 0, "fresh": 0} for key in ("jd", "tmall", "pdd")
+        key: {"listings": 0, "verified": 0, "manual": 0, "priced": 0, "fresh": 0}
+        for key in ("jd", "tmall", "pdd")
     }
     priced_count = fresh_count = evidence_count = 0
+    verified_listing_count = manual_listing_count = verified_fresh_count = 0
     for listing in listings:
-        row = platform_counts.setdefault(listing.platform, {"listings": 0, "priced": 0, "fresh": 0})
+        row = platform_counts.setdefault(
+            listing.platform,
+            {"listings": 0, "verified": 0, "manual": 0, "priced": 0, "fresh": 0},
+        )
         row["listings"] += 1
+        reviewed = [
+            item for item in listing.prices
+            if item.crawl_status == "reviewed" and (item.evidence_text_path or item.screenshot_path)
+        ]
+        manual = [
+            item for item in listing.prices
+            if item.crawl_status in {"manual", "manual_unavailable", "manual_not_found"}
+        ]
+        if reviewed and listing.store_verified:
+            verified_listing_count += 1
+            row["verified"] += 1
+        elif manual:
+            manual_listing_count += 1
+            row["manual"] += 1
         latest = snapshot_summary(latest_snapshot(listing))
         if latest["price"] is not None:
             priced_count += 1
@@ -82,6 +102,10 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
             if not latest["is_stale"]:
                 fresh_count += 1
                 row["fresh"] += 1
+        if reviewed:
+            reviewed_latest = max(reviewed, key=lambda item: as_aware_utc(item.crawled_at))
+            if not snapshot_summary(reviewed_latest)["is_stale"]:
+                verified_fresh_count += 1
         if latest["has_evidence"] and latest["is_reviewed"]:
             evidence_count += 1
 
@@ -108,7 +132,7 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
     configured_order = {name: index for index, name in enumerate(("qwen3:8b", "deepseek-r1:7b", "gemma3:4b"))}
     model_metrics.sort(key=lambda item: configured_order.get(item["model_name"], 99))
 
-    official_sources = sum(bool(phone.source_url or phone.official_url) for phone in phones)
+    source_traceable = sum(bool(phone.source_url or phone.official_url) for phone in phones)
     phones_with_variants = sum(any(item.is_active for item in phone.variants) for phone in phones)
     launch_prices = sum(item.launch_price is not None for item in variants)
     return {
@@ -116,8 +140,8 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
             "brands": db.scalar(select(func.count()).select_from(Brand).where(Brand.is_active.is_(True))) or 0,
             "phones": len(phones),
             "variants": len(variants),
-            "official_sources": official_sources,
-            "official_source_rate": _percent(official_sources, len(phones)),
+            "source_traceable": source_traceable,
+            "source_traceable_rate": _percent(source_traceable, len(phones)),
             "phones_with_variants": phones_with_variants,
             "variant_coverage_rate": _percent(phones_with_variants, len(phones)),
             "launch_prices": launch_prices,
@@ -126,9 +150,12 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
         },
         "field_coverage": field_coverage,
         "prices": {
-            "verified_listings": len(listings),
+            "all_listings": len(listings),
+            "verified_listings": verified_listing_count,
+            "manual_listings": manual_listing_count,
             "priced": priced_count,
             "fresh": fresh_count,
+            "verified_fresh": verified_fresh_count,
             "evidence": evidence_count,
             "fresh_rate": _percent(fresh_count, priced_count),
             "evidence_rate": _percent(evidence_count, len(listings)),
@@ -144,4 +171,8 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
             "p95_latency_s": round((_percentile(run_latencies, 0.95) or 0) / 1000, 2) if run_latencies else None,
         },
         "models": model_metrics,
+        "score_weights": [
+            {"key": key, "label": label, "weight": int(weight * 100)}
+            for key, (label, weight) in SCORE_WEIGHTS.items()
+        ],
     }

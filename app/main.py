@@ -25,7 +25,7 @@ async def lifespan(_app: FastAPI):
 app = FastAPI(
     title="择机 · 多模型手机推荐系统",
     description="本地部署的手机数据、价格与多模型融合推荐系统",
-    version="1.3.0",
+    version="1.4.0",
     lifespan=lifespan,
 )
 app.add_middleware(

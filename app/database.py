@@ -57,6 +57,19 @@ def create_schema() -> None:
             connection.exec_driver_sql("ALTER TABLE phone_models ADD COLUMN image_url VARCHAR(1000)")
         if "image_source_url" not in columns:
             connection.exec_driver_sql("ALTER TABLE phone_models ADD COLUMN image_source_url VARCHAR(500)")
+        additive_columns = {
+            "wireless_charging_supported": "BOOLEAN",
+            "waterproof_supported": "BOOLEAN",
+            "nfc": "BOOLEAN",
+            "five_g": "BOOLEAN",
+            "screen_shape": "VARCHAR(30)",
+            "telephoto": "BOOLEAN",
+        }
+        for name, sql_type in additive_columns.items():
+            if name not in columns:
+                connection.exec_driver_sql(
+                    f"ALTER TABLE phone_models ADD COLUMN {name} {sql_type}"
+                )
         connection.exec_driver_sql("PRAGMA optimize")
 
 

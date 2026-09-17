@@ -1,9 +1,10 @@
 from datetime import datetime, timezone
+from urllib.parse import parse_qs, urlparse
 
 from app.models import PriceSnapshot
 from decimal import Decimal
 
-from app.services.pricing import freshness_metadata, snapshot_summary
+from app.services.pricing import freshness_metadata, platform_search_url, snapshot_summary
 
 
 def test_price_freshness_labels_and_stale_threshold() -> None:
@@ -28,3 +29,19 @@ def test_snapshot_summary_only_exposes_public_price() -> None:
     summary = snapshot_summary(snapshot)
     assert summary["price"] == 3999
     assert not any("gov" in key or "subsidy" in key for key in summary)
+
+
+def test_platform_search_url_contains_model_and_exact_variant() -> None:
+    queries = {
+        "jd": "keyword",
+        "tmall": "q",
+        "pdd": "search_key",
+    }
+    for platform, parameter in queries.items():
+        parsed = urlparse(platform_search_url(platform, "Apple", "iPhone 17", "512"))
+        value = parse_qs(parsed.query)[parameter][0]
+        assert "Apple" in value
+        assert "iPhone 17" in value
+        assert "512GB" in value
+        assert "+" not in platform_search_url(platform, "Apple", "iPhone 17", "512GB")
+        assert "%20" in platform_search_url(platform, "Apple", "iPhone 17", "512GB")
