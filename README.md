@@ -9,16 +9,17 @@
 - 手机、版本、平台链接和价格的增删改查；
 - Qwen3 1.7B、Qwen2.5 1.5B、Gemma3 1B 并行调用，7 秒超时自动降级；
 - JSON 输出校验和失败降级；
-- 五维融合算法：需求匹配 35%、模型共识 25%、数据可信度 20%、性价比 15%、时效性 5%；
-- 预算、品牌、最低存储作为数据库硬约束；无符合项时明确提示调整条件，不强行推荐超预算机型；
+- 五维融合算法：需求匹配 40%、模型共识 15%、数据可信度 20%、性价比 20%、时效性 5%；
+- 最低预算、最高预算、品牌、最低存储作为数据库硬约束；无符合项时明确提示调整条件，不强行推荐区间外机型；
 - 推荐原因、模型投票、置信度、参数和价格来源展示；
 - Top 1 展示五项原始分、权重、实际贡献分以及可追溯的结论证据链；
 - 公开“系统评估”页实时汇总数据覆盖率、价格新鲜度、P50/P95 延迟、模型成功率、JSON 成功率与输出速度；
 - 手机库支持按品牌分组、品牌数量统计、关键词搜索和三种排序；
-- 推荐卡片展示官网真实产品图，以及京东、天猫、拼多多各自最新价格；
+- 推荐卡片展示带来源标注的产品图，以及京东、天猫、拼多多各自最新价格；
 - Top 1 默认展开，鼠标悬停或键盘聚焦其他推荐时动态切换展开卡片；
 - 三平台官方店公开售价可点击：有已核验商品链接时直接进入商品页，否则进入对应平台搜索页并明确标注；
 - 价格卡片展示最近核验时间、7 天过期提醒、库存和审核证据状态；
+- 价格按“已审核官方店 / 手工参考价 / 待复核”分级；有已审核价时优先用于预算，手工价不再伪装成已核验；
 - 官方规格页保守解析器和低频安全抓取器；
 - 电商公开页面留证采集框架，不绕过登录和验证码；
 - 模型响应时间、输出速度、JSON 成功率和爬虫日志记录；
@@ -70,12 +71,18 @@ powershell -ExecutionPolicy Bypass -File .\scripts\setup_lan_access.ps1
 
 ```powershell
 .\.venv\Scripts\python.exe .\scripts\collect_catalog.py
+.\.venv\Scripts\python.exe .\scripts\collect_third_party_specs.py
+.\.venv\Scripts\python.exe .\scripts\collect_third_party_specs.py --apply-report .\data\reports\third-party-spec-crawl-XXXX.json
+.\.venv\Scripts\python.exe .\scripts\import_local_crawls.py --dry-run
+.\.venv\Scripts\python.exe .\scripts\import_local_crawls.py
 .\.venv\Scripts\python.exe .\scripts\reparse_official_evidence.py
 .\.venv\Scripts\python.exe .\scripts\audit_data_quality.py
 .\.venv\Scripts\python.exe .\scripts\generate_gap_queue.py
 ```
 
-离线重解析会合并全部历史采集报告，并为每款手机选择最新一次成功保存的官网证据；定向采集产生的小报告不会再遮蔽较早的完整采集结果。整个过程网络请求数为 0。
+`import_local_crawls.py` 会把项目内已有的小米、vivo、OPPO、荣耀、华为官网结构化抓取结果按官网路径或严格型号名匹配到现有手机，只补空字段，不把商城当前售价伪装成首发价；先运行 `--dry-run` 查看预计增量。离线重解析会合并全部历史采集报告，并为每款手机选择最新一次成功保存的官网证据；定向采集产生的小报告不会再遮蔽较早的完整采集结果。上述两个离线步骤的网络请求数均为 0。
+
+`collect_third_party_specs.py` 是官网不可访问时的第三方规格回退：它低频访问 MobileDokan 的精确型号页，只填空缺的非价格字段，保留页面证据和逐字段来源报告，不覆盖已有官网值。
 
 程序遵守 `robots.txt`；禁止自动抓取的站点使用 `config/manual_verified_supplement.csv` 经人工核验导入，不绕过限制。
 
@@ -90,6 +97,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\setup_lan_access.ps1
 
 ```powershell
 .\.venv\Scripts\python.exe .\scripts\generate_price_queue.py
+.\.venv\Scripts\python.exe .\scripts\import_manual_price_workbook.py "D:\path\to\人工采集价格结果.xlsx"
+.\.venv\Scripts\python.exe .\scripts\import_manual_price_workbook.py "D:\path\to\人工采集价格结果.xlsx" --apply
 .\.venv\Scripts\python.exe .\scripts\capture_price.py "商品链接" "任务编号"
 .\.venv\Scripts\python.exe .\scripts\import_reviewed_prices.py .\data\review\price_review_queue.csv --dry-run
 .\.venv\Scripts\python.exe .\scripts\import_reviewed_prices.py .\data\review\price_review_queue.csv
@@ -126,7 +135,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\setup_lan_access.ps1
 - 手机参数优先来自品牌官网；
 - 商品链接必须经过官方旗舰店白名单确认；
 - 未核验到商品直达链接时，界面只提供带手机型号关键词的平台搜索入口，不将搜索页标为官方商品页；
-- 产品图片只接受品牌官网或官方静态资源地址，并保存图片来源页面；
+- 产品图片优先使用品牌官网资源，第三方回退必须保存图片来源页面并明确标注；
+- 5G、NFC、屏幕形态、长焦、无线充电和防水均保留明确的“支持 / 不支持 / 未知”状态，缺失值不会被模型补猜；
 - 每个内存版本保留官方发售价；各平台只保存已核验官方店的常规价及无需资格的公开活动价；
 - 采集失败保存原因，不用 0 或猜测值代替；
 - 所有自动价格都保留原始文本或截图证据。
