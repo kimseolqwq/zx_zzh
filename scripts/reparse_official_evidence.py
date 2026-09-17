@@ -15,6 +15,7 @@ from app.config import DATA_DIR
 from app.crawlers.catalog_pipeline import CatalogSource, CollectedPhone, _fallback_variants, import_collected, read_sources
 from app.crawlers.official_specs import (
     completeness,
+    extract_official_metadata,
     extract_official_image,
     parse_memory_variants,
     parse_official_specs,
@@ -64,8 +65,11 @@ def rebuild_items(report_paths: list[Path], sources_paths: list[Path]) -> tuple[
             visible_text = text_path.read_text(encoding="utf-8")
             html_path = text_path.with_suffix(".html")
             html = html_path.read_text(encoding="utf-8") if html_path.exists() else ""
-            specs = parse_official_specs(visible_text)
-            variants = parse_memory_variants(visible_text)
+            evidence_text = "\n".join(
+                part for part in (visible_text, extract_official_metadata(html)) if part
+            )
+            specs = parse_official_specs(evidence_text)
+            variants = parse_memory_variants(evidence_text)
             if not variants and source.fallback_variants:
                 variants = _fallback_variants(source.fallback_variants)
             collected.append(CollectedPhone(
@@ -74,7 +78,7 @@ def rebuild_items(report_paths: list[Path], sources_paths: list[Path]) -> tuple[
                 fetched_at=datetime.fromtimestamp(text_path.stat().st_mtime, tz=timezone.utc),
                 evidence_path=str(text_path.resolve()),
                 specs=specs,
-                release_date=parse_release_date(visible_text),
+                release_date=parse_release_date(evidence_text),
                 variants=variants,
                 image=extract_official_image(html, row["url"], row["model_name"]) if html else None,
                 completeness=completeness(specs),

@@ -1,5 +1,6 @@
 from app.crawlers.official_specs import (
     completeness,
+    extract_official_metadata,
     extract_official_image,
     is_likely_product_image_url,
     parse_memory_variants,
@@ -41,6 +42,24 @@ def test_parse_official_specs() -> None:
     assert parsed["main_camera_mp"] == 50
     assert parsed["battery_mah"] == 5200
     assert completeness(parsed) >= 80
+
+
+def test_official_metadata_and_marketing_specs_are_parsed_conservatively() -> None:
+    html = """
+    <html><head>
+      <title>Xiaomi 17</title>
+      <meta name="description" content="6.3″屏幕，搭载第五代骁龙 8 至尊版移动平台和 7000mAh电池；100W小米澎湃有线秒充；IP68防尘防水；小米澎湃OS 3。">
+    </head></html>
+    """
+    text = extract_official_metadata(html)
+    parsed = parse_official_specs(text)
+    assert parsed["cpu"] == "第五代骁龙 8 至尊版移动平台"
+    assert parsed["screen_size"] == 6.3
+    assert parsed["battery_mah"] == 7000
+    assert parsed["charging_w"] == 100
+    assert parsed["waterproof"] == "IP68"
+    assert parsed["operating_system"] == "小米澎湃OS 3"
+    assert parse_official_specs("真我 SUPERVOOC 240W 超级闪充充电器（套装）")["charging_w"] is None
 
 
 def test_price_parser_keeps_price_types_separate() -> None:
@@ -230,6 +249,24 @@ def test_samsung_camera_label_and_implausible_values() -> None:
     assert invalid["main_camera_mp"] is None
     assert invalid["battery_mah"] is None
     assert invalid["weight_g"] is None
+
+
+def test_foldable_main_screen_size_is_valid() -> None:
+    assert parse_official_specs("屏幕尺寸：10.2 英寸 OLED")["screen_size"] == 10.2
+    assert parse_official_specs("屏幕尺寸：13.5 英寸 OLED")["screen_size"] is None
+
+
+def test_official_feature_flags_are_parsed_conservatively() -> None:
+    parsed = parse_official_specs(
+        "支持 5G 网络，支持 NFC，采用直屏，主摄包含潜望长焦，"
+        "支持 50W 无线充电，支持 IP68 防尘防水"
+    )
+    assert parsed["five_g"] is True
+    assert parsed["nfc"] is True
+    assert parsed["screen_shape"] == "flat"
+    assert parsed["telephoto"] is True
+    assert parsed["wireless_charging_supported"] is True
+    assert parsed["waterproof_supported"] is True
 
 
 def test_fallback_variants_support_explicit_ram_storage_pairs() -> None:

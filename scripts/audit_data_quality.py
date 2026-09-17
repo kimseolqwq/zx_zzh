@@ -21,6 +21,13 @@ from app.services.evaluation import is_meaningful
 
 
 FIELDS = ("cpu", "screen_size", "refresh_rate", "main_camera_mp", "battery_mah", "weight_g", "image_url", "source_url")
+EXTENDED_FIELDS = (
+    "release_date", "cpu", "screen_size", "screen_type", "resolution", "refresh_rate",
+    "main_camera_mp", "camera_summary", "battery_mah", "charging_w",
+    "wireless_charging_w", "wireless_charging_supported", "weight_g", "thickness_mm",
+    "waterproof", "waterproof_supported", "nfc", "five_g", "screen_shape",
+    "telephoto", "operating_system", "image_url", "source_url",
+)
 
 
 def audit() -> dict:
@@ -33,6 +40,9 @@ def audit() -> dict:
         variants = [variant for phone in phones for variant in phone.variants if variant.is_active]
         listings = [listing for variant in variants for listing in variant.listings if listing.is_active]
         snapshots = [snapshot for listing in listings for snapshot in listing.prices]
+        manual_statuses = {"manual", "manual_unavailable", "manual_not_found"}
+        manual_snapshots = [snapshot for snapshot in snapshots if snapshot.crawl_status in manual_statuses]
+        manual_listing_ids = {snapshot.listing_id for snapshot in manual_snapshots}
         reviewed_snapshots = [snapshot for snapshot in snapshots if snapshot.crawl_status == "reviewed"]
         reviewed_listing_ids = {snapshot.listing_id for snapshot in reviewed_snapshots}
         reviewed_listings = [listing for listing in listings if listing.id in reviewed_listing_ids and listing.store_verified]
@@ -54,6 +64,10 @@ def audit() -> dict:
         coverage = {
             field: round(sum(is_meaningful(getattr(phone, field)) for phone in phones) / len(phones) * 100, 1) if phones else 0
             for field in FIELDS
+        }
+        extended_coverage = {
+            field: round(sum(is_meaningful(getattr(phone, field)) for phone in phones) / len(phones) * 100, 1) if phones else 0
+            for field in EXTENDED_FIELDS
         }
         issues = []
         for phone in phones:
@@ -88,12 +102,16 @@ def audit() -> dict:
                 "three_platform_variants": sum(platforms == {"jd", "tmall", "pdd"} for platforms in platforms_by_variant.values()),
                 "fresh_price_snapshots_7d": len(fresh_snapshots),
                 "price_evidence_snapshots": sum(bool(snapshot.evidence_text_path or snapshot.screenshot_path) for snapshot in reviewed_snapshots),
-                "official_source_phones": sum(phone.data_quality.startswith("official_") or phone.data_quality == "manual_official_review" for phone in phones),
+                "manual_price_listings": len(manual_listing_ids),
+                "manual_price_snapshots": len(manual_snapshots),
+                "official_catalog_phones": sum(phone.data_quality.startswith("official_") or phone.data_quality == "manual_official_review" for phone in phones),
+                "source_traceable_phones": sum(bool(phone.source_url or phone.official_url) for phone in phones),
             },
             "reviewed_platform_counts": dict(sorted(Counter(listing.platform for listing in reviewed_listings).items())),
             "brand_counts": dict(sorted(brand_counts.items())),
             "quality_counts": dict(sorted(quality_counts.items())),
             "field_coverage_percent": coverage,
+            "extended_field_coverage_percent": extended_coverage,
             "issue_counts": dict(Counter(issue["type"] for issue in issues)),
             "issues": issues,
         }
@@ -115,12 +133,16 @@ def write_reports(payload: dict) -> tuple[Path, Path]:
         f"- 三平台价格齐全的版本：{summary['three_platform_variants']}",
         f"- 7 天内价格快照：{summary['fresh_price_snapshots_7d']}",
         f"- 带证据的价格快照：{summary['price_evidence_snapshots']}",
+        f"- 手工参考价商品：{summary['manual_price_listings']}",
+        f"- 手工参考价快照：{summary['manual_price_snapshots']}",
         "", "## 已审核价格平台分布", "",
         *[f"- {platform}：{count} 条" for platform, count in payload["reviewed_platform_counts"].items()],
         "", "## 品牌分布", "",
         *[f"- {brand}：{count} 款" for brand, count in payload["brand_counts"].items()],
         "", "## 参数字段覆盖率", "",
         *[f"- {field}：{value}%" for field, value in payload["field_coverage_percent"].items()],
+        "", "## 扩展字段覆盖率", "",
+        *[f"- {field}：{value}%" for field, value in payload.get("extended_field_coverage_percent", {}).items()],
         "", "## 待处理问题", "",
         *[f"- {name}：{count}" for name, count in payload["issue_counts"].items()],
         "", "> 缺失值保持为空，不使用猜测值填充。电商价格只有在商品域名、官方店名称、审核人和留证文件同时通过时才允许入库。", "",

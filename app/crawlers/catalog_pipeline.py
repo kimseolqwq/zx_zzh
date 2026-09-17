@@ -16,6 +16,7 @@ from app.crawlers.base import SafeFetcher
 from app.crawlers.official_specs import (
     SPEC_BOUNDS,
     completeness,
+    extract_official_metadata,
     extract_official_image,
     is_likely_product_image_url,
     parse_memory_variants,
@@ -99,15 +100,18 @@ def collect_source(source: CatalogSource, fetcher: SafeFetcher) -> CollectedPhon
     result = fetcher.fetch(source.official_url)
     if not _page_matches_model(source.model_name, result.visible_text):
         raise ValueError("页面内容与机型名称不匹配，拒绝入库")
-    specs = parse_official_specs(result.visible_text)
-    variants = parse_memory_variants(result.visible_text) or _fallback_variants(source.fallback_variants)
+    evidence_text = "\n".join(
+        part for part in (result.visible_text, extract_official_metadata(result.html)) if part
+    )
+    specs = parse_official_specs(evidence_text)
+    variants = parse_memory_variants(evidence_text) or _fallback_variants(source.fallback_variants)
     return CollectedPhone(
         source=source,
         final_url=result.url,
         fetched_at=result.fetched_at,
         evidence_path=str(result.text_path),
         specs=specs,
-        release_date=parse_release_date(result.visible_text),
+        release_date=parse_release_date(evidence_text),
         variants=variants,
         image=extract_official_image(result.html, result.url, source.model_name),
         completeness=completeness(specs),
@@ -150,13 +154,22 @@ def _upsert_phone(db: Session, item: CollectedPhone) -> tuple[int, int, int]:
         "release_date": item.release_date,
         "cpu": item.specs.get("cpu"),
         "screen_size": item.specs.get("screen_size"),
+        "screen_type": item.specs.get("screen_type"),
         "resolution": item.specs.get("resolution"),
         "refresh_rate": int(item.specs["refresh_rate"]) if item.specs.get("refresh_rate") else None,
         "main_camera_mp": item.specs.get("main_camera_mp"),
         "battery_mah": int(item.specs["battery_mah"]) if item.specs.get("battery_mah") else None,
         "charging_w": item.specs.get("charging_w"),
+        "wireless_charging_w": item.specs.get("wireless_charging_w"),
+        "wireless_charging_supported": item.specs.get("wireless_charging_supported"),
         "weight_g": item.specs.get("weight_g"),
         "thickness_mm": item.specs.get("thickness_mm"),
+        "waterproof": item.specs.get("waterproof"),
+        "waterproof_supported": item.specs.get("waterproof_supported"),
+        "nfc": item.specs.get("nfc"),
+        "five_g": item.specs.get("five_g"),
+        "screen_shape": item.specs.get("screen_shape"),
+        "telephoto": item.specs.get("telephoto"),
         "operating_system": item.specs.get("operating_system"),
     }
     for field, value in fields.items():

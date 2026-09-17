@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.tmp/
 .env
 data/*.db
 !data/phone_recommender.db
@@ -9,6 +10,7 @@ data/*.db-shm
 data/*.db-wal
 data/backups/
 data/raw/
+data/cache/
 data/benchmark_cache/
 data/browser-profile/
 data/screenshots/
