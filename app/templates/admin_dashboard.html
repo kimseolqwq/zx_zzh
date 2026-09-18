@@ -9,7 +9,7 @@
   <nav class="admin-tabs"><a href="#phones">手机型号</a><a href="#variants">内存版本</a><a href="#listings">平台价格</a><a href="#brands">品牌</a></nav>
 
   <section class="admin-section"><div class="section-heading"><div><span>MEASUREMENT</span><h2>模型性能度量</h2></div><span>最近100次调用</span></div>
-    <div class="performance-grid">{% for metric in model_metrics %}<article><span>{{ metric.model_name }}</span><strong>{{ metric.success_rate }}%</strong><small>调用成功率</small><div><b>{{ metric.avg_latency_s or '—' }} s</b><b>{{ metric.avg_tps or '—' }} tok/s</b><b>JSON {{ metric.json_rate }}%</b></div></article>{% else %}<p>完成一次真实推荐后，这里将显示模型响应时间和输出速度。</p>{% endfor %}</div>
+    <div class="performance-grid">{% for metric in model_metrics %}<article><span>{{ metric.model_name }}</span><strong>{{ metric.success_rate }}%</strong><small>调用成功率</small><div><b>{{ metric.avg_latency_s or '—' }} s</b><b>{{ metric.avg_tps or '—' }} tok/s</b></div></article>{% else %}<p>完成一次真实推荐后，这里将显示模型响应时间和输出速度。</p>{% endfor %}</div>
     <div class="audit-line"><b>最近操作</b>{% for log in audit_logs[:6] %}<span>{{ log.created_at.strftime('%m-%d %H:%M') }} · {{ log.action }} {{ log.table_name }} #{{ log.record_id or '—' }}</span>{% else %}<span>暂无操作日志</span>{% endfor %}</div>
   </section>
 

@@ -237,7 +237,6 @@ def dashboard(request: Request, q: str = "", db: Session = Depends(get_db)):
             "model_name": model_name,
             "calls": len(rows),
             "success_rate": round(sum(row.success for row in rows) / len(rows) * 100, 1),
-            "json_rate": round(sum(row.json_parse_success for row in rows) / len(rows) * 100, 1),
             "avg_latency_s": round(statistics.mean(latencies) / 1000, 2) if latencies else None,
             "avg_tps": round(statistics.mean(speeds), 2) if speeds else None,
         })

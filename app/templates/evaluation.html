@@ -51,10 +51,34 @@
 
   <section class="evaluation-panel model-evaluation">
     <header><div><span>LOCAL MODEL BENCHMARK</span><h2>本地模型性能</h2></div><small>最近 300 条模型调用日志</small></header>
-    <div class="model-benchmark-head"><span>模型</span><span>调用</span><span>成功率</span><span>JSON成功率</span><span>平均延迟</span><span>P95延迟</span><span>输出速度</span></div>
+    <div class="model-benchmark-head"><span>模型</span><span>调用</span><span>成功率</span><span>平均延迟</span><span>P95延迟</span><span>输出速度</span></div>
     {% for model in metrics.models %}
-    <div class="model-benchmark-row"><b>{{ model.model_name }}</b><span>{{ model.calls }}</span><span>{{ model.success_rate }}%</span><span>{{ model.json_rate }}%</span><span>{{ (model.avg_latency_s|string + ' s') if model.avg_latency_s is not none else '—' }}</span><span>{{ (model.p95_latency_s|string + ' s') if model.p95_latency_s is not none else '—' }}</span><span>{{ (model.avg_tps|string + ' tok/s') if model.avg_tps is not none else '—' }}</span></div>
+    <div class="model-benchmark-row"><b>{{ model.model_name }}</b><span>{{ model.calls }}</span><span>{{ model.success_rate }}%</span><span>{{ (model.avg_latency_s|string + ' s') if model.avg_latency_s is not none else '—' }}</span><span>{{ (model.p95_latency_s|string + ' s') if model.p95_latency_s is not none else '—' }}</span><span>{{ (model.avg_tps|string + ' tok/s') if model.avg_tps is not none else '—' }}</span></div>
     {% else %}<div class="benchmark-empty">完成一次真实推荐后，系统会自动生成各模型的成功率、延迟与吞吐量。</div>{% endfor %}
+  </section>
+
+  <section class="evaluation-panel token-panel">
+    <header><div><span>TOKEN USAGE</span><h2>Token 消耗与生成速度</h2></div><small>最近 {{ metrics.tokens.measured_runs }} 次有 Token 记录的推荐</small></header>
+    {% if metrics.tokens.measured_runs %}
+    <div class="token-section-title"><b>总览</b><span>按最近 {{ metrics.tokens.measured_runs }} 次有 Token 记录的完整推荐统计</span></div>
+    <div class="token-kpis">
+      <div><span>输入 Token</span><b>{{ '{:,}'.format(metrics.tokens.prompt_tokens) }}</b><small>需求解析 + 模型评分</small></div>
+      <div><span>输出 Token</span><b>{{ '{:,}'.format(metrics.tokens.response_tokens) }}</b><small>模型生成的评分结果</small></div>
+      <div><span>总 Token</span><b>{{ '{:,}'.format(metrics.tokens.total_tokens) }}</b><small>{{ metrics.tokens.total_model_calls }} 次评分调用</small></div>
+      <div><span>每次推荐平均</span><b>{{ '{:,}'.format(metrics.tokens.avg_total_tokens or 0) }}</b><small>输入 {{ metrics.tokens.avg_prompt_tokens or 0 }} / 输出 {{ metrics.tokens.avg_response_tokens or 0 }}</small></div>
+    </div>
+    <div class="token-section-title detail"><b>明细</b><span>评分模型取最近 300 条日志；需求解析从升级后的新推荐开始累计</span></div>
+    <div class="token-table-head"><span>调用阶段</span><span>模型</span><span>调用</span><span>输入</span><span>输出</span><span>总 Token</span><span>输出速度</span></div>
+    {% for model in metrics.tokens.models %}
+    <div class="token-table-row"><b>候选评分</b><span>{{ model.model_name }}</span><span>{{ model.calls }}</span><span>{{ '{:,}'.format(model.prompt_tokens) }}</span><span>{{ '{:,}'.format(model.response_tokens) }}</span><span>{{ '{:,}'.format(model.total_tokens) }}</span><span>{{ (model.avg_tps|string + ' tok/s') if model.avg_tps is not none else '—' }}</span></div>
+    {% endfor %}
+    {% if metrics.tokens.intent %}
+    <div class="token-table-row intent"><b>需求解析</b><span>{{ metrics.tokens.intent.model_name }}</span><span>{{ metrics.tokens.intent.calls }}</span><span>{{ '{:,}'.format(metrics.tokens.intent.prompt_tokens) }}</span><span>{{ '{:,}'.format(metrics.tokens.intent.response_tokens) }}</span><span>{{ '{:,}'.format(metrics.tokens.intent.total_tokens) }}</span><span>{{ (metrics.tokens.intent.avg_tps|string + ' tok/s') if metrics.tokens.intent.avg_tps is not none else '—' }}</span></div>
+    {% endif %}
+    <p class="token-note">候选评分统计最近 300 条模型日志；需求解析从本次升级后的新推荐开始记录。历史推荐没有需求解析 Token 字段，因此不会被补齐或估算。</p>
+    {% else %}
+    <div class="benchmark-empty">完成一次新推荐后，这里会显示需求解析、三个评分模型的输入和输出 Token。</div>
+    {% endif %}
   </section>
 
   <section class="evaluation-grid acceptance-grid">

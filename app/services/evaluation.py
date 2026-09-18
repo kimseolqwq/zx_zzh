@@ -109,7 +109,12 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
         if latest["has_evidence"] and latest["is_reviewed"]:
             evidence_count += 1
 
-    recent_runs = db.scalars(select(RecommendationRun).order_by(RecommendationRun.created_at.desc()).limit(100)).all()
+    recent_runs = db.scalars(
+        select(RecommendationRun)
+        .options(selectinload(RecommendationRun.model_runs))
+        .order_by(RecommendationRun.created_at.desc())
+        .limit(100)
+    ).all()
     successful_runs = [row for row in recent_runs if row.success]
     run_latencies = [row.total_latency_ms for row in successful_runs if row.total_latency_ms is not None]
     recent_model_runs = db.scalars(select(ModelRun).order_by(ModelRun.created_at.desc()).limit(300)).all()
@@ -124,13 +129,85 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
             "model_name": model_name,
             "calls": len(rows),
             "success_rate": _percent(sum(row.success for row in rows), len(rows)),
-            "json_rate": _percent(sum(row.json_parse_success for row in rows), len(rows)),
             "avg_latency_s": round(statistics.mean(latencies) / 1000, 2) if latencies else None,
             "p95_latency_s": round((_percentile(latencies, 0.95) or 0) / 1000, 2) if latencies else None,
             "avg_tps": round(statistics.mean(speeds), 2) if speeds else None,
         })
     configured_order = {name: index for index, name in enumerate(("qwen3:8b", "deepseek-r1:7b", "gemma3:4b"))}
     model_metrics.sort(key=lambda item: configured_order.get(item["model_name"], 99))
+
+    token_models = []
+    for model_name, rows in grouped.items():
+        prompt_tokens = sum(row.prompt_tokens or 0 for row in rows)
+        response_tokens = sum(row.response_tokens or 0 for row in rows)
+        speeds = [row.tokens_per_second for row in rows if row.tokens_per_second is not None]
+        token_models.append({
+            "model_name": model_name,
+            "calls": len(rows),
+            "prompt_tokens": prompt_tokens,
+            "response_tokens": response_tokens,
+            "total_tokens": prompt_tokens + response_tokens,
+            "avg_tps": round(statistics.mean(speeds), 2) if speeds else None,
+        })
+    token_models.sort(key=lambda item: item["total_tokens"], reverse=True)
+
+    measured_runs = []
+    for run in recent_runs:
+        model_runs = list(run.model_runs)
+        run_prompt_tokens = sum(row.prompt_tokens or 0 for row in model_runs)
+        run_response_tokens = sum(row.response_tokens or 0 for row in model_runs)
+        has_token_data = any(row.prompt_tokens is not None or row.response_tokens is not None for row in model_runs)
+        if run.intent_prompt_tokens is not None or run.intent_response_tokens is not None:
+            run_prompt_tokens += run.intent_prompt_tokens or 0
+            run_response_tokens += run.intent_response_tokens or 0
+            has_token_data = True
+        if has_token_data:
+            measured_runs.append(
+                {
+                    "prompt_tokens": run_prompt_tokens,
+                    "response_tokens": run_response_tokens,
+                    "total_tokens": run_prompt_tokens + run_response_tokens,
+                    "model_calls": len(model_runs),
+                    "has_intent_usage": run.intent_model_name is not None,
+                }
+            )
+
+    total_prompt_tokens = sum(item["prompt_tokens"] for item in measured_runs)
+    total_response_tokens = sum(item["response_tokens"] for item in measured_runs)
+    measured_run_count = len(measured_runs)
+    intent_model_runs = [
+        run for run in recent_runs if run.intent_model_name and run.intent_success is not None
+    ]
+    intent_metric = None
+    if intent_model_runs:
+        intent_speeds = [
+            run.intent_tokens_per_second
+            for run in intent_model_runs
+            if run.intent_tokens_per_second is not None
+        ]
+        intent_prompt_tokens = sum(run.intent_prompt_tokens or 0 for run in intent_model_runs)
+        intent_response_tokens = sum(run.intent_response_tokens or 0 for run in intent_model_runs)
+        intent_metric = {
+            "model_name": intent_model_runs[0].intent_model_name,
+            "calls": len(intent_model_runs),
+            "success_rate": _percent(sum(run.intent_success is True for run in intent_model_runs), len(intent_model_runs)),
+            "prompt_tokens": intent_prompt_tokens,
+            "response_tokens": intent_response_tokens,
+            "total_tokens": intent_prompt_tokens + intent_response_tokens,
+            "avg_tps": round(statistics.mean(intent_speeds), 2) if intent_speeds else None,
+        }
+    tokens = {
+        "measured_runs": measured_run_count,
+        "total_model_calls": sum(item["model_calls"] for item in measured_runs),
+        "prompt_tokens": total_prompt_tokens,
+        "response_tokens": total_response_tokens,
+        "total_tokens": total_prompt_tokens + total_response_tokens,
+        "avg_prompt_tokens": round(total_prompt_tokens / measured_run_count) if measured_run_count else None,
+        "avg_response_tokens": round(total_response_tokens / measured_run_count) if measured_run_count else None,
+        "avg_total_tokens": round((total_prompt_tokens + total_response_tokens) / measured_run_count) if measured_run_count else None,
+        "models": token_models,
+        "intent": intent_metric,
+    }
 
     source_traceable = sum(bool(phone.source_url or phone.official_url) for phone in phones)
     phones_with_variants = sum(any(item.is_active for item in phone.variants) for phone in phones)
@@ -171,6 +248,7 @@ def build_evaluation_metrics(db: Session) -> dict[str, Any]:
             "p95_latency_s": round((_percentile(run_latencies, 0.95) or 0) / 1000, 2) if run_latencies else None,
         },
         "models": model_metrics,
+        "tokens": tokens,
         "score_weights": [
             {"key": key, "label": label, "weight": int(weight * 100)}
             for key, (label, weight) in SCORE_WEIGHTS.items()
