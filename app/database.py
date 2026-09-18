@@ -70,6 +70,23 @@ def create_schema() -> None:
                 connection.exec_driver_sql(
                     f"ALTER TABLE phone_models ADD COLUMN {name} {sql_type}"
                 )
+        recommendation_columns = {
+            row[1]
+            for row in connection.exec_driver_sql("PRAGMA table_info(recommendation_runs)")
+        }
+        run_additive_columns = {
+            "intent_model_name": "VARCHAR(120)",
+            "intent_latency_ms": "FLOAT",
+            "intent_prompt_tokens": "INTEGER",
+            "intent_response_tokens": "INTEGER",
+            "intent_tokens_per_second": "FLOAT",
+            "intent_success": "BOOLEAN",
+        }
+        for name, sql_type in run_additive_columns.items():
+            if name not in recommendation_columns:
+                connection.exec_driver_sql(
+                    f"ALTER TABLE recommendation_runs ADD COLUMN {name} {sql_type}"
+                )
         connection.exec_driver_sql("PRAGMA optimize")
 
 

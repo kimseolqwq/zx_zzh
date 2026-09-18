@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.config import settings
 from app.models import Brand, ModelRun, PhoneModel, PhoneVariant, PlatformListing, RecommendationRun
-from app.services.intent_parser import parse_intent
+from app.services.intent_parser import FOLDABLE_NEGATIVE_TOKENS, parse_intent
 from app.services.ollama import ModelOpinion, OllamaClient
 from app.services.pricing import (
     as_aware_utc,
@@ -277,7 +277,7 @@ def _matches_special_requirements(candidate: dict[str, Any], details: str, inten
         return True
     has_structured_intent = bool(intent)
     foldable = _is_foldable(candidate)
-    avoids_foldable = any(token in text for token in ("不要折叠", "不需要折叠", "不要折叠屏", "直板机"))
+    avoids_foldable = any(token in text for token in FOLDABLE_NEGATIVE_TOKENS)
     wants_foldable = not avoids_foldable and any(token in text for token in ("折叠屏", "折叠手机", "foldable", " fold", "flip"))
     if wants_foldable and not foldable:
         return False
@@ -919,6 +919,7 @@ def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
     client = OllamaClient()
     known_brands = db.scalars(select(Brand.name).where(Brand.is_active.is_(True))).all()
     requirements.intent = parse_intent(requirements.details, requirements.usage, list(known_brands), client)
+    intent_usage = requirements.intent.pop("_model_usage", {}) or {}
     if requirements.brand and requirements.brand not in requirements.intent["preferred_brands"]:
         requirements.intent["preferred_brands"].append(requirements.brand)
     if requirements.intent.get("min_budget") is not None:
@@ -933,6 +934,12 @@ def recommend(db: Session, requirements: Requirements) -> dict[str, Any]:
         user_query=requirements.details or f"预算{requirements.min_budget}-{requirements.budget}元，{requirements.usage}",
         parsed_requirements=json.dumps(asdict(requirements), ensure_ascii=False),
         candidate_count=len(candidates),
+        intent_model_name=intent_usage.get("model_name"),
+        intent_latency_ms=intent_usage.get("latency_ms"),
+        intent_prompt_tokens=intent_usage.get("prompt_tokens"),
+        intent_response_tokens=intent_usage.get("response_tokens"),
+        intent_tokens_per_second=intent_usage.get("tokens_per_second"),
+        intent_success=intent_usage.get("success"),
         success=False,
         error_message="模型评审进行中",
     )

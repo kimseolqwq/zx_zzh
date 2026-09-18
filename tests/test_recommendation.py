@@ -7,7 +7,7 @@ from sqlalchemy import create_engine, func, select
 from sqlalchemy.orm import sessionmaker
 
 from app.database import Base
-from app.models import ModelRun
+from app.models import ModelRun, RecommendationRun
 from app.seed import seed_demo_data
 from app.services.ollama import ModelOpinion
 from app.services.recommendation import (
@@ -89,6 +89,11 @@ def test_recommendation_fuses_three_models(tmp_path, monkeypatch):
             "freshness": 5,
         }
         assert db.scalar(select(func.count()).select_from(ModelRun)) == 3
+        run = db.scalar(select(RecommendationRun))
+        assert run.intent_model_name == "qwen3:1.7b"
+        assert run.intent_prompt_tokens == 120
+        assert run.intent_response_tokens == 80
+        assert run.intent_tokens_per_second == 55.0
 
 
 def test_candidate_filter_treats_budget_and_brand_as_hard_constraints(tmp_path):
@@ -133,6 +138,8 @@ def test_special_requirement_foldable_is_a_hard_filter():
     assert not _matches_special_requirements(slab, "我想要折叠屏")
     assert _matches_special_requirements(slab, "不要折叠屏")
     assert not _matches_special_requirements(foldable, "不要折叠屏")
+    assert _matches_special_requirements(slab, "我不喜欢折叠屏")
+    assert not _matches_special_requirements(foldable, "我不喜欢折叠屏")
 
 
 def test_structured_feature_requirements_are_enforced() -> None:

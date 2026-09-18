@@ -47,6 +47,12 @@ NEGATIVE_REQUIREMENT_TOKENS = (
     "不需要", "不用", "无需", "不要", "不想要", "无所谓", "不重要",
     "可有可无", "没有要求", "没要求", "非必须", "不强制",
 )
+FOLDABLE_NEGATIVE_TOKENS = (
+    "不要折叠", "不需要折叠", "不想要折叠", "不喜欢折叠", "不太喜欢折叠",
+    "不爱折叠", "讨厌折叠", "拒绝折叠", "不接受折叠", "不考虑折叠",
+    "不偏好折叠", "别推荐折叠", "排除折叠", "直板机", "非折叠",
+    "折叠屏不喜欢", "折叠屏不要", "折叠屏不考虑", "对折叠屏无感",
+)
 
 
 def _normalise_weights(weights: dict[str, float]) -> dict[str, float]:
@@ -96,7 +102,7 @@ def _rule_intent(text: str, usage: str, known_brands: list[str]) -> dict[str, An
     elif any(token in text for token in ("越便宜越好", "低价优先", "省钱", "价格越低越好", "性价比优先", "不要太贵", "尽量便宜", "便宜点", "便宜些")):
         result["price_preference"] = "low"
 
-    if any(token in text for token in ("不要折叠", "不需要折叠", "直板机", "不要折叠屏")):
+    if any(token in text for token in FOLDABLE_NEGATIVE_TOKENS):
         result["form_factor"] = "slab"
     elif any(token in text for token in ("折叠屏", "折叠手机", "foldable", "flip")):
         result["form_factor"] = "foldable"
@@ -184,14 +190,27 @@ def _llm_prompt(text: str, usage: str, known_brands: list[str]) -> tuple[str, st
     return system, user
 
 
-def _llm_intent(client: Any, text: str, usage: str, known_brands: list[str]) -> dict[str, Any] | None:
+def _llm_intent(
+    client: Any,
+    text: str,
+    usage: str,
+    known_brands: list[str],
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     model_names = list(settings.ollama_models or ("qwen3:1.7b", "qwen2.5:1.5b", "gemma3:1b"))
     model = next((name for name in model_names if "qwen" in name.casefold()), model_names[0])
     system, user = _llm_prompt(text, usage, known_brands)
     opinion = client.chat_json(model, system, user)
+    usage_metrics = {
+        "model_name": opinion.model_name,
+        "success": opinion.success,
+        "latency_ms": opinion.latency_ms,
+        "prompt_tokens": opinion.prompt_tokens,
+        "response_tokens": opinion.response_tokens,
+        "tokens_per_second": opinion.tokens_per_second,
+    }
     if not opinion.success or not isinstance(opinion.parsed, dict):
-        return None
-    return opinion.parsed
+        return None, usage_metrics
+    return opinion.parsed, usage_metrics
 
 
 def _merge(rule: dict[str, Any], llm: dict[str, Any] | None) -> dict[str, Any]:
@@ -240,9 +259,11 @@ def parse_intent(text: str, usage: str, known_brands: list[str], client: Any | N
     if not (text or "").strip() or client is None:
         return rule
     try:
-        llm = _llm_intent(client, text, usage, known_brands)
+        llm, usage_metrics = _llm_intent(client, text, usage, known_brands)
         if llm is not None:
             llm["_source_text"] = text
-        return _merge(rule, llm)
+        merged = _merge(rule, llm)
+        merged["_model_usage"] = usage_metrics
+        return merged
     except Exception:
         return rule

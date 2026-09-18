@@ -88,6 +88,46 @@ class PhoneModel(TimestampMixin, Base):
     variants: Mapped[list[PhoneVariant]] = relationship(
         back_populates="model", cascade="all, delete-orphan"
     )
+    likes: Mapped[list[PhoneLike]] = relationship(
+        back_populates="phone", cascade="all, delete-orphan"
+    )
+    dislikes: Mapped[list[PhoneDislike]] = relationship(
+        back_populates="phone", cascade="all, delete-orphan"
+    )
+
+
+class PhoneLike(Base):
+    __tablename__ = "phone_likes"
+    __table_args__ = (
+        UniqueConstraint("phone_id", "visitor_id", name="uq_phone_like_visitor"),
+        Index("idx_phone_like_phone", "phone_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    phone_id: Mapped[int] = mapped_column(
+        ForeignKey("phone_models.id", ondelete="CASCADE"), index=True
+    )
+    visitor_id: Mapped[str] = mapped_column(String(64), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    phone: Mapped[PhoneModel] = relationship(back_populates="likes")
+
+
+class PhoneDislike(Base):
+    __tablename__ = "phone_dislikes"
+    __table_args__ = (
+        UniqueConstraint("phone_id", "visitor_id", name="uq_phone_dislike_visitor"),
+        Index("idx_phone_dislike_phone", "phone_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    phone_id: Mapped[int] = mapped_column(
+        ForeignKey("phone_models.id", ondelete="CASCADE"), index=True
+    )
+    visitor_id: Mapped[str] = mapped_column(String(64), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    phone: Mapped[PhoneModel] = relationship(back_populates="dislikes")
 
 
 class PhoneVariant(TimestampMixin, Base):
@@ -211,6 +251,12 @@ class RecommendationRun(Base):
     parsed_requirements: Mapped[str | None] = mapped_column(Text)
     final_result: Mapped[str | None] = mapped_column(Text)
     total_latency_ms: Mapped[float | None] = mapped_column(Float)
+    intent_model_name: Mapped[str | None] = mapped_column(String(120))
+    intent_latency_ms: Mapped[float | None] = mapped_column(Float)
+    intent_prompt_tokens: Mapped[int | None] = mapped_column(Integer)
+    intent_response_tokens: Mapped[int | None] = mapped_column(Integer)
+    intent_tokens_per_second: Mapped[float | None] = mapped_column(Float)
+    intent_success: Mapped[bool | None] = mapped_column(Boolean)
     candidate_count: Mapped[int] = mapped_column(Integer, default=0)
     success: Mapped[bool] = mapped_column(Boolean, default=True)
     error_message: Mapped[str | None] = mapped_column(Text)

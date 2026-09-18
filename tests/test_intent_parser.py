@@ -21,6 +21,8 @@ def test_rule_intent_handles_low_price_and_foldable_negation() -> None:
     assert low["price_preference"] == "low"
     slab = parse_intent("不要折叠屏，直板机", "综合体验", [])
     assert slab["form_factor"] == "slab"
+    disliked = parse_intent("我不喜欢折叠屏", "综合体验", [])
+    assert disliked["form_factor"] == "slab"
 
 
 def test_llm_intent_is_merged_when_available() -> None:
@@ -47,6 +49,8 @@ def test_llm_intent_is_merged_when_available() -> None:
     assert intent["price_preference"] == "high"
     assert "waterproof" in intent["must_have"]
     assert intent["priority_weights"]["camera"] > 0.5
+    assert intent["_model_usage"]["model_name"] == "qwen3:1.7b"
+    assert intent["_model_usage"]["prompt_tokens"] == 1
 
 
 def test_feature_mentions_are_not_all_treated_as_hard_requirements() -> None:
