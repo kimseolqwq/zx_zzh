@@ -1,11 +1,11 @@
 from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
-from sqlalchemy import select
+from sqlalchemy import delete, func, select
 from urllib.parse import urlparse
 
 from app.database import SessionLocal
 from app.main import app
-from app.models import PhoneModel, PhoneVariant, User
+from app.models import PhoneDislike, PhoneLike, PhoneModel, PhoneVariant, User
 
 
 def test_public_pages_and_health() -> None:
@@ -17,6 +17,8 @@ def test_public_pages_and_health() -> None:
         assert library.status_code == 200
         assert "按品牌探索在售手机" in library.text
         assert "brand-filter" in library.text
+        assert "data-like-phone" in library.text
+        assert "data-dislike-phone" in library.text
         assert client.get("/phones?q=iPhone&sort=price").status_code == 200
         empty_brand = client.get("/phones?q=iphone+duo&brand=&sort=newest")
         assert empty_brand.status_code == 200
@@ -47,6 +49,139 @@ def test_phone_detail_has_version_specific_platform_search_links() -> None:
     soup = BeautifulSoup(response.text, "html.parser")
     links = {urlparse(a["href"]).netloc for a in soup.select(".variant-search-links a")}
     assert {"search.jd.com", "list.tmall.com", "mobile.yangkeduo.com"} <= links
+    assert "data-like-phone" in response.text
+    assert "data-dislike-phone" in response.text
+
+
+def test_phone_like_endpoint_is_idempotent() -> None:
+    visitor_id = "pytest-like-visitor-2026"
+    with SessionLocal() as db:
+        phone_id = db.scalar(
+            select(PhoneModel.id)
+            .where(PhoneModel.is_active.is_(True))
+            .order_by(PhoneModel.id)
+            .limit(1)
+        )
+        assert phone_id is not None
+        db.execute(
+            delete(PhoneLike).where(
+                PhoneLike.phone_id == phone_id,
+                PhoneLike.visitor_id == visitor_id,
+            )
+        )
+        db.commit()
+        baseline = db.scalar(
+            select(func.count(PhoneLike.id)).where(PhoneLike.phone_id == phone_id)
+        ) or 0
+    try:
+        with TestClient(app) as client:
+            first = client.post(
+                f"/api/phones/{phone_id}/like",
+                json={"visitor_id": visitor_id, "liked": True},
+            )
+            assert first.status_code == 200
+            assert first.json()["liked"] is True
+            assert first.json()["like_count"] == baseline + 1
+
+            repeated = client.post(
+                f"/api/phones/{phone_id}/like",
+                json={"visitor_id": visitor_id, "liked": True},
+            )
+            assert repeated.json()["like_count"] == baseline + 1
+
+            removed = client.post(
+                f"/api/phones/{phone_id}/like",
+                json={"visitor_id": visitor_id, "liked": False},
+            )
+            assert removed.json()["liked"] is False
+            assert removed.json()["like_count"] == baseline
+    finally:
+        with SessionLocal() as db:
+            db.execute(
+                delete(PhoneLike).where(
+                    PhoneLike.phone_id == phone_id,
+                    PhoneLike.visitor_id == visitor_id,
+                )
+            )
+            db.commit()
+
+
+def test_phone_dislike_switches_from_like_and_is_idempotent() -> None:
+    visitor_id = "pytest-dislike-visitor-2026"
+    with SessionLocal() as db:
+        phone_id = db.scalar(
+            select(PhoneModel.id)
+            .where(PhoneModel.is_active.is_(True))
+            .order_by(PhoneModel.id)
+            .limit(1)
+        )
+        assert phone_id is not None
+        db.execute(
+            delete(PhoneLike).where(
+                PhoneLike.phone_id == phone_id,
+                PhoneLike.visitor_id == visitor_id,
+            )
+        )
+        db.execute(
+            delete(PhoneDislike).where(
+                PhoneDislike.phone_id == phone_id,
+                PhoneDislike.visitor_id == visitor_id,
+            )
+        )
+        db.commit()
+        base_likes = db.scalar(
+            select(func.count(PhoneLike.id)).where(PhoneLike.phone_id == phone_id)
+        ) or 0
+        base_dislikes = db.scalar(
+            select(func.count(PhoneDislike.id)).where(PhoneDislike.phone_id == phone_id)
+        ) or 0
+    try:
+        with TestClient(app) as client:
+            liked = client.post(
+                f"/api/phones/{phone_id}/like",
+                json={"visitor_id": visitor_id, "liked": True},
+            )
+            assert liked.json()["like_count"] == base_likes + 1
+            assert liked.json()["dislike_count"] == base_dislikes
+
+            disliked = client.post(
+                f"/api/phones/{phone_id}/dislike",
+                json={"visitor_id": visitor_id, "disliked": True},
+            )
+            assert disliked.json()["liked"] is False
+            assert disliked.json()["disliked"] is True
+            assert disliked.json()["like_count"] == base_likes
+            assert disliked.json()["dislike_count"] == base_dislikes + 1
+
+            repeated = client.post(
+                f"/api/phones/{phone_id}/dislike",
+                json={"visitor_id": visitor_id, "disliked": True},
+            )
+            assert repeated.json()["like_count"] == base_likes
+            assert repeated.json()["dislike_count"] == base_dislikes + 1
+
+            removed = client.post(
+                f"/api/phones/{phone_id}/dislike",
+                json={"visitor_id": visitor_id, "disliked": False},
+            )
+            assert removed.json()["disliked"] is False
+            assert removed.json()["like_count"] == base_likes
+            assert removed.json()["dislike_count"] == base_dislikes
+    finally:
+        with SessionLocal() as db:
+            db.execute(
+                delete(PhoneLike).where(
+                    PhoneLike.phone_id == phone_id,
+                    PhoneLike.visitor_id == visitor_id,
+                )
+            )
+            db.execute(
+                delete(PhoneDislike).where(
+                    PhoneDislike.phone_id == phone_id,
+                    PhoneDislike.visitor_id == visitor_id,
+                )
+            )
+            db.commit()
 
 
 def test_admin_login_and_protected_dashboard() -> None:
@@ -80,6 +215,7 @@ def test_admin_login_and_protected_dashboard() -> None:
 def test_recommendation_result_template(monkeypatch) -> None:
     candidate = {
         "brand": "测试品牌", "model": "测试手机", "variant": "12GB+256GB", "score": 91.2,
+        "model_id": 123, "like_count": 7, "dislike_count": 2,
         "cpu": "测试处理器", "camera_summary": "5000万像素主摄", "main_camera_mp": 50,
         "screen_size": 6.7, "screen_type": "OLED", "refresh_rate": 120,
         "battery_mah": 5200, "weight_g": 199, "source_url": "https://example.com/specs",
@@ -125,6 +261,8 @@ def test_recommendation_result_template(monkeypatch) -> None:
         assert "https://brand.example/phone.png" in response.text
         assert "data-recommendation-stack" in response.text
         assert "data-recommendation-card" in response.text
+        assert 'data-like-phone="123"' in response.text
+        assert 'data-dislike-phone="123"' in response.text
         assert "去平台搜索" in response.text
         assert "国补" not in response.text
         assert "百亿补贴" not in response.text

@@ -1,14 +1,24 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Form, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel, Field
 from sqlalchemy import func, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from app.config import BASE_DIR, settings
 from app.database import get_db
-from app.models import Brand, PhoneModel, PhoneVariant, PlatformListing, PriceSnapshot
+from app.models import (
+    Brand,
+    PhoneDislike,
+    PhoneLike,
+    PhoneModel,
+    PhoneVariant,
+    PlatformListing,
+    PriceSnapshot,
+)
 from app.services.ollama import OllamaClient
 from app.services.evaluation import build_evaluation_metrics
 from app.services.recommendation import Requirements, recommend
@@ -17,6 +27,48 @@ from app.services.pricing import latest_snapshot, platform_search_url, snapshot_
 
 router = APIRouter()
 templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
+
+
+class PhoneLikePayload(BaseModel):
+    visitor_id: str = Field(min_length=8, max_length=64, pattern=r"^[A-Za-z0-9_-]+$")
+    liked: bool
+
+
+class PhoneDislikePayload(BaseModel):
+    visitor_id: str = Field(min_length=8, max_length=64, pattern=r"^[A-Za-z0-9_-]+$")
+    disliked: bool
+
+
+def _like_counts(db: Session, phone_ids: list[int]) -> dict[int, int]:
+    if not phone_ids:
+        return {}
+    rows = db.execute(
+        select(PhoneLike.phone_id, func.count(PhoneLike.id))
+        .where(PhoneLike.phone_id.in_(set(phone_ids)))
+        .group_by(PhoneLike.phone_id)
+    ).all()
+    return {int(phone_id): int(count) for phone_id, count in rows}
+
+
+def _dislike_counts(db: Session, phone_ids: list[int]) -> dict[int, int]:
+    if not phone_ids:
+        return {}
+    rows = db.execute(
+        select(PhoneDislike.phone_id, func.count(PhoneDislike.id))
+        .where(PhoneDislike.phone_id.in_(set(phone_ids)))
+        .group_by(PhoneDislike.phone_id)
+    ).all()
+    return {int(phone_id): int(count) for phone_id, count in rows}
+
+
+def _attach_like_counts(db: Session, results: list[dict]) -> None:
+    phone_ids = [int(item["model_id"]) for item in results if item.get("model_id")]
+    likes = _like_counts(db, phone_ids)
+    dislikes = _dislike_counts(db, phone_ids)
+    for item in results:
+        phone_id = int(item["model_id"]) if item.get("model_id") else None
+        item["like_count"] = likes.get(phone_id, 0) if phone_id else 0
+        item["dislike_count"] = dislikes.get(phone_id, 0) if phone_id else 0
 
 
 def _stats(db: Session) -> dict[str, int]:
@@ -71,6 +123,8 @@ def recommendation_page(
         min_budget=min_budget,
     )
     result = recommend(db, requirements)
+    if result.get("results"):
+        _attach_like_counts(db, result["results"])
     form = {"min_budget": min_budget, "budget": budget, "usage": usage, "brand": brand, "storage": storage, "details": details}
     return templates.TemplateResponse(request, "index.html", _home_context(request, db, result=result, form=form))
 
@@ -153,6 +207,12 @@ def phone_library(
         .group_by(PhoneModel.brand_id)
     ).all())
     items = [_phone_library_item(phone) for phone in phones]
+    phone_ids = [item["record"].id for item in items]
+    likes = _like_counts(db, phone_ids)
+    dislikes = _dislike_counts(db, phone_ids)
+    for item in items:
+        item["like_count"] = likes.get(item["record"].id, 0)
+        item["dislike_count"] = dislikes.get(item["record"].id, 0)
     if sort == "price":
         items.sort(key=lambda item: (item["lowest_price"] is None, item["lowest_price"] or 0))
     groups = []
@@ -271,8 +331,118 @@ def phone_detail(request: Request, phone_id: int, db: Session = Depends(get_db))
     return templates.TemplateResponse(
         request,
         "phone_detail.html",
-        {"request": request, "phone": phone, "variant_rows": variant_rows},
+        {
+            "request": request,
+            "phone": phone,
+            "variant_rows": variant_rows,
+            "like_count": _like_counts(db, [phone.id]).get(phone.id, 0),
+            "dislike_count": _dislike_counts(db, [phone.id]).get(phone.id, 0),
+        },
     )
+
+
+@router.post("/api/phones/{phone_id}/like")
+def set_phone_like(
+    phone_id: int,
+    payload: PhoneLikePayload,
+    db: Session = Depends(get_db),
+) -> dict[str, int | bool]:
+    phone = db.scalar(
+        select(PhoneModel).where(
+            PhoneModel.id == phone_id,
+            PhoneModel.is_active.is_(True),
+        )
+    )
+    if phone is None:
+        raise HTTPException(status_code=404, detail="手机不存在")
+    existing = db.scalar(
+        select(PhoneLike).where(
+            PhoneLike.phone_id == phone_id,
+            PhoneLike.visitor_id == payload.visitor_id,
+        )
+    )
+    if payload.liked and existing is None:
+        existing_dislike = db.scalar(
+            select(PhoneDislike).where(
+                PhoneDislike.phone_id == phone_id,
+                PhoneDislike.visitor_id == payload.visitor_id,
+            )
+        )
+        if existing_dislike is not None:
+            db.delete(existing_dislike)
+        db.add(PhoneLike(phone_id=phone_id, visitor_id=payload.visitor_id))
+        try:
+            db.commit()
+        except IntegrityError:
+            db.rollback()
+    elif not payload.liked and existing is not None:
+        db.delete(existing)
+        db.commit()
+    like_count = db.scalar(
+        select(func.count(PhoneLike.id)).where(PhoneLike.phone_id == phone_id)
+    ) or 0
+    dislike_count = db.scalar(
+        select(func.count(PhoneDislike.id)).where(PhoneDislike.phone_id == phone_id)
+    ) or 0
+    return {
+        "phone_id": phone_id,
+        "liked": payload.liked,
+        "disliked": False,
+        "like_count": int(like_count),
+        "dislike_count": int(dislike_count),
+    }
+
+
+@router.post("/api/phones/{phone_id}/dislike")
+def set_phone_dislike(
+    phone_id: int,
+    payload: PhoneDislikePayload,
+    db: Session = Depends(get_db),
+) -> dict[str, int | bool]:
+    phone = db.scalar(
+        select(PhoneModel).where(
+            PhoneModel.id == phone_id,
+            PhoneModel.is_active.is_(True),
+        )
+    )
+    if phone is None:
+        raise HTTPException(status_code=404, detail="手机不存在")
+    existing = db.scalar(
+        select(PhoneDislike).where(
+            PhoneDislike.phone_id == phone_id,
+            PhoneDislike.visitor_id == payload.visitor_id,
+        )
+    )
+    if payload.disliked and existing is None:
+        existing_like = db.scalar(
+            select(PhoneLike).where(
+                PhoneLike.phone_id == phone_id,
+                PhoneLike.visitor_id == payload.visitor_id,
+            )
+        )
+        if existing_like is not None:
+            db.delete(existing_like)
+        db.add(PhoneDislike(phone_id=phone_id, visitor_id=payload.visitor_id))
+        try:
+            db.commit()
+        except IntegrityError:
+            db.rollback()
+    elif not payload.disliked and existing is not None:
+        db.delete(existing)
+        db.commit()
+    like_count = db.scalar(
+        select(func.count(PhoneLike.id)).where(PhoneLike.phone_id == phone_id)
+    ) or 0
+    dislike_count = db.scalar(
+        select(func.count(PhoneDislike.id)).where(PhoneDislike.phone_id == phone_id)
+    ) or 0
+    return {
+        "phone_id": phone_id,
+        "liked": False,
+        "disliked": payload.disliked,
+        "like_count": int(like_count),
+        "dislike_count": int(dislike_count),
+    }
 
 
 @router.get("/evaluation", response_class=HTMLResponse)

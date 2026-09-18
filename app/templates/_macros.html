@@ -1,0 +1,26 @@
+{% macro reaction_buttons(phone_id, like_count=0, dislike_count=0, label="这款手机", compact=false) %}
+<div class="reaction-buttons">
+  <button
+    type="button"
+    class="reaction-button reaction-like{{ ' compact' if compact else '' }}"
+    data-like-phone="{{ phone_id }}"
+    data-reaction-label="{{ label }}"
+    aria-pressed="false"
+    aria-label="点赞 {{ label }}"
+  >
+    <span class="reaction-heart" aria-hidden="true">♡</span>
+    <span class="like-count">{{ like_count or 0 }}</span>
+  </button>
+  <button
+    type="button"
+    class="reaction-button reaction-dislike{{ ' compact' if compact else '' }}"
+    data-dislike-phone="{{ phone_id }}"
+    data-reaction-label="{{ label }}"
+    aria-pressed="false"
+    aria-label="踩 {{ label }}"
+  >
+    <span class="reaction-icon" aria-hidden="true">👎</span>
+    <span class="dislike-count">{{ dislike_count or 0 }}</span>
+  </button>
+</div>
+{% endmacro %}

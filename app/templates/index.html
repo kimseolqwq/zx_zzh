@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% from "_macros.html" import reaction_buttons %}
 {% block content %}
 <main class="shell">
   <section class="intro compact-intro">
@@ -48,7 +48,7 @@
         <article class="recommendation-card {{ 'is-expanded' if loop.first else '' }}" tabindex="0" aria-expanded="{{ 'true' if loop.first else 'false' }}" data-recommendation-card>
           <div class="recommendation-rank"><span>TOP</span><strong>{{ loop.index }}</strong></div>
           <div class="recommendation-image">{% if item.image_url %}<img src="{{ item.image_url }}" alt="{{ item.model }} 产品图" loading="{{ 'eager' if loop.first else 'lazy' }}" referrerpolicy="no-referrer" data-official-image>{% else %}<span class="official-image-error">暂无产品图</span>{% endif %}<a class="expanded-only" href="{{ item.image_source_url or item.source_url }}" target="_blank" rel="noopener noreferrer">查看图片来源 ↗</a></div>
-          <div class="recommendation-copy"><div class="recommendation-title"><div><span>{{ item.brand }} · {{ item.variant }}</span><h3>{{ item.model }}</h3></div><strong>{{ item.score }}<small>分</small></strong></div>
+          <div class="recommendation-copy"><div class="recommendation-title"><div><span>{{ item.brand }} · {{ item.variant }}</span><h3>{{ item.model }}</h3></div><div class="recommendation-actions"><strong>{{ item.score }}<small>分</small></strong>{{ reaction_buttons(item.model_id, item.like_count, item.dislike_count, item.model, true) }}</div></div>
             <p>{{ item.reason }}</p>
             <div class="tags expanded-only"><span>置信度 {{ item.confidence }}</span><span>{{ item.model_votes }} 个模型有效投票</span><span>数据可信度 {{ item.components.data_trust }}</span></div>
             <div class="recommendation-prices expanded-only"><div class="recommendation-lowest"><small>{{ '已审核最低价' if item.price_detail and item.price_detail.trust_level == 'verified' else '手工参考最低价' if item.price_detail and item.price_detail.trust_level == 'manual' else '当前公开参考价' if item.price_detail else '官方发售价参考' }}</small>{% if item.price_detail %}<a href="{{ item.price_detail.purchase_url }}" target="_blank" rel="noopener noreferrer" title="{{ item.price_detail.trust_label }}"><b>¥{{ '{:,.0f}'.format(item.current_price) }}</b><span>{{ item.price_detail.platform_name }} · {{ '商品直达' if item.price_detail.link_verified else '去搜索' }} ↗</span></a>{% else %}<b>¥{{ '{:,.0f}'.format(item.current_price) }}</b>{% endif %}{% if item.launch_price %}<small>官方发售价 ¥{{ '{:,.0f}'.format(item.launch_price) }}</small>{% endif %}</div>
@@ -69,7 +69,7 @@
       </div>
       <div class="evidence-drawer" id="model-evidence" hidden>
         <div class="drawer-title"><b>模型调用与融合依据</b><span>{{ result.formula }}</span></div>
-        {% for model in result.models %}<div class="model-metric"><span>{{ model.name }}</span><b class="{{ 'ok' if model.success else 'bad' }}">{{ '成功' if model.success else '失败' }}</b><span>{{ '%.1f'|format(model.latency_ms / 1000) }} s</span><span>{{ (model.tokens_per_second|string + ' tok/s') if model.tokens_per_second else '—' }}</span><span>JSON {{ '✓' if model.json_parse_success else '×' }}</span></div>{% endfor %}
+        {% for model in result.models %}<div class="model-metric"><span>{{ model.name }}</span><b class="{{ 'ok' if model.success else 'bad' }}">{{ '成功' if model.success else '失败' }}</b><span>{{ '%.1f'|format(model.latency_ms / 1000) }} s</span><span>{{ (model.tokens_per_second|string + ' tok/s') if model.tokens_per_second else '—' }}</span></div>{% endfor %}
         <div class="score-grid">{% for item in result.score_weights %}<div><span>{{ item.label }} {{ item.weight }}%</span><b>{{ top.components[item.key] }}</b><i><em style="width:{{ top.components[item.key] }}%"></em></i></div>{% endfor %}</div>
         {% if top.score_breakdown %}<div class="contribution-table"><div><span>评分项</span><span>原始分</span><span>权重</span><span>贡献分</span></div>{% for row in top.score_breakdown %}<div><b>{{ row.label }}</b><span>{{ row.raw }}</span><span>{{ row.weight }}%</span><strong>+{{ row.contribution }}</strong></div>{% endfor %}<footer>加权总分 <b>{{ top.score }}</b></footer></div>{% endif %}
         {% if top.evidence_lines %}<div class="decision-evidence"><b>Top 1 结论证据链</b><ol>{% for line in top.evidence_lines %}<li>{{ line }}</li>{% endfor %}</ol></div>{% endif %}

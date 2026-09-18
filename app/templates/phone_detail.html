@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% from "_macros.html" import reaction_buttons %}
 {% block title %}{{ phone.model_name }} · 择机{% endblock %}
 {% block content %}
 <main class="shell page-shell">
@@ -16,7 +16,7 @@
       <small>查看产品图片来源 ↗</small>
     </a>
     {% endif %}
-    <div class="detail-score"><span>参数数据状态</span><b>{{ phone.data_quality }}</b><small>{{ phone.source_checked_at.strftime('%Y-%m-%d') if phone.source_checked_at else '未校验' }}</small></div>
+    <div class="detail-score"><span>参数数据状态</span><b>{{ phone.data_quality }}</b><small>{{ phone.source_checked_at.strftime('%Y-%m-%d') if phone.source_checked_at else '未校验' }}</small><div class="detail-like">{{ reaction_buttons(phone.id, like_count, dislike_count, phone.model_name) }}</div></div>
   </section>
 
   <section class="detail-grid">
